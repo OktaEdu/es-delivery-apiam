@@ -1,0 +1,21 @@
+{
+  "name": "ice-resource-server",
+  "version": "1.0.0",
+  "description": "Resource Server to make Ice customers happy",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "Apache 2.0",
+  "dependencies": {
+    "bunyan": "^1.8.1",
+    "lokijs": "^1.4.1",
+    "passport-oauth2-jwt-bearer": "https://github.com/mcguinness/passport-okta-oidc-bearer.git",
+    "passport-restify": "^1.0.1",
+    "restify": "^4.1.1"
+  },
+  "engines": {
+    "node": "6.10.0"
+  }
+}

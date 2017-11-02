@@ -1,0 +1,498 @@
+{
+	"id": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+	"name": "ICE Resource Server",
+	"description": "",
+	"order": [
+		"3477957f-3a90-05b7-bbca-a32e08945b25",
+		"04e88099-be3b-a9b5-6d93-968ad0dd505c",
+		"502b8aa9-0cf0-2d70-1179-994a075ae882",
+		"44a1e9d4-1666-d31b-ab8c-3b82eac68b8f",
+		"74130949-ad75-6423-a0c9-8997395771ac",
+		"2707de92-3466-b304-b9b9-29e2a46c223c",
+		"d28604ee-37f3-cea3-9aea-724fc6bef0f2",
+		"4d54c232-5ba1-face-5838-bbafb2e6bf99",
+		"1e8ae3e5-04ad-9383-4083-2a02542256bd",
+		"762ca120-6644-6fee-35d5-ff79c27f31ca",
+		"19fdd4fa-afc1-9b7b-be17-62851a434999"
+	],
+	"folders": [],
+	"timestamp": 1494001096413,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "04e88099-be3b-a9b5-6d93-968ad0dd505c",
+			"headers": "Accept: application/json\nContent-Type: application/json\n//Authorization: \n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "",
+					"description": "",
+					"enabled": false
+				}
+			],
+			"url": "{{ice-rs-url}}/publicpromos",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1499133605700,
+			"name": "Get Public Promos",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"10OFFPREMIUM\",\n\t\"for\": \"PREMIUM\"\n}"
+		},
+		{
+			"id": "19fdd4fa-afc1-9b7b-be17-62851a434999",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/delete",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1499133631964,
+			"name": "Delete all Promos",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"10OFFPREMIUM\",\n\t\"for\": \"PREMIUM\"\n}"
+		},
+		{
+			"id": "1e8ae3e5-04ad-9383-4083-2a02542256bd",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/promos",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1499133433508,
+			"name": "Create CHATBOT Promo",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"50OFFOKTA\",\n\t\"description\": \"Ice offers 50% off if you can speak with our bots\",\n\t\"validFor\": 30,\n\t\"target\": \"ROBOT\"\n}"
+		},
+		{
+			"id": "2707de92-3466-b304-b9b9-29e2a46c223c",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/promos/{{promo-target}}",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1499138182791,
+			"name": "Get Promos (per Target)",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"10OFFPREMIUM\",\n\t\"for\": \"PREMIUM\"\n}"
+		},
+		{
+			"id": "3477957f-3a90-05b7-bbca-a32e08945b25",
+			"headers": "Accept: application/json\nAuthorization: Basic \n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic ",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{apiam-issuer}}/v1/token",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"disabled": false,
+					"key": "grant_type",
+					"value": "client_credentials",
+					"enabled": true,
+					"type": "text"
+				},
+				{
+					"disabled": false,
+					"key": "scope",
+					"value": "promos:read promos:create promos:delete",
+					"enabled": true,
+					"type": "text"
+				}
+			],
+			"dataMode": "urlencoded",
+			"tests": null,
+			"currentHelper": "basicAuth",
+			"helperAttributes": {
+				"id": "basic",
+				"username": "{{apiam-client-id}}",
+				"password": "{{apiam-client-secret}}",
+				"saveToRequest": true
+			},
+			"time": 1499138256299,
+			"name": "Get Access Token with Client Credentials",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": []
+		},
+		{
+			"id": "44a1e9d4-1666-d31b-ab8c-3b82eac68b8f",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/promos/PREMIUM",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1499137261412,
+			"name": "Get PREMIUM Promos",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"10OFFPREMIUM\",\n\t\"for\": \"PREMIUM\"\n}"
+		},
+		{
+			"id": "4d54c232-5ba1-face-5838-bbafb2e6bf99",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/promos",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1498753230988,
+			"name": "Create PREMIUM Promo",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"20OFFOKTA\",\n\t\"description\": \"Ice offers 20% off for Premium customers\",\n\t\"validFor\": 30,\n\t\"target\": \"PREMIUM\"\n}"
+		},
+		{
+			"id": "502b8aa9-0cf0-2d70-1179-994a075ae882",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/promos",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1498753301625,
+			"name": "Get all Promos",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"10OFFPREMIUM\",\n\t\"for\": \"PREMIUM\"\n}"
+		},
+		{
+			"id": "74130949-ad75-6423-a0c9-8997395771ac",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/promos/{{promo-code}}",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1499138192503,
+			"name": "Get Promos (per Code)",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"10OFFPREMIUM\",\n\t\"for\": \"PREMIUM\"\n}"
+		},
+		{
+			"id": "762ca120-6644-6fee-35d5-ff79c27f31ca",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/promos/{{promo-code}}",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1498753370669,
+			"name": "Delete Promo",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
+			"id": "d28604ee-37f3-cea3-9aea-724fc6bef0f2",
+			"headers": "Accept: application/json\nContent-Type: application/json\nAuthorization: Bearer {{access_token}}\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer {{access_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{ice-rs-url}}/promos",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1499138172536,
+			"name": "Create PUBLIC Promo",
+			"description": "",
+			"collectionId": "3891c631-9a3d-cf82-6e8d-1bc1132de76b",
+			"responses": [],
+			"rawModeData": "{\n\t\"code\": \"10OFFOKTA\",\n\t\"description\": \"Ice proudly supports Oktane and offer 10% off Vanilla ice cream\",\n\t\"validFor\": 30,\n\t\"target\": \"PUBLIC\"\n}"
+		}
+	]
+}
