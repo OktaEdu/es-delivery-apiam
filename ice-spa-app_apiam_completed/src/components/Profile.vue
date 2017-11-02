@@ -26,7 +26,7 @@ export default {
       tokenTimeout: ''
     }
   },
-  mounted(){
+  mounted() {
     this.accessToken = getAccessToken().accessToken;
     this.idToken = getIdToken().idToken;
     this.claims = getIdToken().claims;

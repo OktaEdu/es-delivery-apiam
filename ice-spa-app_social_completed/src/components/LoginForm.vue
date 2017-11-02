@@ -25,10 +25,10 @@ export default {
     }
   },
   methods: {
-    login: function(){
+    login: function () {
       loginWithForm(this.user.login, this.user.password);
     },
-    loginFacebook: function(){
+    loginFacebook: function () {
       loginWithFB();
     },
   }

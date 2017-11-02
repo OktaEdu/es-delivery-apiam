@@ -23,7 +23,7 @@ import router from '../router' //router: required to redirect users
  * Starts the OAuth login process with redirect using the Okta Auth JS
  * @access public
  */
-export function loginOkta(){
+export function loginOkta() {
 
 }
 
@@ -34,7 +34,7 @@ export function loginOkta(){
  * @param String login - user login
  * @param String password - user password
  */
- export function loginWithForm(login, password){
+ export function loginWithForm(login, password) {
 
  }
 
@@ -127,6 +127,6 @@ function isTokenExpired(token) {
  * @param Object token - id_token or access_token for validation
  * @return Date token expiration date and time
  */
-function getTokenExpiration(token){
+function getTokenExpiration(token) {
 
 }
