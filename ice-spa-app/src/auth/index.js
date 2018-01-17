@@ -16,7 +16,6 @@ import router from '../router' //router: required to redirect users
 //   issuer: AUTHZ_SERVER,
 //   authorizeUrl: AUTHZ_URL,
 // });
-// const SIGNOUT_OKTA = true;
 
 /**
  * loginOkta

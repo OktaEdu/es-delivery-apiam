@@ -4,7 +4,7 @@ import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
 //constants
 const OKTA_ORG = 'https://oktaice604.oktapreview.com';
 const AUTHZ_SERVER = OKTA_ORG;
-const AUTHZ_URL = AUTHZ_SERVER+'/oauth2/v1/authorize';
+const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
 const CLIENT_ID = '0oacnu10ryn3gmk7q0h7';
 const REDIRECT_URL = 'http://localhost:8080/redirect';
 const SCOPES = ['openid', 'profile', 'email'];
@@ -84,11 +84,11 @@ export function redirect() {
     OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
     router.push('/profile')
   })
-  .catch(function(err) {
+  .catch(function (err) {
     //Errors during the login are returned as OAuthError
     alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
     router.push('/error')
-  })
+  });
 }
 
 
@@ -108,7 +108,7 @@ export function logout() {
     .fail(function (err) {
       console.error(err);
       router.push('/error');
-    })
+    });
   } else {
     console.log("Not logged in");
     router.push('/home');    
@@ -190,9 +190,9 @@ function isTokenExpired(token) {
   var tokenExpired = getTokenExpiration(token) < Date.now();
   if(tokenExpired){
     alert(
-      'The token expiration date is due: '+
-      '\nToken expiration: '+getTokenExpiration(token)+
-      '\nCurrent time: '+Date()+'.'+
+      'The token expiration date is due: ' +
+      '\nToken expiration: ' + getTokenExpiration(token) +
+      '\nCurrent time: ' + Date() + '.' +
       '\nClick OK to start a new session.');
   }
   return tokenExpired;

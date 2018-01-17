@@ -4,7 +4,7 @@ import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
 //constants
 const OKTA_ORG = 'https://oktacdev024.oktapreview.com';
 const AUTHZ_SERVER = 'https://oktacdev024.oktapreview.com/oauth2/ausazr3usgim5HCTH0h7';
-const AUTHZ_URL = AUTHZ_SERVER+'/v1/authorize';
+const AUTHZ_URL = AUTHZ_SERVER + '/v1/authorize';
 const CLIENT_ID = '0oab1ll87sMhnbeZh0h7';
 const REDIRECT_URL = 'http://localhost:8080/redirect';
 const SCOPES = ['openid', 'profile', 'email', 'promos:read'];
@@ -36,7 +36,7 @@ export function loginOkta() {
  * @param String login - user login
  * @param String password - user password
  */
- export function loginWithForm(login, password){
+ export function loginWithForm(login, password) {
    OKTA_AUTH_JS.signIn({
      username: login,
      password: password
@@ -53,7 +53,8 @@ export function loginOkta() {
          OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
          OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
          router.push('/profile')
-       }).catch(function(err) {
+       })
+       .catch(function(err) {
          //Errors during the login are returned as OAuthError
          alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
          router.push('/error')
@@ -87,7 +88,7 @@ export function redirect() {
     //Errors during the login are returned as OAuthError
     alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
     router.push('/error')
-  })
+  });
 }
 
 
@@ -107,7 +108,7 @@ export function logout() {
     .fail(function (err) {
       console.error(err);
       router.push('/error');
-    })
+    });
   } else {
     console.log("Not logged in");
     router.push('/home');    
@@ -193,9 +194,9 @@ function isTokenExpired(token) {
   var tokenExpired = getTokenExpiration(token) < Date.now();
   if (tokenExpired) {
     alert(
-      'The token expiration date is due: '+
-      '\nToken expiration: '+getTokenExpiration(token)+
-      '\nCurrent time: '+Date()+'.'+
+      'The token expiration date is due: ' +
+      '\nToken expiration: ' + getTokenExpiration(token) +
+      '\nCurrent time: ' + Date() + '.' +
       '\nClick OK to start a new session.');
   }
   return tokenExpired;
