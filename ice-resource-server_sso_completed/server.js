@@ -54,26 +54,28 @@ server.on('after', restify.auditLogger({log: log}));
 //BEGIN: PROMO API ENDPOINTS
 //BEGIN: GET PUBLIC PROMOS (GET http://localhost:5000/publicpromos)
 //EVERYBODY CAN ACCESS THIS (NO PROTECTION REQUIRED)
-  server.get({path: '/publicpromos'},
+server.get({path: '/publicpromos'},
   function respond(req, res, next) {
     var query = promos.chain().find({'target' : 'PUBLIC'}).data();
     console.log("\n\nPromos: " + query + "\n\n");
     res.send(200, query);
+    
     return next();
-  });
+  }
+);
 //END: GET PUBLIC PROMOS (GET http://localhost:5000/publicpromos)
 
 //BEGIN: GET ALL PROMOS (GET http://localhost:5000/promos)
 //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
-  server.get({path: '/promos'},
-    // passport.authenticate('oauth2-jwt-bearer', { session: false , scopes: ['promos:read']}),
-    function respond(req, res, next) {
-      var query = promos.chain().find({}).simplesort('code').data();
-      res.send(200, query);
+server.get({path: '/promos'},
+  // passport.authenticate('oauth2-jwt-bearer', { session: false , scopes: ['promos:read']}),
+  function respond(req, res, next) {
+    var query = promos.chain().find({}).simplesort('code').data();
+    res.send(200, query);
 
-      return next();
-    }
-  );
+    return next();
+  }
+);
 //END: GET ALL PROMOS (GET http://localhost:5000/promos)
 
 //BEGIN: SEARCH SPECIFIC PROMOS (GET http://localhost:5000/promos/:filter)
@@ -87,11 +89,13 @@ server.get({path: '/promos/:filter'},
           {'code' : req.params.filter},
           {'target' : req.params.filter}
         ]
-      }).data();
+      }
+    ).data();
     console.log("\n\nPromos: " + query + "\n\n");
     res.send(200, query);
     return next();
-  });
+  }
+);
 //END: SEARCH SPECIFIC PROMOS (GET http://localhost:5000/promos/:filter)
 
 //BEGIN: CREATE PROMOS (POST http://localhost:5000/promos)
@@ -112,7 +116,10 @@ server.post({path: '/promos'},
     var addPromo = promos.insert( promo );
     try {
       res.send(201, promo);
-    } catch (err) { res.send(400, err); }
+    } catch (err) { 
+      res.send(400, err); 
+    }
+    
     return next();
   }
 );
@@ -127,9 +134,13 @@ server.del({path: '/promos/:code'},
     try {
       promos.remove(removePromo);
       res.send(204);
-    } catch (err) { res.send(404, err);  }
+    } catch (err) { 
+      res.send(404, err);
+    }
+    
     return next();
-  });
+  }
+);
 //END: DELETE PROMOS (DELETE http://localhost:5000/promos)
 
 //BEGIN: DELETE ALL PROMOS (DELETE http://localhost:5000/delete)
@@ -140,14 +151,16 @@ server.del({path: '/delete'},
     var removeAll = promos.chain().remove();
     console.log("Removed all entries from database");
     res.send(204, 'No more promos');
+    
     return next();
-  });
+  }
+);
 //END: DELETE ALL PROMOS (DELETE http://localhost:5000/delete)
 //END: PROMO API ENDPOINTS
 
 //SETS A LISTEN HOST AND PORT FOR THE API
 var port = (process.env.PORT || 5000);
-server.listen(port, '0.0.0.0', function() {
+server.listen(port, '0.0.0.0', function () {
   log.info('listening: %s', server.url);
 });
 //SETS A LISTEN HOST AND PORT FOR THE API
