@@ -20,6 +20,6 @@ export default new Router({
     { path: '/premium-promos', component: Promo},
     { path: '/profile', component: Profile},
     //Functions without page
-    { path: '/redirect', component: redirect },//calls redirect() to extract tokens
+    { path: '/redirect', component: redirect }, //calls redirect() to extract tokens
   ]
 })
