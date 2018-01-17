@@ -32,11 +32,14 @@ export default {
   },
   methods: {
     getPublicPromos() {
-      this.$http.get('http://localhost:5000/publicpromos').then(response => {
-        this.promos = response.body;
-      }, error => {
-        console.log(error);
-      });
+      this.$http.get('http://localhost:5000/publicpromos').then(
+        response => {
+          this.promos = response.body;
+        }, 
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 }
