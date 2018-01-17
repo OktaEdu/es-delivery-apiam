@@ -4,7 +4,7 @@ import router from '../router' //router: required to redirect users
 //constants
 // const OKTA_ORG = 'https://oktacdev024.oktapreview.com';
 // const AUTHZ_SERVER = 'https://oktacdev024.oktapreview.com';
-// const AUTHZ_URL = AUTHZ_SERVER+'/oauth2/v1/authorize';
+// const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
 // const CLIENT_ID = '0oab1ll87sMhnbeZh0h7';
 // const REDIRECT_URL = 'http://localhost:8080/redirect';
 // const SCOPES = ['openid', 'profile', 'email'];
