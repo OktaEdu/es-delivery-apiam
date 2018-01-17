@@ -34,11 +34,14 @@ export default {
   },
   methods: {
     getPromos() {
-      this.$http.get('http://localhost:5000/promos/PREMIUM').then(response => {
-        this.promos = response.body;
-      }, error => {
-        console.log(error);
-      });
+      this.$http.get('http://localhost:5000/promos/PREMIUM').then(
+        response => {
+          this.promos = response.body;
+        }, 
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 }
