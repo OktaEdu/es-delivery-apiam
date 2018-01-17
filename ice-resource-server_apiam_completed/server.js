@@ -46,9 +46,9 @@ promos.insert({ code: "BOT", validFor: validity, target: "ROBOT", endDate: endPr
 //BEGIN: SECURITY CONFIGURATION
 var passport = require('passport-restify');
 var Strategy = require('passport-oauth2-jwt-bearer').Strategy;
-const AUD='http://localhost:5000';
-const ISSUER='https://oktacdev024.oktapreview.com/oauth2/ausazr3usgim5HCTH0h7';
-const METADATA_URL=ISSUER+'/.well-known/oauth-authorization-server';
+const AUD = 'http://localhost:5000';
+const ISSUER = 'https://oktacdev024.oktapreview.com/oauth2/ausazr3usgim5HCTH0h7';
+const METADATA_URL = ISSUER + '/.well-known/oauth-authorization-server';
 var strategy = new Strategy(
   {
     audience: AUD,
