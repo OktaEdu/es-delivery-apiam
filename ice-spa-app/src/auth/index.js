@@ -33,9 +33,9 @@ export function loginOkta() {
  * @param String login - user login
  * @param String password - user password
  */
- export function loginWithForm(login, password) {
+export function loginWithForm(login, password) {
 
- }
+}
 
 /**
  * redirect

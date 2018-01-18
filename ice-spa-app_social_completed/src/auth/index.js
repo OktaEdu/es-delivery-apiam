@@ -44,37 +44,37 @@ export function loginWithFB() {
  * @param String login - user login
  * @param String password - user password
  */
- export function loginWithForm(login, password) {
-   OKTA_AUTH_JS.signIn({
-     username: login,
-     password: password
-   })
-   .then(function (transaction) {
-     if (transaction.status === 'SUCCESS') {
-       OKTA_AUTH_JS.token.getWithoutPrompt({
-         responseType: TOKENS,
-         scopes: SCOPES,
-         sessionToken: transaction.sessionToken
-       })
-       .then(function (tokenArray) {
-         //save the id_token and the access_token in the tokenManager
-         OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
-         OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
-         router.push('/profile')
-       })
-       .catch(function (err) {
-         //Errors during the login are returned as OAuthError
-         alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
-         router.push('/error')
-       });
-     } else {
-       alert('We cannot handle the ' + transaction.status + ' status');
-     }
-   })
-   .fail(function (err) {
-     console.error(err);
-   });
- }
+export function loginWithForm(login, password) {
+ OKTA_AUTH_JS.signIn({
+   username: login,
+   password: password
+ })
+ .then(function (transaction) {
+   if (transaction.status === 'SUCCESS') {
+     OKTA_AUTH_JS.token.getWithoutPrompt({
+       responseType: TOKENS,
+       scopes: SCOPES,
+       sessionToken: transaction.sessionToken
+     })
+     .then(function (tokenArray) {
+       //save the id_token and the access_token in the tokenManager
+       OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
+       OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
+       router.push('/profile')
+     })
+     .catch(function (err) {
+       //Errors during the login are returned as OAuthError
+       alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
+       router.push('/error')
+     });
+   } else {
+     alert('We cannot handle the ' + transaction.status + ' status');
+   }
+ })
+ .fail(function (err) {
+   console.error(err);
+ });
+}
 
 /**
  * redirect
