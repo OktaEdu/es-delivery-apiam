@@ -179,17 +179,17 @@ export function validateAccess(to, from, next) {
  * @return boolean true when the user is logged in with a valid session
  */
 export function isLoggedIn() {
-  //check if the id token exists and is not expired
-  const idToken = getIdToken();
-  const accessToken = getAccessToken();
-  if (
-    idToken != null && !isTokenExpired(idToken) && 
-    accessToken != null && !isTokenExpired(accessToken)
-  ) {
-    return true;
-  }
-  OKTA_AUTH_JS.tokenManager.clear();
-  return false;
+ //check if the id token exists and is not expired
+ const idToken = getIdToken();
+ const accessToken = getAccessToken();
+ if (
+   idToken && !isTokenExpired(idToken) && 
+   accessToken && !isTokenExpired(accessToken)
+ ) {
+   return true;
+ }
+ OKTA_AUTH_JS.tokenManager.clear();
+ return false;
 }
 
 /**
