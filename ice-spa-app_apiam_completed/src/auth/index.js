@@ -4,7 +4,7 @@ import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
 //constants
 const OKTA_ORG = 'https://oktacdev024.oktapreview.com';
 const AUTHZ_SERVER = 'https://oktacdev024.oktapreview.com/oauth2/ausazr3usgim5HCTH0h7';
-const AUTHZ_URL = AUTHZ_SERVER+'/v1/authorize';
+const AUTHZ_URL = AUTHZ_SERVER + '/v1/authorize';
 const CLIENT_ID = '0oab1ll87sMhnbeZh0h7';
 const REDIRECT_URL = 'http://localhost:8080/redirect';
 const SCOPES = ['openid', 'profile', 'email', 'promos:read'];
@@ -16,14 +16,13 @@ const OKTA_AUTH_JS = new OktaAuth({
   issuer: AUTHZ_SERVER,
   authorizeUrl: AUTHZ_URL,
 });
-const SIGNOUT_OKTA = true;
 
 /**
  * loginOkta
  * Starts the OAuth login process with redirect using the Okta Auth JS
  * @access public
  */
-export function loginOkta(){
+export function loginOkta() {
   OKTA_AUTH_JS.token.getWithRedirect({
     responseType: TOKENS,
     scopes: SCOPES
@@ -37,36 +36,37 @@ export function loginOkta(){
  * @param String login - user login
  * @param String password - user password
  */
- export function loginWithForm(login, password){
-   OKTA_AUTH_JS.signIn({
-     username: login,
-     password: password
-   })
-   .then(function(transaction) {
-     if (transaction.status === 'SUCCESS') {
-       OKTA_AUTH_JS.token.getWithoutPrompt({
-         responseType: TOKENS,
-         scopes: SCOPES,
-         sessionToken: transaction.sessionToken
-       })
-       .then(function(tokenArray) {
-         //save the id_token and the access_token in the tokenManager
-         OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
-         OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
-         router.push('/profile')
-       }).catch(function(err) {
-         //Errors during the login are returned as OAuthError
-         alert('error: '+err.errorCode+'\n'+'message: '+err.message);
-         router.push('/error')
-       });
-     } else {
-       alert('We cannot handle the ' + transaction.status + ' status');
-     }
-   })
-   .fail(function(err) {
-     console.error(err);
-   });
- }
+export function loginWithForm(login, password) {
+ OKTA_AUTH_JS.signIn({
+   username: login,
+   password: password
+ })
+ .then(function (transaction) {
+   if (transaction.status === 'SUCCESS') {
+     OKTA_AUTH_JS.token.getWithoutPrompt({
+       responseType: TOKENS,
+       scopes: SCOPES,
+       sessionToken: transaction.sessionToken
+     })
+     .then(function (tokenArray) {
+       //save the id_token and the access_token in the tokenManager
+       OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
+       OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
+       router.push('/profile')
+     })
+     .catch(function(err) {
+       //Errors during the login are returned as OAuthError
+       alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
+       router.push('/error')
+     });
+   } else {
+     alert('We cannot handle the ' + transaction.status + ' status');
+   }
+ })
+ .fail(function (err) {
+   console.error(err);
+ });
+}
 
 /**
  * redirect
@@ -76,17 +76,19 @@ export function loginOkta(){
  * @access public
  */
 export function redirect() {
-  OKTA_AUTH_JS.token.parseFromUrl().then(function(tokenArray) {
+  OKTA_AUTH_JS.token.parseFromUrl()
+  .then(function (tokenArray) {
     //get token from the url
     //save the id_token and the access_token in the tokenManager
     OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
     OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
     router.push('/profile')
-  }).catch(function(err) {
-    //Errors during the login are returned as OAuthError
-    alert('error: '+err.errorCode+'\n'+'message: '+err.message);
-    router.push('/error')
   })
+  .catch(function (err) {
+    //Errors during the login are returned as OAuthError
+    alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
+    router.push('/error')
+  });
 }
 
 
@@ -96,19 +98,20 @@ export function redirect() {
  * @access public
  */
 export function logout() {
-  //Sign out from the app
-  OKTA_AUTH_JS.tokenManager.clear();
-  if(!SIGNOUT_OKTA){
-    router.push('/home');
-  }else{
+  if (isLoggedIn()) {
+    //Sign out from the app
+    OKTA_AUTH_JS.tokenManager.clear();
     OKTA_AUTH_JS.signOut()
-    .then(function(){
+    .then(function () {
       router.push('/home');
     })
-    .fail(function(err){
+    .fail(function (err) {
       console.error(err);
       router.push('/error');
-    })
+    });
+  } else {
+    console.log("Not logged in");
+    router.push('/home');    
   }
 }
 
@@ -140,10 +143,9 @@ export function getAccessToken() {
  * @return Object headers
  */
 export function getAuthHeader() {
-  var at = getAccessToken();
   return {
     headers:{
-      'Authorization': 'Bearer '+at.accessToken
+      'Authorization': 'Bearer ' + getAccessToken().accessToken
     }
   }
 }
@@ -156,9 +158,9 @@ export function getAuthHeader() {
  * @param Object next - for triggering the next step in the Vue lifecycle
  */
 export function validateAccess(to, from, next) {
-  if(!isLoggedIn()){
+  if (!isLoggedIn()) {
     router.push('/loginform');
-  }else{
+  } else {
     next();
   }
 }
@@ -169,20 +171,17 @@ export function validateAccess(to, from, next) {
  * @return boolean true when the user is logged in with a valid session
  */
 export function isLoggedIn() {
-  var userLogged = false;
-  //check if the id token exists and is not expired
-  const idToken = OKTA_AUTH_JS.tokenManager.get('id_token');
-  if(idToken != null && !isTokenExpired(idToken)){
-    //check if the access token exists and is not expired
-    const accessToken = OKTA_AUTH_JS.tokenManager.get('access_token');
-    if(accessToken != null && !isTokenExpired(accessToken)){
-      userLogged = true;
-    }
-  }
-  if(!userLogged){
-    OKTA_AUTH_JS.tokenManager.clear();
-  }
-  return userLogged;
+ //check if the id token exists and is not expired
+ const idToken = getIdToken();
+ const accessToken = getAccessToken();
+ if (
+   idToken && !isTokenExpired(idToken) && 
+   accessToken && !isTokenExpired(accessToken)
+ ) {
+   return true;
+ }
+ OKTA_AUTH_JS.tokenManager.clear();
+ return false;
 }
 
 /**
@@ -193,11 +192,11 @@ export function isLoggedIn() {
  */
 function isTokenExpired(token) {
   var tokenExpired = getTokenExpiration(token) < Date.now();
-  if(tokenExpired){
+  if (tokenExpired) {
     alert(
-      'The token expiration date is due: '+
-      '\nToken expiration: '+getTokenExpiration(token)+
-      '\nCurrent time: '+Date()+'.'+
+      'The token expiration date is due: ' +
+      '\nToken expiration: ' + getTokenExpiration(token) +
+      '\nCurrent time: ' + Date() + '.' +
       '\nClick OK to start a new session.');
   }
   return tokenExpired;
@@ -209,8 +208,8 @@ function isTokenExpired(token) {
  * @param Object token - id_token or access_token for validation
  * @return Date token expiration date and time
  */
-function getTokenExpiration(token){
-  if(!token.expiresAt) { return null; }
+function getTokenExpiration(token) {
+  if (!token.expiresAt) { return null; }
   const date = new Date(0);
   date.setUTCSeconds(token.expiresAt);
   return date;

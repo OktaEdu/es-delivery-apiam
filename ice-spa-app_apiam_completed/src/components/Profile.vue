@@ -26,12 +26,12 @@ export default {
       tokenTimeout: ''
     }
   },
-  mounted(){
+  mounted() {
     this.accessToken = getAccessToken().accessToken;
     this.idToken = getIdToken().idToken;
     this.claims = getIdToken().claims;
-    this.tokenStarted = new Date(getIdToken().claims.iat * 1000).toString();
-    this.tokenTimeout = new Date(getIdToken().claims.exp * 1000).toString();
+    this.tokenStarted = new Date(this.claims.iat * 1000).toString();
+    this.tokenTimeout = new Date(this.claims.exp * 1000).toString();
   }
 }
 </script>

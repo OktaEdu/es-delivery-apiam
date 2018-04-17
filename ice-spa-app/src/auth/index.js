@@ -4,7 +4,7 @@ import router from '../router' //router: required to redirect users
 //constants
 // const OKTA_ORG = 'https://oktacdev024.oktapreview.com';
 // const AUTHZ_SERVER = 'https://oktacdev024.oktapreview.com';
-// const AUTHZ_URL = AUTHZ_SERVER+'/oauth2/v1/authorize';
+// const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
 // const CLIENT_ID = '0oab1ll87sMhnbeZh0h7';
 // const REDIRECT_URL = 'http://localhost:8080/redirect';
 // const SCOPES = ['openid', 'profile', 'email'];
@@ -16,14 +16,13 @@ import router from '../router' //router: required to redirect users
 //   issuer: AUTHZ_SERVER,
 //   authorizeUrl: AUTHZ_URL,
 // });
-// const SIGNOUT_OKTA = true;
 
 /**
  * loginOkta
  * Starts the OAuth login process with redirect using the Okta Auth JS
  * @access public
  */
-export function loginOkta(){
+export function loginOkta() {
 
 }
 
@@ -34,9 +33,9 @@ export function loginOkta(){
  * @param String login - user login
  * @param String password - user password
  */
- export function loginWithForm(login, password){
+export function loginWithForm(login, password) {
 
- }
+}
 
 /**
  * redirect
@@ -127,6 +126,6 @@ function isTokenExpired(token) {
  * @param Object token - id_token or access_token for validation
  * @return Date token expiration date and time
  */
-function getTokenExpiration(token){
+function getTokenExpiration(token) {
 
 }

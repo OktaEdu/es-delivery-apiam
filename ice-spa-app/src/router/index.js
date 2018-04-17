@@ -13,13 +13,13 @@ export default new Router({
   mode: 'history',
   routes: [
     //Public pages
-    { path: '*', redirect: '/home'}, //redirect to make sure you land in a page
-    { path: '/home', component: Home}, //home page
-    { path: '/error', component: Error},
+    { path: '*', redirect: '/home' }, //redirect to make sure you land in a page
+    { path: '/home', component: Home }, //home page
+    { path: '/error', component: Error },
     //Private pages (displayed only user access is validated)
-    { path: '/premium-promos', component: Promo},
-    { path: '/profile', component: Profile},
+    { path: '/premium-promos', component: Promo },
+    { path: '/profile', component: Profile },
     //Functions without page
-    { path: '/redirect', component: redirect },//calls redirect() to extract tokens
+    { path: '/redirect', component: redirect }, //calls redirect() to extract tokens
   ]
 })

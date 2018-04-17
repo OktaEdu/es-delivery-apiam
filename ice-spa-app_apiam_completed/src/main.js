@@ -4,13 +4,13 @@ import Vue from 'vue'
 import App from './components/App'
 import router from './router'
 import VueResource from 'vue-resource'
-Vue.use(VueResource)
+Vue.use(VueResource);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 // Check the users auth status when the app starts
 import { isLoggedIn } from './auth'
-isLoggedIn()
+isLoggedIn();
 
 /* eslint-disable no-new */
 new Vue({
@@ -18,4 +18,4 @@ new Vue({
   router,
   template: '<App/>',
   components: { App }
-})
+});
