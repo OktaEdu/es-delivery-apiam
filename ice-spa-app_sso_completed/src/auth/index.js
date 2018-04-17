@@ -171,8 +171,8 @@ export function isLoggedIn() {
   const idToken = getIdToken();
   const accessToken = getAccessToken();
   if (
-    idToken != null && !isTokenExpired(idToken) && 
-    accessToken != null && !isTokenExpired(accessToken)
+    idToken && !isTokenExpired(idToken) && 
+    accessToken && !isTokenExpired(accessToken)
   ) {
     return true;
   }
