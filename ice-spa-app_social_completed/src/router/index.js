@@ -23,6 +23,6 @@ export default new Router({
     //Functions without page
     { path: '/login', component: loginOkta },
     { path: '/logout', component: logout },
-    { path: '/redirect', component: redirect }, //calls redirect() to extract tokens
+    { path: '/redirect', component: redirect } //calls redirect() to extract tokens
   ]
 })
