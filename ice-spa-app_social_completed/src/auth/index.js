@@ -119,7 +119,7 @@ export function logout() {
     });
   } else {
     console.log("Not logged in");
-    router.push('/home');    
+    router.push('/home');
   }
 }
 
@@ -183,7 +183,7 @@ export function isLoggedIn() {
  const idToken = getIdToken();
  const accessToken = getAccessToken();
  if (
-   idToken && !isTokenExpired(idToken) && 
+   idToken && !isTokenExpired(idToken) &&
    accessToken && !isTokenExpired(accessToken)
  ) {
    return true;
@@ -205,7 +205,8 @@ function isTokenExpired(token) {
       'The token expiration date is due: ' +
       '\nToken expiration: ' + getTokenExpiration(token) +
       '\nCurrent time: ' + Date() + '.' +
-      '\nClick OK to start a new session.');
+      '\nClick OK to start a new session.'
+    );
   }
   return tokenExpired;
 }

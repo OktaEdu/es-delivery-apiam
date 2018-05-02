@@ -59,7 +59,7 @@ server.get({path: '/publicpromos'},
     var query = promos.chain().find({'target' : 'PUBLIC'}).data();
     console.log("\n\nPromos: " + query + "\n\n");
     res.send(200, query);
-    
+
     return next();
   }
 );
@@ -68,7 +68,7 @@ server.get({path: '/publicpromos'},
 //BEGIN: GET ALL PROMOS (GET http://localhost:5000/promos)
 //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
 server.get({path: '/promos'},
-  // passport.authenticate('oauth2-jwt-bearer', { session: false , scopes: ['promos:read']}),
+  // passport.authenticate('oauth2-jwt-bearer', { session: false , scopes: ['promos:read'] }),
   function respond(req, res, next) {
     var query = promos.chain().find({}).simplesort('code').data();
     res.send(200, query);
@@ -81,7 +81,7 @@ server.get({path: '/promos'},
 //BEGIN: SEARCH SPECIFIC PROMOS (GET http://localhost:5000/promos/:filter)
 //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
 server.get({path: '/promos/:filter'},
-  // passport.authenticate('oauth2-jwt-bearer', {session: false, scopes: ['promos:read']}),
+  // passport.authenticate('oauth2-jwt-bearer', { session: false, scopes: ['promos:read'] }),
   function respond(req, res, next) {
     var query = promos.chain().find(
       {
@@ -101,7 +101,7 @@ server.get({path: '/promos/:filter'},
 //BEGIN: CREATE PROMOS (POST http://localhost:5000/promos)
 //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:create' CAN ACCESS
 server.post({path: '/promos'},
-  // passport.authenticate('oauth2-jwt-bearer', {session: false, scopes: ['promos:create']}),
+  // passport.authenticate('oauth2-jwt-bearer', { session: false, scopes: ['promos:create'] }),
   function respond(req, res, next) {
     var promo = req.params;
     promo.created = new Date().toDateString();
@@ -116,10 +116,10 @@ server.post({path: '/promos'},
     var addPromo = promos.insert( promo );
     try {
       res.send(201, promo);
-    } catch (err) { 
-      res.send(400, err); 
+    } catch (err) {
+      res.send(400, err);
     }
-    
+
     return next();
   }
 );
@@ -128,16 +128,16 @@ server.post({path: '/promos'},
 //BEGIN: DELETE PROMOS (DELETE http://localhost:5000/promos)
 //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
 server.del({path: '/promos/:code'},
-  // passport.authenticate('oauth2-jwt-bearer', {session: false, scopes: ['promos:delete']}),
+  // passport.authenticate('oauth2-jwt-bearer', { session: false, scopes: ['promos:delete'] }),
   function response(req, res, next) {
     var removePromo = promos.find({'code' : req.params.code});
     try {
       promos.remove(removePromo);
       res.send(204);
-    } catch (err) { 
+    } catch (err) {
       res.send(404, err);
     }
-    
+
     return next();
   }
 );
@@ -151,7 +151,7 @@ server.del({path: '/delete'},
     var removeAll = promos.chain().remove();
     console.log("Removed all entries from database");
     res.send(204, 'No more promos');
-    
+
     return next();
   }
 );
