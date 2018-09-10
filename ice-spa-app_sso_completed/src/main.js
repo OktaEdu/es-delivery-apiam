@@ -9,8 +9,8 @@ Vue.use(VueResource);
 Vue.config.productionTip = false;
 
 // Check the users auth status when the app starts
-import { isLoggedIn } from './auth'
-isLoggedIn();
+//import { isLoggedIn } from './auth'
+//isLoggedIn();
 
 /* eslint-disable no-new */
 new Vue({
