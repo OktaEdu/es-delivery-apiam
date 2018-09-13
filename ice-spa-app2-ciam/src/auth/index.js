@@ -1,21 +1,21 @@
 import router from '../router' //router: required to redirect users
-//import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
+import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
 
 //constants
-// const OKTA_ORG = 'https://oktaiceXXX.oktapreview.com';
-// const AUTHZ_SERVER = OKTA_ORG;
-// const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
-// const CLIENT_ID = '0oaxxxxxxxxxxxxx';
-// const REDIRECT_URL = 'http://localhost:8080/redirect';
-// const SCOPES = ['openid', 'profile', 'email'];
-// const TOKENS = ['token', 'id_token'];
-// const OKTA_AUTH_JS = new OktaAuth({
-//   url: OKTA_ORG,
-//   clientId: CLIENT_ID,
-//   redirectUri: REDIRECT_URL,
-//   issuer: AUTHZ_SERVER,
-//   authorizeUrl: AUTHZ_URL,
-// });
+const OKTA_ORG = 'https://oktaice###.oktapreview.com';
+const AUTHZ_SERVER = OKTA_ORG;
+const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
+const CLIENT_ID = '0oaaaaaaaaaaaaaaaaaa';
+const REDIRECT_URL = 'http://localhost:8082/redirect';
+const SCOPES = ['openid', 'profile', 'email'];
+const TOKENS = ['token', 'id_token'];
+const OKTA_AUTH_JS = new OktaAuth({
+  url: OKTA_ORG,
+  clientId: CLIENT_ID,
+  redirectUri: REDIRECT_URL,
+  issuer: AUTHZ_SERVER,
+  authorizeUrl: AUTHZ_URL,
+});
 
 /**
  * TODO: loginOkta
@@ -23,7 +23,10 @@ import router from '../router' //router: required to redirect users
  * access public
  */
 export function loginOkta() {
-
+  OKTA_AUTH_JS.token.getWithRedirect({
+    responseType: TOKENS,
+    scopes: SCOPES
+  });
 }
 
 /**
@@ -34,7 +37,16 @@ export function loginOkta() {
  * access public
  */
 export function redirect() {
-
+  OKTA_AUTH_JS.token.parseFromUrl()
+  .then(function(tokenArray) {
+    OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
+    OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
+    router.push('/profile');
+  })
+  .catch(function(err) {
+    alert('error: ' + err.errorCode + '\nmessage: ' + err.messsage);
+    router.push('/error');
+  });
 }
 
 /**
@@ -44,7 +56,7 @@ export function redirect() {
  * return Object idToken
  */
 export function getIdToken() {
-
+  return OKTA_AUTH_JS.tokenManager.get('id_token');
 }
 
 /**
@@ -54,38 +66,83 @@ export function getIdToken() {
  * return Object accessToken
  */
 export function getAccessToken() {
-
+  return OKTA_AUTH_JS.tokenManager.get('access_token');
 }
 
 /**
- * TODO: validateAccessLocal
- * validates if a user can access protected pages based on ID Token
+ * TODO: validateAccess0
+ * validates if a user can access protected pages.
  * param Object to - info about request destination
  * param Object from - info about request origin
  * param Object next - for triggering the next step in the Vue lifecycle
  */
 export function validateAccessLocal(to, from, next) {
-
+  hasValidIdToken(function( hasValidIdTokenBool ) {
+    // LOCAL SESSION = FALSE
+    if(!hasValidIdTokenBool) {
+      OKTA_AUTH_JS.tokenManager.clear();
+      router.push('/login');
+    // LOCAL SESSION = TRUE
+    } else {
+      next();
+    }
+  });
 }
 
 /**
- * TODO: validateAccessOkta
- * validates if a user can access protected pages based on
- * ID Token and Okta sessionToken
+ * TODO: validateAccess
+ * validates if a user can access protected pages.
  * param Object to - info about request destination
  * param Object from - info about request origin
  * param Object next - for triggering the next step in the Vue lifecycle
  */
-export function validateAccessOkta(to, from, next) {
 
+export function validateAccessOkta(to, from, next) {
+  hasOktaSession(function( hasOktaSessionBool ) {
+    // OKTA SESSION = FALSE
+    if(!hasOktaSessionBool) {
+      OKTA_AUTH_JS.tokenManager.clear();
+      router.push('/loginform');
+    } else {
+      hasValidIdToken(function( hasValidIdTokenBool ) {
+        // OKTA SESSION = TRUE and LOCAL SESSION = FALSE
+        if(!hasValidIdTokenBool) {
+          OKTA_AUTH_JS.token.getWithoutPrompt({
+            responseType: TOKENS,
+            scopes: SCOPES
+          })
+          .then(function( tokenArray ) {
+            OKTA_AUTH_JS.tokenManager.add('access_token',
+                                          tokenArray[0]);
+            OKTA_AUTH_JS.tokenManager.add('id_token',
+                                          tokenArray[1]);
+            next();
+          })
+          .catch(function(err) {
+            alert('error: ' + err.message);
+            router.push('/error');
+          });
+        // OKTA SESSION = TRUE and LOCAL SESSION = TRUE
+        } else {
+          next();
+        }
+      });
+    }
+  });
 }
 
-/**
- * TODO: hasOktaSession
- * Checks whether the user has an active session at Okta.
- */
-function hasOktaSession( func ) {
-
+ /**
+  * TODO: hasOktaSession
+  * Checks whether the user has an active session at Okta.
+  */
+ function hasOktaSession( done ) {
+  OKTA_AUTH_JS.session.exists()
+  .then(function(exists) {
+    done(exists);
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
 }
 
 /**
@@ -93,9 +150,16 @@ function hasOktaSession( func ) {
  * Checks whether the user is logged in locally. If not, clears the tokenManager
  * return boolean true when the user is logged in with a valid session
  */
-function hasValidIdToken( func ) {
-
+function hasValidIdToken( done ) {
+  OKTA_AUTH_JS.tokenManager.get('id_token')
+  .then(function(token) {
+    done(token);
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
 }
+
 
 /**
  * TODO: logoutLocal
@@ -103,7 +167,8 @@ function hasValidIdToken( func ) {
  * access public
  */
 export function logoutLocal() {
-
+  OKTA_AUTH_JS.tokenManager.clear();
+  router.push('/home');
 }
 
 /**

@@ -5,12 +5,12 @@
     <p><strong>Access Token:</strong> {{ accessToken }}</p>
     <h2>Profile details:</h2>
     <ul>
-      <li><strong>Name: </strong> </li>
-      <li><strong>App Username: </strong> </li>
-      <li><strong>App ID: </strong> </li>
-      <li><strong>SSO provided by: </strong> </li>
-      <li><strong>Session Start: </strong> </li>
-      <li><strong>Session Timeout: </strong> </li>
+      <li><strong>Name: </strong> {{claims.name}} </li>
+      <li><strong>App Username: </strong> {{claims.preferred_username}} </li>
+      <li><strong>App ID: </strong> {{claims.aud}} </li>
+      <li><strong>SSO provided by: </strong> {{claims.iss}} </li>
+      <li><strong>Session Start: </strong> {{tokenIssued}} </li>
+      <li><strong>Session Timeout: </strong> {{tokenExpiry}} </li>
     </ul>
   </div>
 </template>
@@ -31,6 +31,9 @@ export default {
     getAccessToken().then(token => this.accessToken = token.accessToken);
     getIdToken().then(token => {
       this.idToken = token.idToken;
+      this.claims = token.claims;
+      this.tokenIssued = new Date(this.claims.iat * 1000).toString();
+      this.tokenExpiry = new Date(this.claims.exp * 1000).toString();
     });
   }
 }

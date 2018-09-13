@@ -2,12 +2,13 @@
   <div id="app">
     <img src="../assets/ice-logo.png">
     <!-- Menu -->
-    <nav class="navbar navbar-default">
+    <nav style="background-color:#9370DB" class="navbar navbar-default">
       <div class="container">
         <ul class="nav navbar-nav">
           <li><router-link to="/home">Home</router-link></li>
           <li><router-link to="/profile">My Profile</router-link></li>
           <li><router-link to="/premium-promos">Premium Promos</router-link></li>
+          <li><router-link to="/logoutLocal">Logout of App</router-link></li>
         </ul>
       </div>
     </nav>

@@ -8,7 +8,8 @@
           <li><router-link to="/home">Home</router-link></li>
           <li><router-link to="/profile">My Profile</router-link></li>
           <li><router-link to="/premium-promos">Premium Promos</router-link></li>
-          <li><router-link to="/logout">Logout</router-link></li>
+          <li><router-link to="/logoutLocal">Logout of App</router-link></li>
+          <li><router-link to="/logoutOkta">Logout of Okta</router-link></li>
         </ul>
       </div>
     </nav>

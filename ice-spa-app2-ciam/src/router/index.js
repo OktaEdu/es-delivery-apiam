@@ -5,7 +5,7 @@ import Error from '@/components/Error'
 import Promo from '@/components/Promo'
 import Profile from '@/components/Profile'
 import LoginForm from '@/components/LoginForm'
-import { validateAccessLocal, validateAccessOkta, logoutLocal, logoutOkta, singleLogout, redirect, loginOkta, checkOktaSession } from '../auth'
+import { validateAccessOkta, validateAccessLocal, logoutLocal, logoutOkta, singleLogout, redirect, loginOkta, checkOktaSession } from '../auth'
 
 Vue.use(Router)
 
@@ -23,7 +23,7 @@ export default new Router({
     //Functions without page
     { path: '/login', component: loginOkta },
     { path: '/logoutLocal', component: logoutLocal },
-    { path: '/redirect', component: redirect },
+    { path: '/redirect', component: redirect }, //calls redirect() to extract tokens
     { path: '/checkOktaSession', component: checkOktaSession },
     { path: '/logoutOkta', component: logoutOkta },
     { path: '/singleLogout', component: singleLogout }

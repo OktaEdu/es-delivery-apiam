@@ -2,10 +2,10 @@ import router from '../router' //router: required to redirect users
 import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
 
 //constants
-const OKTA_ORG = 'https://oktaice604.oktapreview.com';
+const OKTA_ORG = 'https://oktaiceXXX.oktapreview.com';
 const AUTHZ_SERVER = OKTA_ORG;
 const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
-const CLIENT_ID = '0oacnu10ryn3gmk7q0h7';
+const CLIENT_ID = '0oaaaaaaaaaaaaaaaaaa';
 const REDIRECT_URL = 'http://localhost:8080/redirect';
 const SCOPES = ['openid', 'profile', 'email'];
 const TOKENS = ['token', 'id_token'];
@@ -18,14 +18,240 @@ const OKTA_AUTH_JS = new OktaAuth({
 });
 
 /**
- * loginOkta
+ * TODO: loginOkta
  * Starts the OAuth login process with redirect using the Okta Auth JS
- * @access public
+ * access public
  */
 export function loginOkta() {
   OKTA_AUTH_JS.token.getWithRedirect({
     responseType: TOKENS,
-    scopes: SCOPES
+    scopes: SCOPES,
+  });
+}
+
+/**
+ * TODO: redirect
+ * Called by Okta after the OIDC Login.
+ * Extract and validate tokens from the redirect and save token info in Token Manager
+ * The parseFromUrl perfoms the token validation
+ * access public
+ */
+export function redirect() {
+  OKTA_AUTH_JS.token.parseFromUrl()
+  .then(function (tokenArray) {
+    OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
+    OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
+    router.push('/profile');
+  })
+  .catch(function (err) {
+    alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
+    router.push('/error');
+  });
+}
+
+/**
+ * TODO: getIdToken
+ * Get idToken from tokenManager
+ * access public
+ * return Object idToken
+ */
+export function getIdToken() {
+  return OKTA_AUTH_JS.tokenManager.get('id_token');
+}
+
+/**
+ * TODO: getAccessToken
+ * Get access from tokenManager
+ * access public
+ * return Object accessToken
+ */
+export function getAccessToken() {
+  return OKTA_AUTH_JS.tokenManager.get('access_token');
+}
+
+/**
+ * TODO: validateAccessLocal
+ * validates if a user can access protected pages based on ID Token
+ * param Object to - info about request destination
+ * param Object from - info about request origin
+ * param Object next - for triggering the next step in the Vue lifecycle
+ */
+export function validateAccessLocal(to, from, next) {
+  hasValidIdToken(function( hasValidIdTokenBool ) {
+    // LOCAL SESSION = FALSE
+    if(!hasValidIdTokenBool) {
+      OKTA_AUTH_JS.tokenManager.clear();
+      router.push('/login');
+    // LOCAL SESSION = TRUE
+    } else {
+      next();
+    }
+  });
+}
+
+/**
+ * TODO: validateAccessOkta
+ * validates if a user can access protected pages based on
+ * ID Token and Okta sessionToken
+ * param Object to - info about request destination
+ * param Object from - info about request origin
+ * param Object next - for triggering the next step in the Vue lifecycle
+ */
+export function validateAccessOkta(to, from, next) {
+  hasOktaSession(function( hasOktaSessionBool ) {
+    // OKTA SESSION = FALSE
+    if(!hasOktaSessionBool) {
+      OKTA_AUTH_JS.tokenManager.clear();
+      router.push('/loginform');
+    } else {
+      hasValidIdToken(function( hasValidIdTokenBool ) {
+        // OKTA SESSION = TRUE and LOCAL SESSION = FALSE
+        if(!hasValidIdTokenBool) {
+          OKTA_AUTH_JS.token.getWithoutPrompt({
+            responseType: TOKENS,
+            scopes: SCOPES
+          })
+          .then(function( tokenArray ) {
+            OKTA_AUTH_JS.tokenManager.add('access_token',
+                                          tokenArray[0]);
+            OKTA_AUTH_JS.tokenManager.add('id_token',
+                                          tokenArray[1]);
+            next();
+          })
+          .catch(function(err) {
+            alert('error: ' + err.message);
+            router.push('/error');
+          });
+        // OKTA SESSION = TRUE and LOCAL SESSION = TRUE
+        } else {
+          next();
+        }
+      });
+    }
+  });
+
+
+}
+
+/**
+ * TODO: hasOktaSession
+ * Checks whether the user has an active session at Okta.
+ */
+function hasOktaSession( done ) {
+  OKTA_AUTH_JS.session.exists()
+  .then(function(exists) {
+    done(exists);
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
+}
+
+/**
+ * TODO: hasValidIdToken
+ * Checks whether the user is logged in locally. If not, clears the tokenManager
+ * return boolean true when the user is logged in with a valid session
+ */
+function hasValidIdToken( done ) {
+  OKTA_AUTH_JS.tokenManager.get('id_token')
+  .then(function(token) {
+    done(token);
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
+}
+
+/**
+ * TODO: logoutLocal
+ * Clear the id_token and access_token from tokenManager and redirects user to /home
+ * access public
+ */
+export function logoutLocal() {
+ OKTA_AUTH_JS.tokenManager.clear();
+ router.push('/home');
+}
+
+/**
+ * TODO: getAuthHeader
+ * get Authorization header for REST requests with OAuth
+ * access public
+ * return Object headers
+ */
+export function getAuthHeader() {
+
+}
+
+/**
+ * logout Okta
+ * Close the user's session at Okta
+ * access public
+ */
+export function logoutOkta() {
+  hasOktaSession(function(hasOktaSessionBool) {
+    if (hasOktaSessionBool) {
+      //Sign out from Okta
+      OKTA_AUTH_JS.signOut()
+      .then(function () {
+        router.push('/home');
+      })
+      .catch(function (err) {
+        console.error(err);
+        router.push('/error');
+      });
+    } else {
+      console.log('logoutOkta(): hasOktaSession() returned false.');
+    }
+  });
+}
+
+/**
+ * Single Logout
+ * Clear the id_token and access_token and close the user's session at Okta
+ * access public
+ */
+export function singleLogout() {
+  //Sign out from the app
+  OKTA_AUTH_JS.tokenManager.clear();
+
+  hasOktaSession(function(hasOktaSessionBool) {
+    if (hasOktaSessionBool) {
+      //Sign out from Okta
+      OKTA_AUTH_JS.signOut()
+      .then(function () {
+        router.push('/home');
+      })
+      .catch(function (err) {
+        console.error(err);
+        router.push('/error');
+      });
+    } else {
+      console.log("singleLogout(): hasOktaSession() returned false.");
+      router.push('/home');
+    }
+  });
+}
+
+/**
+ * Check Okta Session
+ * Check if a session exists on Okta
+ * access public
+ */
+export function checkOktaSession() {
+  OKTA_AUTH_JS.session.exists()
+  .then(function(exists) {
+    if (exists) {
+      OKTA_AUTH_JS.session.get()
+      .then(function(session) {
+        window.alert('Username: ' + session.login +
+                     '\n Expires At: ' + session.expiresAt);
+      })
+      .catch(function(err) {
+        router.push('/error');
+      });
+    } else {
+      window.alert('No!');
+    }
   });
 }
 
@@ -33,8 +259,8 @@ export function loginOkta() {
  * loginWithForm
  * log into Okta using the AuthJS.
  * After a successful login, request an OIDC token using the sessionToken
- * @param String login - user login
- * @param String password - user password
+ * param String login - user login
+ * param String password - user password
  */
 export function loginWithForm(login, password) {
  OKTA_AUTH_JS.signIn({
@@ -63,151 +289,7 @@ export function loginWithForm(login, password) {
      alert('We cannot handle the ' + transaction.status + ' status');
    }
  })
- .fail(function (err) {
+ .catch(function (err) {
    console.error(err);
  });
-}
-
-/**
- * redirect
- * Called by Okta after the OIDC Login.
- * Extract and validate tokens from the redirect and save token info in Token Manager
- * The parseFromUrl perfoms the token validation
- * @access public
- */
-export function redirect() {
-  OKTA_AUTH_JS.token.parseFromUrl()
-  .then(function (tokenArray) {
-    //get token from the url
-    //save the id_token and the access_token in the tokenManager
-    OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
-    OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
-    router.push('/profile')
-  })
-  .catch(function (err) {
-    //Errors during the login are returned as OAuthError
-    alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
-    router.push('/error')
-  });
-}
-
-
-/**
- * logout
- * Clear the id_token and access_token from tokenManager and redirects user to /home
- * @access public
- */
-export function logout() {
-  if (isLoggedIn()) {
-    //Sign out from the app
-    OKTA_AUTH_JS.tokenManager.clear();
-    OKTA_AUTH_JS.signOut()
-    .then(function () {
-      router.push('/home');
-    })
-    .fail(function (err) {
-      console.error(err);
-      router.push('/error');
-    });
-  } else {
-    console.log("Not logged in");
-    router.push('/home');
-  }
-}
-
-/**
- * getIdToken
- * Get idToken from tokenManager
- * @access public
- * @return Object idToken
- */
-export function getIdToken() {
-  return OKTA_AUTH_JS.tokenManager.get('id_token');
-}
-
-/**
- * getAccessToken
- * Get access from tokenManager
- * @access public
- * @return Object accessToken
- */
-export function getAccessToken() {
-  return OKTA_AUTH_JS.tokenManager.get('access_token');
-}
-
-
-/**
- * getAuthHeader
- * get Authorization header for REST requests with OAuth
- * @access public
- * @return Object headers
- */
-export function getAuthHeader() {
-
-}
-
-/**
- * validateAccess
- * validates if a user can access protected pages.
- * @param Object to - info about request destination
- * @param Object from - info about request origin
- * @param Object next - for triggering the next step in the Vue lifecycle
- */
-export function validateAccess(to, from, next) {
-  if (!isLoggedIn()) {
-    router.push('/loginform');
-  } else {
-    next();
-  }
-}
-
-/**
- * isLoggedIn
- * Checks whether the user is logged in. If not, clears the tokenManager
- * @return boolean true when the user is logged in with a valid session
- */
-export function isLoggedIn() {
-  //check if the id token exists and is not expired
-  const idToken = getIdToken();
-  const accessToken = getAccessToken();
-  if (
-    idToken && !isTokenExpired(idToken) &&
-    accessToken && !isTokenExpired(accessToken)
-  ) {
-    return true;
-  }
-  OKTA_AUTH_JS.tokenManager.clear();
-  return false;
-}
-
-/**
- * isTokenExpired
- * check if a token is expired
- * @param Object token - id_token or access_token for validation
- * @return boolean true when the token is expired
- */
-function isTokenExpired(token) {
-  var tokenExpired = getTokenExpiration(token) < Date.now();
-  if (tokenExpired) {
-    alert(
-      'The token expiration date is due: ' +
-      '\nToken expiration: ' + getTokenExpiration(token) +
-      '\nCurrent time: ' + Date() + '.' +
-      '\nClick OK to start a new session.'
-    );
-  }
-  return tokenExpired;
-}
-
-/**
- * getTokenExpiration
- * get the token expiration date (expiresAt field)
- * @param Object token - id_token or access_token for validation
- * @return Date token expiration date and time
- */
-function getTokenExpiration(token) {
-  if (!token.expiresAt) { return null; }
-  const date = new Date(0);
-  date.setUTCSeconds(token.expiresAt);
-  return date;
 }
