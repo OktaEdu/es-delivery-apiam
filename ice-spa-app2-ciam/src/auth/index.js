@@ -135,14 +135,10 @@ export function validateAccessOkta(to, from, next) {
   * TODO: hasOktaSession
   * Checks whether the user has an active session at Okta.
   */
-function hasOktaSession( func ) {
+ function hasOktaSession( done ) {
   OKTA_AUTH_JS.session.exists()
   .then(function(exists) {
-    if(exists) {
-      func(true);
-    } else {
-      func(false);
-    }
+    done(exists);
   })
   .catch(function(err) {
     console.error(err);
@@ -154,18 +150,14 @@ function hasOktaSession( func ) {
  * Checks whether the user is logged in locally. If not, clears the tokenManager
  * return boolean true when the user is logged in with a valid session
  */
-function hasValidIdToken( func ) {
- OKTA_AUTH_JS.tokenManager.get('id_token')
- .then(function(token) {
-   if(token) {
-     func(true);
-   } else {
-     func(false);
-   }
- })
- .catch(function(err) {
-   console.error(err);
- });
+function hasValidIdToken( done ) {
+  OKTA_AUTH_JS.tokenManager.get('id_token')
+  .then(function(token) {
+    done(token);
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
 }
 
 
