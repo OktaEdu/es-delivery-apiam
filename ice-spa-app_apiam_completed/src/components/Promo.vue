@@ -26,6 +26,7 @@
 
 <script>
 import { getAuthHeader } from '../auth'
+const PREMIUM_URL = 'http://localhost:5000/promos/PREMIUM';
 export default {
   data() {
     return {
@@ -33,8 +34,8 @@ export default {
     }
   },
   methods: {
-    getPromos() {
-      this.$http.get('http://localhost:5000/promos/PREMIUM', getAuthHeader()).then(
+    async getPromos() {
+      this.$http.get(PREMIUM_URL, await getAuthHeader()).then(
         response => {
           this.promos = response.body;
         }, 
