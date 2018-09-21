@@ -2,7 +2,7 @@
   <div id="app">
     <img src="../assets/ice-logo.png">
     <!-- Menu -->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" v-bind:class="{ 'nav-purple': showNavPurple }">
       <div class="container">
         <ul class="nav navbar-nav">
           <li><router-link to="/home">Home</router-link></li>
@@ -22,7 +22,12 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      showNavPurple: nav.purple
+    }
+  }
 }
 </script>
 
@@ -35,7 +40,10 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-body{
+body {
   background-color: #FFFFEE;
+}
+.nav-purple {
+  background-color: purple;
 }
 </style>
