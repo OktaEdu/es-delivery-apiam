@@ -6,7 +6,7 @@ import router from '../router' //router: required to redirect users
 // const AUTHZ_SERVER = OKTA_ORG;
 // const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
 // const CLIENT_ID = '0oaxxxxxxxxxxxxx';
-// const REDIRECT_URL = 'http://localhost:8080/redirect';
+// const REDIRECT_URL = window.location.origin + '/redirect';
 // const SCOPES = ['openid', 'profile', 'email'];
 // const TOKENS = ['token', 'id_token'];
 // const OKTA_AUTH_JS = new OktaAuth({
