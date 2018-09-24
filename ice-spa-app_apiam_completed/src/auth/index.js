@@ -178,7 +178,7 @@ export function logoutLocal() {
  * access public
  * return Object headers
  */
-export function getAuthHeader() {
+export async function getAuthHeader() {
   var token = await getAccessToken();
   return {
     headers: {

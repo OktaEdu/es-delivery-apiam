@@ -35,7 +35,8 @@ export default {
   },
   methods: {
     async getPromos() {
-      this.$http.get(PREMIUM_URL, await getAuthHeader()).then(
+      this.$http.get(PREMIUM_URL, await getAuthHeader())
+      .then(
         response => {
           this.promos = response.body;
         }, 
