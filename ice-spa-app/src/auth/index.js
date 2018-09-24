@@ -84,7 +84,7 @@ export function validateAccessOkta(to, from, next) {
  * TODO: hasOktaSession
  * Checks whether the user has an active session at Okta.
  */
-function hasOktaSession( func ) {
+function hasOktaSession( done ) {
 
 }
 
@@ -93,7 +93,7 @@ function hasOktaSession( func ) {
  * Checks whether the user is logged in locally. If not, clears the tokenManager
  * return boolean true when the user is logged in with a valid session
  */
-function hasValidIdToken( func ) {
+function hasValidIdToken( done ) {
 
 }
 
