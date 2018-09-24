@@ -5,7 +5,7 @@ import Error from '@/components/Error'
 import Promo from '@/components/Promo'
 import Profile from '@/components/Profile'
 import LoginForm from '@/components/LoginForm'
-import { validateAccess, logout, redirect, loginOkta } from '../auth'
+import { validateAccessLocal, validateAccessOkta, logoutLocal, logoutOkta, singleLogout, redirect, loginOkta, checkOktaSession } from '../auth'
 
 Vue.use(Router)
 
@@ -18,11 +18,14 @@ export default new Router({
     { path: '/loginform', component: LoginForm },
     { path: '/error', component: Error },
     //Private pages (displayed only user access is validated)
-    { path: '/premium-promos', beforeEnter: validateAccess, component: Promo },
-    { path: '/profile', beforeEnter: validateAccess, component: Profile },
+    { path: '/premium-promos', beforeEnter: validateAccessLocal, component: Promo },
+    { path: '/profile', beforeEnter: validateAccessLocal, component: Profile },
     //Functions without page
     { path: '/login', component: loginOkta },
-    { path: '/logout', component: logout },
-    { path: '/redirect', component: redirect } //calls redirect() to extract tokens
+    { path: '/logoutLocal', component: logoutLocal },
+    { path: '/redirect', component: redirect },
+    { path: '/checkOktaSession', component: checkOktaSession },
+    { path: '/logoutOkta', component: logoutOkta },
+    { path: '/singleLogout', component: singleLogout }
   ]
 })

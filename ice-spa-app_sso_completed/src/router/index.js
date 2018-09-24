@@ -18,8 +18,8 @@ export default new Router({
     { path: '/loginform', component: LoginForm },
     { path: '/error', component: Error },
     //Private pages (displayed only user access is validated)
-    { path: '/premium-promos', beforeEnter: validateAccessOkta, component: Promo },
-    { path: '/profile', beforeEnter: validateAccessOkta, component: Profile },
+    { path: '/premium-promos', beforeEnter: validateAccessLocal, component: Promo },
+    { path: '/profile', beforeEnter: validateAccessLocal, component: Profile },
     //Functions without page
     { path: '/login', component: loginOkta },
     { path: '/logoutLocal', component: logoutLocal },

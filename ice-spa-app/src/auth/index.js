@@ -6,7 +6,7 @@ import router from '../router' //router: required to redirect users
 // const AUTHZ_SERVER = OKTA_ORG;
 // const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
 // const CLIENT_ID = '0oaxxxxxxxxxxxxx';
-// const REDIRECT_URL = 'http://localhost:8080/redirect';
+// const REDIRECT_URL = window.location.origin + '/redirect';
 // const SCOPES = ['openid', 'profile', 'email'];
 // const TOKENS = ['token', 'id_token'];
 // const OKTA_AUTH_JS = new OktaAuth({
@@ -84,7 +84,7 @@ export function validateAccessOkta(to, from, next) {
  * TODO: hasOktaSession
  * Checks whether the user has an active session at Okta.
  */
-function hasOktaSession( func ) {
+function hasOktaSession( done ) {
 
 }
 
@@ -93,7 +93,7 @@ function hasOktaSession( func ) {
  * Checks whether the user is logged in locally. If not, clears the tokenManager
  * return boolean true when the user is logged in with a valid session
  */
-function hasValidIdToken( func ) {
+function hasValidIdToken( done ) {
 
 }
 
