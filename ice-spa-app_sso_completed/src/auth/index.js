@@ -7,7 +7,6 @@ const AUTHZ_SERVER = OKTA_ORG;
 const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
 const CLIENT_ID = '0oaaaaaaaaaaaaaaaaaa';
 const REDIRECT_URL = window.location.origin + '/redirect';
-console.log(REDIRECT_URL);
 const SCOPES = ['openid', 'profile', 'email'];
 const TOKENS = ['token', 'id_token'];
 const OKTA_AUTH_JS = new OktaAuth({
