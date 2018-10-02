@@ -20,7 +20,8 @@ module.exports = merge(baseWebpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.dev.env,
-      'nav.purple': `"${process.env.NAV_PURPLE ? process.env.NAV_PURPLE : ''}"`
+      'nav.purple': `"${process.env.NAV_PURPLE ? process.env.NAV_PURPLE : ''}"`,
+      'okta.client.id': `"${process.env.OKTA_CLIENT_ID ? process.env.OKTA_CLIENT_ID : ''}"`
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
