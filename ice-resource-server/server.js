@@ -147,7 +147,7 @@ server.del({path: '/promos/:code'},
 //BEGIN: DELETE ALL PROMOS (DELETE http://localhost:5000/delete)
 //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
 server.del({path: '/delete'},
-  // passport.authenticate('oauth2-jwt-bearer', { session: false, scopes: ['promos:cancel'] }),
+  // passport.authenticate('oauth2-jwt-bearer', { session: false, scopes: ['promos:delete'] }),
   function respond(req, res, next) {
     var removeAll = promos.chain().remove();
     console.log("Removed all entries from database");
