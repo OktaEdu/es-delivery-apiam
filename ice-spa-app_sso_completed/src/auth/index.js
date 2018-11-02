@@ -259,12 +259,12 @@ export function checkOktaSession() {
  * loginWithForm
  * log into Okta using the AuthJS.
  * After a successful login, request an OIDC token using the sessionToken
- * param String login - user login
+ * param String username - user name
  * param String password - user password
  */
-export function loginWithForm(login, password) {
+export function loginWithForm(username, password) {
  OKTA_AUTH_JS.signIn({
-   username: login,
+   username: username,
    password: password
  })
  .then(function (transaction) {
