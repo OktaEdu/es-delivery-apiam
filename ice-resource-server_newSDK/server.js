@@ -7,19 +7,13 @@ var setupController=require('./controllers/setupController');
 
 const app = express();
 app.use(cors());
+setupController(app);
 
 //BEGIN: INITIALIZE OKTA JWT VERIFIER
-const oktaJwtVerifier = new OktaJwtVerifier({
-  issuer: 'https://okta.okta.com/oauth2/default',
-  clientId: '0oah4yba7chCY1Jc60h7',
-  assertClaims: {
-    aud: 'api://default',
-  },
-});
+
 //END: INITIALIZE OKTA JWT VERIFIER
 
 
-setupController(app);
 //BEGIN: SECURITY CONFIGURATION
 
 //END: SECURITY CONFIGURATION
