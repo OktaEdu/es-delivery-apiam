@@ -77,9 +77,9 @@ export function getAccessToken() {
  * param Object next - for triggering the next step in the Vue lifecycle
  */
 export function validateAccessLocal(to, from, next) {
-  hasValidIdToken(function( hasValidIdTokenBool ) {
+  hasValidIdToken(function (idToken) {
     // LOCAL SESSION = FALSE
-    if(!hasValidIdTokenBool) {
+    if (!idToken) {
       OKTA_AUTH_JS.tokenManager.clear();
       router.push('/login');
     // LOCAL SESSION = TRUE
@@ -98,24 +98,22 @@ export function validateAccessLocal(to, from, next) {
  * param Object next - for triggering the next step in the Vue lifecycle
  */
 export function validateAccessOkta(to, from, next) {
-  hasOktaSession(function( hasOktaSessionBool ) {
+  hasOktaSession(function (hasOktaSession) {
     // OKTA SESSION = FALSE
-    if(!hasOktaSessionBool) {
+    if (!hasOktaSession) {
       OKTA_AUTH_JS.tokenManager.clear();
       router.push('/loginform');
     } else {
-      hasValidIdToken(function( hasValidIdTokenBool ) {
+      hasValidIdToken(function (idToken) {
         // OKTA SESSION = TRUE and LOCAL SESSION = FALSE
-        if(!hasValidIdTokenBool) {
+        if (!idToken) {
           OKTA_AUTH_JS.token.getWithoutPrompt({
             responseType: TOKENS,
             scopes: SCOPES
           })
           .then(function( tokenArray ) {
-            OKTA_AUTH_JS.tokenManager.add('access_token',
-                                          tokenArray[0]);
-            OKTA_AUTH_JS.tokenManager.add('id_token',
-                                          tokenArray[1]);
+            OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
+            OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
             next();
           })
           .catch(function(err) {
@@ -129,22 +127,16 @@ export function validateAccessOkta(to, from, next) {
       });
     }
   });
-
-
 }
 
 /**
  * TODO: hasOktaSession
  * Checks whether the user has an active session at Okta.
  */
-function hasOktaSession( done ) {
+function hasOktaSession(done) {
   OKTA_AUTH_JS.session.exists()
-  .then(function(exists) {
-    done(exists);
-  })
-  .catch(function(err) {
-    console.error(err);
-  });
+  .then(done)
+  .catch(console.error);
 }
 
 /**
@@ -152,14 +144,10 @@ function hasOktaSession( done ) {
  * Checks whether the user is logged in locally. If not, clears the tokenManager
  * return boolean true when the user is logged in with a valid session
  */
-function hasValidIdToken( done ) {
+function hasValidIdToken(done) {
   OKTA_AUTH_JS.tokenManager.get('id_token')
-  .then(function(token) {
-    done(token);
-  })
-  .catch(function(err) {
-    console.error(err);
-  });
+  .then(done)
+  .catch(console.error);
 }
 
 /**
