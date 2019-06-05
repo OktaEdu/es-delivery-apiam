@@ -1,7 +1,6 @@
 var loki = require('lokijs');
 var db = new loki('ice');
 const security = require('./securityController');
-const OktaJwtVerifier = require('@okta/jwt-verifier');
 
 module.exports= function (app){
   //BEGIN: STARTS IN-MEMORY DB (LOKIJS) AND SEED DATA
@@ -14,7 +13,7 @@ module.exports= function (app){
     promos.insert({ code: "20PREMIUM", validFor: validity, target: "PREMIUM", endDate: endPromo.toDateString(), description: "Premium Customers get 20% off" });
     promos.insert({ code: "NUTS4CHOCO", validFor: validity, target: "PREMIUM", endDate: endPromo.toDateString(), description: "Premium customers get 30% off the Choco Nuts flavor" });
     promos.insert({ code: "BOT", validFor: validity, target: "ROBOT", endDate: endPromo.toDateString(), description: "Chatbot gets 30% off" });
-    console.log("Success!");
+    console.log("Database Initiated");
   //END: STARTS IN-MEMORY DB (LOKIJS) AND SEED DATA
 
   //BEGIN: PROMO API ENDPOINTS
@@ -23,32 +22,32 @@ module.exports= function (app){
   app.get('/publicpromos',
   function (req, res, next) {
     var query = promos.chain().find({'target' : 'PUBLIC'}).data();
-    console.log("\n\nPromos: " + query + "\n\n");
-    res.send(200, query);
+    console.log("Promos: " + JSON.stringify(query));
+    res.status(200).send(query);
     return next();
-  //  res.json(req.jwt);
   });
   //END: GET PUBLIC PROMOS (GET http://localhost:5000/publicpromos)
 
   //BEGIN: GET ALL PROMOS (GET http://localhost:5000/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get('/promos',
-    // passport.authenticate('oauth2-jwt-bearer', { session: false , scopes: ['promos:read'] }),
-    security.authenticationRequired,
+    function (req, res, next) {
+      security.authenticationRequired(req, res, next, ['promos:read']);
+    },
     function (req, res, next) {
       var query = promos.chain().find({}).simplesort('code').data();
-      res.send(200, query);
-
+      console.log("Promos: " + JSON.stringify(query));
+      res.status(200).send(query);
       return next();
-    //  res.json(req.jwt);
     });
   //END: GET ALL PROMOS (GET http://localhost:5000/promos)
 
   //BEGIN: SEARCH SPECIFIC PROMOS (GET http://localhost:5000/promos/:filter)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get('/promos/:filter',
-    // passport.authenticate('oauth2-jwt-bearer', { session: false, scopes: ['promos:read'] }),
-   security.authenticationRequired,
+    function (req, res, next) {
+      security.authenticationRequired(req, res, next, ['promos:read']);
+    },
     function respond(req, res, next) {
       var query = promos.chain().find(
         {
@@ -58,9 +57,8 @@ module.exports= function (app){
           ]
         }
       ).data();
-      console.log("\n\nPromos: " + query + "\n\n");
-      res.send(200, query);
-
+      console.log("Promos: " + JSON.stringify(query));
+      res.status(200).send(query);
       return next();
     }
   );
@@ -69,9 +67,12 @@ module.exports= function (app){
   //BEGIN: CREATE PROMOS (POST http://localhost:5000/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:create' CAN ACCESS
   app.post('/promos',
-  security.authenticationRequired,
+    function (req, res, next) {
+      security.authenticationRequired(req, res, next, ['promos:create']);
+    },
     function respond(req, res, next) {
-      var promo = req.params;
+      var promo = req.body;
+      console.log(promo);
       promo.created = new Date().toDateString();
       promo.lastUpdated = new Date().toDateString();
       promo.startDate = new Date().toDateString();
@@ -82,12 +83,12 @@ module.exports= function (app){
       if(promo.target == null) { promo.target = "PUBLIC"; }
       // Save to DB
       var addPromo = promos.insert( promo );
-      try {
-        res.send(201, promo);
-      } catch (err) {
-        res.send(400, err);
-      }
 
+      try {
+        res.status(201).send(promo);
+      } catch (err) {
+        res.status(400).send(err);
+      }
       return next();
     }
   );
@@ -95,32 +96,42 @@ module.exports= function (app){
 
   //BEGIN: DELETE PROMOS (DELETE http://localhost:5000/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
-  app.delete({path: '/promos/:code'},
-  //  passport.authenticate('oauth2-jwt-bearer', { session: false, scopes: ['promos:delete'] }),
-  security.authenticationRequired,
-    function response(req, res, next) {
-      var removePromo = promos.find({'code' : req.params.code});
-      try {
-        promos.remove(removePromo);
-        res.send(204);
+  app.delete('/promos/:filter',
+    function (req, res, next) {
+      security.authenticationRequired(req, res, next, ['promos:delete']);
+    },
+    function respond(req, res, next) {
+      var query = promos.chain().find(
+        {
+          $or: [
+            {'code' : req.params.filter},
+            {'target' : req.params.filter}
+          ]
+        }
+      ).data();
+      console.log("Promos: " + JSON.stringify(query));
+       try {
+        promos.remove(query);
+        res.status(204);
       } catch (err) {
-        res.send(404, err);
+        res.status(400).send(err);
       }
-
       return next();
     }
   );
+
   //END: DELETE PROMOS (DELETE http://localhost:5000/promos)
 
   //BEGIN: DELETE ALL PROMOS (DELETE http://localhost:5000/delete)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete('/delete',
-  security.authenticationRequired,
+  function (req, res, next) {
+    security.authenticationRequired(req, res, next, ['promos:delete']);
+  },
     function respond(req, res, next) {
       var removeAll = promos.chain().remove();
       console.log("Removed all entries from database");
-      res.send(204, 'No more promos');
-
+     res.status(204).send('No more promos');
       return next();
     }
   );

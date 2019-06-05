@@ -9,11 +9,12 @@
   },
   "license": "Apache 2.0",
   "dependencies": {
-    "bunyan": "^1.8.1",
     "lokijs": "^1.4.1",
-    "passport-oauth2-jwt-bearer": "https://github.com/mcguinness/passport-okta-oidc-bearer.git",
-    "passport-restify": "^1.0.1",
-    "restify": "^4.1.1"
+	"express": "^4.16.4",
+	"cors": "^2.8.5",
+	"express": "^4.16.1",
+	"express": "^4.16.1",
+	"express": "^4.16.1"
   },
   "engines": {
     "node": "6.10.0"
