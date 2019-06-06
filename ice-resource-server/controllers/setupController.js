@@ -48,7 +48,7 @@ module.exports= function (app){
     // function (req, res, next) {
     //   security.authenticationRequired(req, res, next, ['promos:read']);
     // },
-    function respond(req, res, next) {
+    function (req, res, next) {
       var query = promos.chain().find(
         {
           $or: [
@@ -70,7 +70,7 @@ module.exports= function (app){
     // function (req, res, next) {
     //   security.authenticationRequired(req, res, next, ['promos:create']);
     // },
-    function respond(req, res, next) {
+    function (req, res, next) {
       var promo = req.body;
       console.log(promo);
       promo.created = new Date().toDateString();
@@ -100,7 +100,7 @@ module.exports= function (app){
     // function (req, res, next) {
     //   security.authenticationRequired(req, res, next, ['promos:delete']);
     // },
-    function respond(req, res, next) {
+    function (req, res, next) {
       var query = promos.chain().find(
         {
           $or: [
@@ -128,7 +128,7 @@ module.exports= function (app){
   // function (req, res, next) {
   //   security.authenticationRequired(req, res, next, ['promos:delete']);
   // },
-    function respond(req, res, next) {
+    function (req, res, next) {
       var removeAll = promos.chain().remove();
       console.log("Removed all entries from database");
      res.status(204).send('No more promos');
