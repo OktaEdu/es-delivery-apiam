@@ -1,7 +1,7 @@
 //const OktaJwtVerifier = require('@okta/jwt-verifier');
 
 //Authendicate and validate access token
-  function authenticationRequired(req, res, next, scopes) {
+  function validationRequired(req, res, next, scopes) {
 
 	//Substract the Access token
     // const authHeader = req.headers.authorization || '';
@@ -33,4 +33,4 @@
   //     });
   // }
 
-module.exports.authenticationRequired = authenticationRequired;
+module.exports.validationRequired = validationRequired;

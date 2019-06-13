@@ -1,6 +1,6 @@
 var loki = require('lokijs');
 var db = new loki('ice');
-const security = require('./securityController');
+const security = require('./securityUtils');
 
 module.exports= function (app){
   //BEGIN: STARTS IN-MEMORY DB (LOKIJS) AND SEED DATA
@@ -32,7 +32,7 @@ module.exports= function (app){
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get('/promos',
     function (req, res, next) {
-      security.authenticationRequired(req, res, next, ['promos:read']);
+      security.validationRequired(req, res, next, ['promos:read']);
     },
     function (req, res, next) {
       var query = promos.chain().find({}).simplesort('code').data();
@@ -46,7 +46,7 @@ module.exports= function (app){
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get('/promos/:filter',
     function (req, res, next) {
-      security.authenticationRequired(req, res, next, ['promos:read']);
+      security.validationRequired(req, res, next, ['promos:read']);
     },
     function (req, res, next) {
       var query = promos.chain().find(
@@ -68,7 +68,7 @@ module.exports= function (app){
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:create' CAN ACCESS
   app.post('/promos',
     function (req, res, next) {
-      security.authenticationRequired(req, res, next, ['promos:create']);
+      security.validationRequired(req, res, next, ['promos:create']);
     },
     function (req, res, next) {
       var promo = req.body;
@@ -98,7 +98,7 @@ module.exports= function (app){
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete('/promos/:filter',
     function (req, res, next) {
-      security.authenticationRequired(req, res, next, ['promos:delete']);
+      security.validationRequired(req, res, next, ['promos:delete']);
     },
     function (req, res, next) {
       var query = promos.chain().find(
@@ -126,7 +126,7 @@ module.exports= function (app){
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete('/delete',
   function (req, res, next) {
-    security.authenticationRequired(req, res, next, ['promos:delete']);
+    security.validationRequired(req, res, next, ['promos:delete']);
   },
     function (req, res, next) {
       var removeAll = promos.chain().remove();
