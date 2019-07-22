@@ -3,13 +3,25 @@ import router from '../router' //router: required to redirect users
 
 //constants
 // const OKTA_ORG = 'https://oktaiceXXX.oktapreview.com';
-// const AUTHZ_SERVER = OKTA_ORG;
-// const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
+// const AUTHZ_SERVER = OKTA_ORG + '/oauth2/default';
+// const AUTHZ_URL = AUTHZ_SERVER + '/v1/authorize';
 // const CLIENT_ID = okta.client.id; // command line env var: OKTA_CLIENT_ID
 // const REDIRECT_URL = window.location.origin + '/redirect';
 // const SCOPES = ['openid', 'profile', 'email'];
-// const TOKENS = ['token', 'id_token'];
-// const OKTA_AUTH_JS = new OktaAuth({
+
+//variables
+// var grantType;
+// var responseType;
+// if (OktaAuth.features.isPKCESupported()) {
+//   grantType = 'authorization_code';
+//   responseType = ['code'];
+// } else {
+//   console.log('PKCE is not supported in this browser');
+//   grantType = 'implicit';
+//   responseType = ['token', 'id_token'];
+// }
+// var OKTA_AUTH_JS = new OktaAuth({
+//   grantType: grantType,
 //   url: OKTA_ORG,
 //   clientId: CLIENT_ID,
 //   redirectUri: REDIRECT_URL,
@@ -204,7 +216,7 @@ export function loginWithForm(username, password) {
  .then(function (transaction) {
    if (transaction.status === 'SUCCESS') {
      OKTA_AUTH_JS.token.getWithoutPrompt({
-       responseType: TOKENS,
+       responseType: responseType,
        scopes: SCOPES,
        sessionToken: transaction.sessionToken
      })
