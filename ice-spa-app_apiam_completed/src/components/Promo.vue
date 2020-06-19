@@ -39,7 +39,7 @@ export default {
       .then(
         response => {
           this.promos = response.body;
-        }, 
+        },
         error => {
           console.log(error);
         }
