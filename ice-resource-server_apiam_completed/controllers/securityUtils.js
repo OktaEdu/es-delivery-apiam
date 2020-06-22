@@ -14,7 +14,7 @@ const OktaJwtVerifier = require('@okta/jwt-verifier');
 
 	//Initiate OktaJwtVerifier
     const verifier = new OktaJwtVerifier({
-      issuer: '	https://oktaicephe100.oktapreview.com/oauth2/aush6hs3h3vE72pRe0h7',
+      issuer: '	https://oktaicexxx.oktapreview.com/oauth2/auxxxxxxxxxxxxxxx',
       clientId: 'okta.client.id',
       assertClaims: {
         aud: 'http://localhost:5000',
