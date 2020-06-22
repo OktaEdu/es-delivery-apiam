@@ -112,7 +112,7 @@ module.exports= function (app){
       console.log("Promos: " + JSON.stringify(query));
        try {
         promos.remove(query);
-        res.status(204);
+        res.status(204).send('SUCCESS');
       } catch (err) {
         res.status(400).send(err);
       }

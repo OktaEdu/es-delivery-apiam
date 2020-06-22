@@ -3,8 +3,8 @@ import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
 
 //constants
 const OKTA_ORG = 'https://oktaiceXXX.oktapreview.com';
-const AUTHZ_SERVER = OKTA_ORG + '/oauth2/default';
-const AUTHZ_URL = AUTHZ_SERVER + '/v1/authorize';
+const AUTHZ_SERVER = OKTA_ORG;
+const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
 const CLIENT_ID = okta.client.id; // command line env var: OKTA_CLIENT_ID
 const REDIRECT_URL = window.location.origin + '/redirect';
 const SCOPES = ['openid', 'profile', 'email'];
@@ -110,22 +110,24 @@ export function validateAccessLocal(to, from, next) {
  * param Object next - for triggering the next step in the Vue lifecycle
  */
 export function validateAccessOkta(to, from, next) {
-  hasOktaSession(function (hasOktaSession) {
+  hasOktaSession(function( hasOktaSessionBool ) {
     // OKTA SESSION = FALSE
-    if (!hasOktaSession) {
+    if(!hasOktaSessionBool) {
       OKTA_AUTH_JS.tokenManager.clear();
       router.push('/loginform');
     } else {
-      hasValidIdToken(function (idToken) {
+      hasValidIdToken(function( hasValidIdTokenBool ) {
         // OKTA SESSION = TRUE and LOCAL SESSION = FALSE
-        if (!idToken) {
+        if(!hasValidIdTokenBool) {
           OKTA_AUTH_JS.token.getWithoutPrompt({
             responseType: responseType,
             scopes: SCOPES
           })
           .then(function( tokenArray ) {
-            OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
-            OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
+            OKTA_AUTH_JS.tokenManager.add('access_token',
+                                          tokenArray[0]);
+            OKTA_AUTH_JS.tokenManager.add('id_token',
+                                          tokenArray[1]);
             next();
           })
           .catch(function(err) {

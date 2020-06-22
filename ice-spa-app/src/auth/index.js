@@ -3,8 +3,8 @@ import router from '../router' //router: required to redirect users
 
 //constants
 // const OKTA_ORG = 'https://oktaiceXXX.oktapreview.com';
-// const AUTHZ_SERVER = OKTA_ORG + '/oauth2/default';
-// const AUTHZ_URL = AUTHZ_SERVER + '/v1/authorize';
+// const AUTHZ_SERVER = OKTA_ORG;
+// const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
 // const CLIENT_ID = okta.client.id; // command line env var: OKTA_CLIENT_ID
 // const REDIRECT_URL = window.location.origin + '/redirect';
 // const SCOPES = ['openid', 'profile', 'email'];

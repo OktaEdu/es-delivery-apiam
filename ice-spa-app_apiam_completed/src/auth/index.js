@@ -3,11 +3,11 @@ import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
 
 //constants
 const OKTA_ORG = 'https://oktaiceXXX.oktapreview.com';
-const AUTHZ_SERVER = OKTA_ORG + '/oauth2/default';
+const AUTHZ_SERVER = OKTA_ORG + '/oauth2/' + 'ausXXXXXXXXXXXXXXXX';
 const AUTHZ_URL = AUTHZ_SERVER + '/v1/authorize';
 const CLIENT_ID = okta.client.id; // command line env var: OKTA_CLIENT_ID
 const REDIRECT_URL = window.location.origin + '/redirect';
-const SCOPES = ['openid', 'profile', 'email'];
+const SCOPES = ['openid', 'profile', 'email','promos:read'];
 
 //variables
 var grantType;
