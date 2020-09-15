@@ -52,15 +52,15 @@ export function loginOkta() {
  */
 export function redirect() {
   OKTA_AUTH_JS.token.parseFromUrl()
-  .then(function (tokenArray) {
-    OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
-    OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
-    router.push('/profile');
-  })
-  .catch(function (err) {
-    alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
-    router.push('/error');
-  });
+    .then(function (tokenArray) {
+      OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
+      OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
+      router.push('/profile');
+    })
+    .catch(function (err) {
+      alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
+      router.push('/error');
+    });
 }
 
 /**
@@ -116,7 +116,7 @@ export function validateAccessOkta(to, from, next) {
     // OKTA SESSION = FALSE
     if(!hasOktaSessionBool) {
       OKTA_AUTH_JS.tokenManager.clear();
-      router.push('/loginform');
+      router.push('/login');
     } else {
       hasValidIdToken(function( hasValidIdTokenBool ) {
         // OKTA SESSION = TRUE and LOCAL SESSION = FALSE
@@ -125,11 +125,10 @@ export function validateAccessOkta(to, from, next) {
             responseType: responseType,
             scopes: SCOPES
           })
-          .then(function( tokenArray ) {
-            OKTA_AUTH_JS.tokenManager.add('access_token',
-                                          tokenArray[0]);
-            OKTA_AUTH_JS.tokenManager.add('id_token',
-                                          tokenArray[1]);
+          .then(function(res) {
+            var tokens = res.tokens;
+            OKTA_AUTH_JS.tokenManager.add('id_token', tokens.idToken);
+            OKTA_AUTH_JS.tokenManager.add('access_token', tokens.accessToken);
             next();
           })
           .catch(function(err) {
@@ -278,11 +277,11 @@ export function loginWithForm(username, password) {
        scopes: SCOPES,
        sessionToken: transaction.sessionToken
      })
-     .then(function (tokenArray) {
-       //save the id_token and the access_token in the tokenManager
-       OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
-       OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
-       router.push('/profile')
+     .then(function(res) {
+       var tokens = res.tokens;
+       OKTA_AUTH_JS.tokenManager.add('id_token', tokens.idToken);
+       OKTA_AUTH_JS.tokenManager.add('access_token', tokens.accessToken);
+       router.push('/profile');
      })
      .catch(function (err) {
        //Errors during the login are returned as OAuthError

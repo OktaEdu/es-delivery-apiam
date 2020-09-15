@@ -1,41 +1,35 @@
 import router from '../router' //router: required to redirect users
-import {OktaAuth,
-   OktaAuthOptions,
-  TokenManager,
-  AccessToken,
-  IDToken,
-  UserClaims,
-  TokenParams} from '@okta/okta-auth-js' //okta authjs: required login in Okta
+// import {OktaAuth} from '@okta/okta-auth-js' //okta authjs: required login in Okta
 
 //constants
-const OKTA_ORG = 'https://oktaice699.oktapreview.com';
-const AUTHZ_SERVER = OKTA_ORG;
-const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
-const CLIENT_ID = okta.client.id; // command line env var: OKTA_CLIENT_ID
-const REDIRECT_URL = window.location.origin + '/redirect';
-const SCOPES = ['openid', 'profile', 'email'];
+// const OKTA_ORG = 'https://oktaiceXXX.oktapreview.com';
+// const AUTHZ_SERVER = OKTA_ORG;
+// const AUTHZ_URL = AUTHZ_SERVER + '/oauth2/v1/authorize';
+// const CLIENT_ID = okta.client.id; // command line env var: OKTA_CLIENT_ID
+// const REDIRECT_URL = window.location.origin + '/redirect';
+// const SCOPES = ['openid', 'profile', 'email'];
 
-//variables
-var grantType;
-var responseType;
-var pkceFlag;
-if (!OktaAuth.features.isPKCESupported()) {
-  console.log('PKCE is not supported in this browser');
-  grantType = 'implicit';
-  responseType = ['token', 'id_token'];
-  pkceFlag = false;
-}
-
-//Initiate the Okta Client
-const OKTA_AUTH_JS = new OktaAuth({
-  grantType: grantType,
-  url: OKTA_ORG,
-  clientId: CLIENT_ID,
-  redirectUri: REDIRECT_URL,
-  issuer: AUTHZ_SERVER,
-  authorizeUrl: AUTHZ_URL,
-  pkce: pkceFlag
-});
+// //variables
+// var grantType;
+// var responseType;
+// var pkceFlag;
+// if (!OktaAuth.features.isPKCESupported()) {
+//   console.log('PKCE is not supported in this browser');
+//   grantType = 'implicit';
+//   responseType = ['token', 'id_token'];
+//   pkceFlag = false;
+// }
+//
+// //Initiate the Okta Client
+// const OKTA_AUTH_JS = new OktaAuth({
+//   grantType: grantType,
+//   url: OKTA_ORG,
+//   clientId: CLIENT_ID,
+//   redirectUri: REDIRECT_URL,
+//   issuer: AUTHZ_SERVER,
+//   authorizeUrl: AUTHZ_URL,
+//   pkce: pkceFlag
+// });
 
 /**
  * TODO: loginOkta
@@ -43,11 +37,7 @@ const OKTA_AUTH_JS = new OktaAuth({
  * access public
  */
 export function loginOkta() {
-  OKTA_AUTH_JS.token.getWithRedirect({
-    responseType: responseType,
-    state: "abcd",
-    scopes: SCOPES
-  });
+
 }
 
 /**
@@ -58,18 +48,7 @@ export function loginOkta() {
  * access public
  */
 export function redirect() {
-  OKTA_AUTH_JS.token.parseFromUrl()
-  .then(function (res) {
-    var state = res.state;
-    var tokens = res.tokens;
-    OKTA_AUTH_JS.tokenManager.add('access_token', tokens.accesstoken);
-    OKTA_AUTH_JS.tokenManager.add('id_token', tokens.idToken);
-    router.push('/profile');
-  })
-  .catch(function (err) {
-    alert('error: ' + err.errorCode + '\nmessage: ' + err.message);
-    router.push('/error');
-  });
+
 }
 
 /**
@@ -79,7 +58,7 @@ export function redirect() {
  * return Object idToken
  */
 export function getIdToken() {
- return OKTA_AUTH_JS.tokenManager.get('id_token');
+
 }
 
 /**
@@ -89,7 +68,7 @@ export function getIdToken() {
  * return Object accessToken
  */
 export function getAccessToken() {
- return OKTA_AUTH_JS.tokenManager.get('access_token');
+
 }
 
 /**
@@ -243,11 +222,11 @@ export function loginWithForm(username, password) {
        scopes: SCOPES,
        sessionToken: transaction.sessionToken
      })
-     .then(function (tokenArray) {
-       //save the id_token and the access_token in the tokenManager
-       OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
-       OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
-       router.push('/profile')
+     .then(function(res) {
+       var tokens = res.tokens;
+       OKTA_AUTH_JS.tokenManager.add('id_token', tokens.idToken);
+       OKTA_AUTH_JS.tokenManager.add('access_token', tokens.accessToken);
+       router.push('/profile');
      })
      .catch(function (err) {
        //Errors during the login are returned as OAuthError
