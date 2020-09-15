@@ -1,5 +1,5 @@
 import router from '../router' //router: required to redirect users
-import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
+import {OktaAuth} from '@okta/okta-auth-js' //okta authjs: required login in Okta
 
 //constants
 const OKTA_ORG = 'https://oktaiceXXX.oktapreview.com';
@@ -12,21 +12,23 @@ const SCOPES = ['openid', 'profile', 'email','promos:read'];
 //variables
 var grantType;
 var responseType;
-if (OktaAuth.features.isPKCESupported()) {
-  grantType = 'authorization_code';
-  responseType = ['code'];
-} else {
+var pkceFlag;
+if (!OktaAuth.features.isPKCESupported()) {
   console.log('PKCE is not supported in this browser');
   grantType = 'implicit';
   responseType = ['token', 'id_token'];
+  pkceFlag = false;
 }
-var OKTA_AUTH_JS = new OktaAuth({
+
+//Initiate the Okta Client
+const OKTA_AUTH_JS = new OktaAuth({
   grantType: grantType,
   url: OKTA_ORG,
   clientId: CLIENT_ID,
   redirectUri: REDIRECT_URL,
   issuer: AUTHZ_SERVER,
   authorizeUrl: AUTHZ_URL,
+  pkce: pkceFlag
 });
 
 /**

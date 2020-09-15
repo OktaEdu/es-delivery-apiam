@@ -1,5 +1,5 @@
 import router from '../router' //router: required to redirect users
-import OktaAuth from '@okta/okta-auth-js' //okta authjs: required login in Okta
+import {OktaAuth} from '@okta/okta-auth-js' //okta authjs: required login in Okta
 
 
 //constants

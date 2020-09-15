@@ -21,6 +21,8 @@ export default new Router({
     { path: '/premium-promos', component: Promo },
     { path: '/profile', component: Profile },
     //Functions without page
+    { path: '/login', component: loginOkta },
+    { path: '/redirect', component: redirect },
     { path: '/checkOktaSession', component: checkOktaSession },
     { path: '/logoutOkta', component: logoutOkta },
     { path: '/singleLogout', component: singleLogout }
