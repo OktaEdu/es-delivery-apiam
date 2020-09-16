@@ -52,10 +52,11 @@ export function loginOkta() {
  */
 export function redirect() {
   OKTA_AUTH_JS.token.parseFromUrl()
-    .then(function (tokenArray) {
-      OKTA_AUTH_JS.tokenManager.add('access_token', tokenArray[0]);
-      OKTA_AUTH_JS.tokenManager.add('id_token', tokenArray[1]);
-      router.push('/profile');
+  .then(function(res) {
+    var tokens = res.tokens;
+    OKTA_AUTH_JS.tokenManager.add('id_token', tokens.idToken);
+    OKTA_AUTH_JS.tokenManager.add('access_token', tokens.accessToken);
+    router.push('/profile');
     })
     .catch(function (err) {
       alert('error: ' + err.errorCode + '\nmessage: ' + err.message);

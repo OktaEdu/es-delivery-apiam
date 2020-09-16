@@ -57,8 +57,8 @@ export function validateAuthZ(to, from, next) {
             responseType: tokens,
             scopes: scopes
           })
-          .then(function (tokenArray) {
-            oktaAuth.tokenManager.add('access_token', tokenArray[0]);
+          .then(function (res) {
+            oktaAuth.tokenManager.add('access_token', res.tokens.accessToken);
             next();
           })
           .catch(function (err) {
@@ -120,8 +120,8 @@ export function loginAtOkta() {
  */
 export function redirect() {
   oktaAuth.token.parseFromUrl()
-  .then(function (tokenArray) {
-    oktaAuth.tokenManager.add('id_token', tokenArray[0]);
+  .then(function (res) {
+    oktaAuth.tokenManager.add('id_token', res.tokens.idToken);
     router.push(getRelayState());
   })
   .catch(function (err) {
@@ -235,11 +235,10 @@ export function validateAccessOkta(to, from, next) {
             responseType: tokens,
             scopes: scopes
           })
-          .then(function (tokenArray) {
-            oktaAuth.tokenManager.add('access_token',
-                                          tokenArray[0]);
-            oktaAuth.tokenManager.add('id_token',
-                                          tokenArray[1]);
+          .then(function(res) {
+            var tokens = res.tokens;
+            oktaAuth.tokenManager.add('id_token', tokens.idToken);
+            oktaAuth.tokenManager.add('access_token', tokens.accessToken);
             next();
           })
           .catch(function (err) {
@@ -391,8 +390,8 @@ export function loginWithForm(login, password) {
      })
      .then(function(res) {
        var tokens = res.tokens;
-       OKTA_AUTH_JS.tokenManager.add('id_token', tokens.idToken);
-       OKTA_AUTH_JS.tokenManager.add('access_token', tokens.accessToken);
+       oktaAuth.tokenManager.add('id_token', tokens.idToken);
+       oktaAuth.tokenManager.add('access_token', tokens.accessToken);
        router.push('/profile');
      })
      .catch(function (err) {
