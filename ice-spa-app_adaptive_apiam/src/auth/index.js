@@ -305,10 +305,9 @@ export function logoutOkta() {
   hasOktaSession(function (hasOktaSessionBool) {
     if (hasOktaSessionBool) {
       //Sign out from Okta
-      oktaAuth.signOut()
-      .then(function () {
-        router.push('/home');
-      })
+      OKTA_AUTH_JS.signOut({
+          postLogoutRedirectUri:'${window.location.origin}/home'
+        })
       .catch(function (err) {
         console.error(err);
         router.push('/error');
@@ -331,10 +330,9 @@ export function singleLogout() {
   hasOktaSession(function (hasOktaSessionBool) {
     if (hasOktaSessionBool) {
       //Sign out from Okta
-      oktaAuth.signOut()
-      .then(function () {
-        router.push('/home');
-      })
+      OKTA_AUTH_JS.signOut({
+          postLogoutRedirectUri:'${window.location.origin}/home'
+        })
       .catch(function (err) {
         console.error(err);
         router.push('/error');
