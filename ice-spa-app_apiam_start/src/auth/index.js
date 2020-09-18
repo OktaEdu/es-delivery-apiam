@@ -96,7 +96,7 @@ export function validateAccessLocal(to, from, next) {
     // LOCAL SESSION = FALSE
     if (!idToken) {
       OKTA_AUTH_JS.tokenManager.clear();
-      router.push('/loginform');
+      router.push('/login');
     // LOCAL SESSION = TRUE
     } else {
       next();
@@ -117,7 +117,7 @@ export function validateAccessOkta(to, from, next) {
     // OKTA SESSION = FALSE
     if(!hasOktaSessionBool) {
       OKTA_AUTH_JS.tokenManager.clear();
-      router.push('/loginform');
+      router.push('/login');
     } else {
       hasValidIdToken(function( hasValidIdTokenBool ) {
         // OKTA SESSION = TRUE and LOCAL SESSION = FALSE
