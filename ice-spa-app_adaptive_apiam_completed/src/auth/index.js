@@ -37,7 +37,7 @@ export function validateAuthZ(to, from, next) {
       oktaAuth = createOktaAuth(redirectUri);
       // Base OIDC Scopes that this app requires
       // TODO: Update Scopes
-      scopes = ['openid'];
+      scopes = ['openid','profile'];
       tokens = ['id_token'];
       router.push('/login');
     // APP SESSION = TRUE
@@ -50,7 +50,7 @@ export function validateAuthZ(to, from, next) {
           // based on what is in the promosScopes claim in the ID Token,
           // set the scopes requested for the access token
           // TODO: Update Scopes to use Claim from ID Token
-          scopes = ['promos:read'];
+          scopes = idToken.claims.promosScopes;
           tokens = ['token'];
           // OKTA SESSION = TRUE and LOCAL SESSION = FALSE
           oktaAuth.token.getWithoutPrompt({
