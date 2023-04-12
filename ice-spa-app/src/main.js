@@ -1,21 +1,30 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './components/App'
-import router from './router'
-import VueResource from 'vue-resource'
-Vue.use(VueResource);
+import { createApp } from "vue";
+import { OktaAuth } from "@okta/okta-auth-js";
+import OktaVue from "@okta/okta-vue";
+import App from "./App.vue";
+import router from "./router";
 
-Vue.config.productionTip = false;
+import myConfig from "@/config";
 
-// Check the users auth status when the app starts
-//import { isLoggedIn } from './auth'
-//isLoggedIn();
+// instantiate an OktaAuth object with the settings in config.js
+const oktaAuth = new OktaAuth(myConfig.oidc);
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
-});
+createApp(App)
+  .directive("focus", {
+    // When the bound element is inserted into the DOM...
+    mounted: function (el) {
+      // Focus the element
+      el.focus();
+    },
+  })
+  .use(router)
+  .use(OktaVue, {
+    oktaAuth,
+    onAuthRequired: () => {
+      router.push("/login");
+    },
+    onAuthResume: () => {
+      router.push("/login");
+    },
+  })
+  .mount("#app");
