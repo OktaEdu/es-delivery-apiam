@@ -3,11 +3,23 @@
     <div class="row h-100">
       <div class="col-md-10 offset-md-1" id="content-container">
         <h1>Promos</h1>
-        <button class="btn btn-primary" v-on:click="getPromos()">
-          Get our Premium Promos
+        <button
+          class="btn btn-primary"
+          id="premiumPromos"
+          v-on:click="getPromos()"
+        >
+          Premium Promos
         </button>
-        <p>Only for users with our premium account</p>
-        <table class="table table-striped" v-if="promos">
+
+        <button
+          class="btn btn-primary"
+          id="publicPromos"
+          v-on:click="getPublicPromos()"
+        >
+          Public Promos
+        </button>
+
+        <table class="table table-striped" id="promos" v-if="promos">
           <thead>
             <tr>
               <th>Code</th>
@@ -34,8 +46,8 @@
 <script>
 // @ is an alias to /src
 import Footer from "@/components/Footer.vue";
-const PUBLIC_URL = "http://localhost:8081/publicpromos";
-const PREMIUM_URL = "http://localhost:8081/promos/PREMIUM";
+
+const API_URL = "http://localhost:8081";
 
 export default {
   name: "Promos",
@@ -49,16 +61,16 @@ export default {
   },
   methods: {
     async getPromos() {
-      const res = await fetch(PREMIUM_URL);
-      const finalRes = await res.json();
-      this.promos = finalRes;
-      console.log(this.promos);
+      const res = await fetch(API_URL + "/promos/PREMIUM");
+      this.promos = await res.json();
+      document.getElementById("premiumPromos").style.display = "none";
+      document.getElementById("publicPromos").style.display = "inline";
     },
     async getPublicPromos() {
-      const res = await fetch(PUBLIC_URL);
-      const finalRes = await res.json();
-      this.promos = finalRes;
-      console.log(this.promos);
+      const res = await fetch(API_URL + "/publicpromos");
+      this.promos = await res.json();
+      document.getElementById("premiumPromos").style.display = "inline";
+      document.getElementById("publicPromos").style.display = "none";
     },
   },
   mounted() {
