@@ -11,19 +11,20 @@
     //   return res.status(401).end();
     // }
     // const accessToken = match[1];
+    // const AUDIENCE = "http://localhost:8081";
 
 	//Initiate OktaJwtVerifier
     // const verifier = new OktaJwtVerifier({
     //   issuer: 'https://oktaice###.oktapreview.com/oauth2/a###############',
     //   clientId: 'okta.client.id',
     //   assertClaims: {
-    //     aud: 'http://localhost:8081',
+    //     aud: AUDIENCE,
     //     'scp.includes': scopes
     //   }
     // });
 
 	//Verify the access token
-  //   verifier.verifyAccessToken(accessToken)
+  //   verifier.verifyAccessToken(accessToken, AUDIENCE)
   //     .then((jwt) => {
   //       req.jwt = jwt;
   //       next();
