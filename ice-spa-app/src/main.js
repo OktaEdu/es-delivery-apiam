@@ -28,3 +28,7 @@ createApp(App)
     },
   })
   .mount("#app");
+
+export async function getAuthHeader() {
+  return {};
+}

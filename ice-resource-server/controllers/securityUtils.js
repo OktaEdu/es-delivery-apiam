@@ -1,6 +1,6 @@
 //const OktaJwtVerifier = require('@okta/jwt-verifier');
 
-//Authendicate and validate access token
+//Authenticate and validate access token
   function validationRequired(req, res, next, scopes) {
 
 	//Substract the Access token
@@ -17,7 +17,7 @@
     //   issuer: 'https://oktaice###.oktapreview.com/oauth2/a###############',
     //   clientId: 'okta.client.id',
     //   assertClaims: {
-    //     aud: 'http://localhost:5000',
+    //     aud: 'http://localhost:8081',
     //     'scp.includes': scopes
     //   }
     // });

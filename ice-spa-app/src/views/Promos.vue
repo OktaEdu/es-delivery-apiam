@@ -46,7 +46,7 @@
 <script>
 // @ is an alias to /src
 import Footer from "@/components/Footer.vue";
-
+// import {getAuthHeader} from "@/main.js"
 const API_URL = "http://localhost:8081";
 
 export default {
