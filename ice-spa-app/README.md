@@ -5,11 +5,11 @@ There are two methods of Authentication modelled in this application that can be
 
 ## Redirect Model of Authentication
 
-This is the simplest model of Authentication as it calls on AuthJS to simply redirect to your Okta org for authentication asynchronously. Once authentication is complete, the user is redirected back to the application.
+This is the simplest model of Authentication as it calls on AuthJS to simply redirect to your Okta org for authentication asynchronously. Once authentication is complete, the user is redirected back to the application. Configure this in `components/Login.vue`.
 
 ## Embedded SDK Model of Authentication
 
-This model is more complex because you have to handle the response from Okta and the SDK during the authentication process. This is done in the `Login` view (`views/Login.vue`). You can read more about the Embedded SDK Model of Authentication here: https://developer.okta.com/docs/guides/oie-embedded-sdk-use-case-basic-sign-in/nodejs/main/
+This model is more complex because you have to handle the response from Okta and the SDK during the authentication process. This is done in the `Login` view (`views/Login.vue`), and configured for use in `components/Login.vue`. You can read more about the Embedded SDK Model of Authentication here: https://developer.okta.com/docs/guides/oie-embedded-sdk-use-case-basic-sign-in/nodejs/main/
 
 ## Project setup
 
