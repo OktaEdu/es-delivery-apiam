@@ -6,10 +6,10 @@
         >Logout</a
       >
       <!--Redirect model of AuthN-->
-      <!-- <a href="#" v-else @click="login">Log In</a> -->
+      <a href="#" v-else @click="login">Log In</a>
 
       <!--Embedded SDK model of AuthN-->
-      <a href="/login" v-else>Log In</a>
+      <!--<a href="/login" v-else>Log In</a>-->
     </div>
 
     <h1>{{ msg }}</h1>
