@@ -3,21 +3,23 @@
     <div class="row h-100">
       <div class="col-md-10 offset-md-1" id="content-container">
         <h1>Promos</h1>
-        <button
-          class="btn btn-primary"
-          id="premiumPromos"
-          v-on:click="getPromos()"
-        >
-          Premium Promos
-        </button>
+        <div v-if="idToken">
+          <button
+            class="btn btn-primary"
+            id="premiumPromos"
+            v-on:click="getPromos()"
+          >
+            Premium Promos
+          </button>
 
-        <button
-          class="btn btn-primary"
-          id="publicPromos"
-          v-on:click="getPublicPromos()"
-        >
-          Public Promos
-        </button>
+          <button
+            class="btn btn-primary"
+            id="publicPromos"
+            v-on:click="getPublicPromos()"
+          >
+            Public Promos
+          </button>
+        </div>
 
         <table class="table table-striped" id="promos" v-if="promos">
           <thead>
@@ -57,6 +59,7 @@ export default {
   data() {
     return {
       promos: [],
+      idToken: Boolean,
     };
   },
   methods: {
@@ -69,8 +72,13 @@ export default {
     async getPublicPromos() {
       const res = await fetch(API_URL + "/publicpromos");
       this.promos = await res.json();
-      document.getElementById("premiumPromos").style.display = "inline";
-      document.getElementById("publicPromos").style.display = "none";
+      this.idToken = await this.$auth.tokenManager.get("idToken");
+      this.idToken = this.idToken ? true : false;
+
+      if (this.idToken) {
+        document.getElementById("publicPromos").style.display = "none";
+        document.getElementById("premiumPromos").style.display = "inline";
+      }
     },
   },
   mounted() {

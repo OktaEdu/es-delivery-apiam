@@ -18,7 +18,7 @@
                   class="btn btn-primary"
                   v-on:click="showIdTokenButton()"
                 >
-                  View Identity Token
+                  View ID Token
                 </button>
 
                 <button
@@ -35,7 +35,7 @@
           <div id="idTokenTable">
             <table class="table table-striped">
               <caption style="caption-side: top">
-                Identity Token
+                ID Token
               </caption>
               <thead>
                 <tr>
