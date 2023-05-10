@@ -21,7 +21,7 @@ export function validationRequired(req, res, next, scopes) {
   //   }
   // });
   //Verify the access token
-  //   verifier.verifyAccessToken(accessToken)
+  //   verifier.verifyAccessToken(accessToken, configs.audience)
   //     .then((jwt) => {
   //       req.jwt = jwt;
   //       next();
