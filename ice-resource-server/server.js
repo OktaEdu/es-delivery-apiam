@@ -1,8 +1,8 @@
 //BEGIN: IMPORT CODE DEPENDENCIES
-const express = require("express");
-var cors = require("cors");
-var bodyParser = require("body-parser");
-var setupController = require("./controllers/setupController");
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import setupController from "./controllers/setupController.js";
 //END: IMPORT CODE DEPENDENCIES
 
 //APP CONFIGURATION SETUP
