@@ -12,7 +12,6 @@
             >
               Premium Promos
             </button>
-
             <button
               class="btn btn-primary"
               id="publicPromos"
@@ -21,7 +20,6 @@
               Public Promos
             </button>
           </div>
-
           <table class="table table-striped" id="promos">
             <thead>
               <tr>
@@ -42,7 +40,7 @@
           </table>
         </div>
         <div v-else>
-          No promos found. Check that API resource server is running.
+          No promos found. Check if API resource server is running.
         </div>
       </div>
     </div>
