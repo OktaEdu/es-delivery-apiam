@@ -3,42 +3,47 @@
     <div class="row h-100">
       <div class="col-md-10 offset-md-1" id="content-container">
         <h1>Promos</h1>
-        <div v-if="idToken">
-          <button
-            class="btn btn-primary"
-            id="premiumPromos"
-            v-on:click="getPromos()"
-          >
-            Premium Promos
-          </button>
+        <div v-if="promos.length">
+          <div v-if="idToken">
+            <button
+              class="btn btn-primary"
+              id="premiumPromos"
+              v-on:click="getPromos()"
+            >
+              Premium Promos
+            </button>
 
-          <button
-            class="btn btn-primary"
-            id="publicPromos"
-            v-on:click="getPublicPromos()"
-          >
-            Public Promos
-          </button>
+            <button
+              class="btn btn-primary"
+              id="publicPromos"
+              v-on:click="getPublicPromos()"
+            >
+              Public Promos
+            </button>
+          </div>
+
+          <table class="table table-striped" id="promos">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Target</th>
+                <th>Description</th>
+                <th>Validity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="promo in promos" :key="promo">
+                <td>{{ promo.code }}</td>
+                <td>{{ promo.target }}</td>
+                <td>{{ promo.description }}</td>
+                <td>{{ promo.endDate }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <table class="table table-striped" id="promos" v-if="promos">
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Target</th>
-              <th>Description</th>
-              <th>Validity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="promo in promos" :key="promo">
-              <td>{{ promo.code }}</td>
-              <td>{{ promo.target }}</td>
-              <td>{{ promo.description }}</td>
-              <td>{{ promo.endDate }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div v-else>
+          No promos found. Check that API resource server is running.
+        </div>
       </div>
     </div>
   </div>
