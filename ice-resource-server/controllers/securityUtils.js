@@ -3,7 +3,7 @@ import configs from "../config.js";
 
 //Authenticate and validate access token
 export function validationRequired(req, res, next, scopes) {
-  //Substract the Access token
+  //Extract the Access token
   // const authHeader = req.headers.authorization ? req.headers.authorization : "";
   // const match = authHeader.match(/Bearer (.+)/);
   //

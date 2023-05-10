@@ -16,3 +16,5 @@ app.listen(process.env.PORT || 8081);
 
 //START THE APP
 setupController(app);
+
+console.log("API running on http://localhost:8081");
