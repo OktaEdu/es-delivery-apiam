@@ -47,7 +47,7 @@ export default function (app) {
   //END: STARTS IN-MEMORY DB (LOKIJS) AND SEED DATA
 
   //BEGIN: PROMO API ENDPOINTS
-  //BEGIN: GET PUBLIC PROMOS (GET http://localhost:5000/publicpromos)
+  //BEGIN: GET PUBLIC PROMOS (GET http://localhost:8081/publicpromos)
   //EVERYBODY CAN ACCESS THIS (NO PROTECTION REQUIRED)
   app.get("/publicpromos", function (req, res, next) {
     var query = promos.chain().find({ target: "PUBLIC" }).data();
@@ -55,9 +55,9 @@ export default function (app) {
     res.status(200).send(query);
     return next();
   });
-  //END: GET PUBLIC PROMOS (GET http://localhost:5000/publicpromos)
+  //END: GET PUBLIC PROMOS (GET http://localhost:8081/publicpromos)
 
-  //BEGIN: GET ALL PROMOS (GET http://localhost:5000/promos)
+  //BEGIN: GET ALL PROMOS (GET http://localhost:8081/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get(
     "/promos",
@@ -71,9 +71,9 @@ export default function (app) {
       return next();
     }
   );
-  //END: GET ALL PROMOS (GET http://localhost:5000/promos)
+  //END: GET ALL PROMOS (GET http://localhost:8081/promos)
 
-  //BEGIN: SEARCH SPECIFIC PROMOS (GET http://localhost:5000/promos/:filter)
+  //BEGIN: SEARCH SPECIFIC PROMOS (GET http://localhost:8081/promos/:filter)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get(
     "/promos/:filter",
@@ -92,9 +92,9 @@ export default function (app) {
       return next();
     }
   );
-  //END: SEARCH SPECIFIC PROMOS (GET http://localhost:5000/promos/:filter)
+  //END: SEARCH SPECIFIC PROMOS (GET http://localhost:8081/promos/:filter)
 
-  //BEGIN: CREATE PROMOS (POST http://localhost:5000/promos)
+  //BEGIN: CREATE PROMOS (POST http://localhost:8081/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:create' CAN ACCESS
   app.post(
     "/promos",
@@ -129,9 +129,9 @@ export default function (app) {
       return next();
     }
   );
-  //END: CREATE PROMOS (POST http://localhost:5000/promos)
+  //END: CREATE PROMOS (POST http://localhost:8081/promos)
 
-  //BEGIN: DELETE PROMOS (DELETE http://localhost:5000/promos)
+  //BEGIN: DELETE PROMOS (DELETE http://localhost:8081/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete(
     "/promos/:filter",
@@ -156,9 +156,9 @@ export default function (app) {
     }
   );
 
-  //END: DELETE PROMOS (DELETE http://localhost:5000/promos)
+  //END: DELETE PROMOS (DELETE http://localhost:8081/promos)
 
-  //BEGIN: DELETE ALL PROMOS (DELETE http://localhost:5000/delete)
+  //BEGIN: DELETE ALL PROMOS (DELETE http://localhost:8081/delete)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete(
     "/delete",
@@ -172,6 +172,6 @@ export default function (app) {
       return next();
     }
   );
-  //END: DELETE ALL PROMOS (DELETE http://localhost:5000/delete)
+  //END: DELETE ALL PROMOS (DELETE http://localhost:8081/delete)
   //END: PROMO API ENDPOINTS
 }
