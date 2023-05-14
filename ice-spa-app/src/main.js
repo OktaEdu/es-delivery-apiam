@@ -23,8 +23,8 @@ createApp(App)
     onAuthRequired: async () => {
       await oktaAuth.signInWithRedirect({ originalUri: "/" });
     },
-    onAuthResume: () => {
-      router.push("/profile");
+    onAuthResume: async () => {
+      await oktaAuth.signInWithRedirect({ originalUri: "/" });
     },
   })
   .mount("#app");
