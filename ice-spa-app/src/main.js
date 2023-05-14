@@ -32,3 +32,33 @@ createApp(App)
 export async function getAuthHeader() {
   return {};
 }
+
+export async function adaptScopes() {
+  const accessToken = await oktaAuth.tokenManager.get("accessToken");
+  const idToken = await oktaAuth.tokenManager.get("idToken");
+  let userInfo = await oktaAuth.token.getUserInfo(accessToken, idToken);
+  let scopes = userInfo["promosScopes"].concat(myConfig.oidc.scopes);
+  console.log(scopes);
+  let currentTime = new Date().getTime();
+  let updatedTime = new Date(currentTime + 2 * 60 * 60 * 1000);
+  var tokenToRenew = {
+    accessToken: accessToken,
+    claims: { scps: scopes },
+    scopes: scopes,
+    expiresAt: updatedTime,
+    authorizeUrl: myConfig.oidc.authorizeUrl,
+    issuer: myConfig.oidc.issuer,
+    clientId: myConfig.oidc.clientId,
+  };
+  oktaAuth.token
+    .renew(tokenToRenew)
+    .then(function (freshToken) {
+      console.log(freshToken);
+      oktaAuth.tokenManager.add("accessToken", freshToken);
+    })
+    .catch(function (err) {
+      // handle OAuthError
+      console.log(err);
+    });
+  return;
+}
