@@ -33,6 +33,7 @@ const routes = [
   {
     path: "/profile",
     component: ProfileComponent,
+    meta: { requiresAuth: true },
   },
   {
     path: "/promos",

@@ -20,11 +20,11 @@ createApp(App)
   .use(router)
   .use(OktaVue, {
     oktaAuth,
-    onAuthRequired: () => {
-      router.push("/login");
+    onAuthRequired: async () => {
+      await oktaAuth.signInWithRedirect({ originalUri: "/" });
     },
     onAuthResume: () => {
-      router.push("/login");
+      router.push("/profile");
     },
   })
   .mount("#app");
