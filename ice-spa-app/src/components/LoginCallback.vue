@@ -8,7 +8,7 @@ CONDITIONS OF ANYKIND, either express or implied. * * See the License for the
 specific languagegoverning permissions and limitations under the License. */
 <script>
 import { defineComponent, h } from "vue";
-import { adaptScopes } from "@/main.js";
+//import { adaptScopes } from "@/main.js";
 export default defineComponent({
   name: "LoginCallback",
   data() {
@@ -31,7 +31,7 @@ export default defineComponent({
       }
       this.error = e.toString();
     }
-    await adaptScopes();
+    //await adaptScopes();
   },
   render() {
     if (this.$slots.error) {

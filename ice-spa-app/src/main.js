@@ -34,14 +34,19 @@ export async function getAuthHeader() {
 }
 
 export async function adaptScopes() {
+  // Get existing access token and id token (we will call this only after successful login)
   const accessToken = await oktaAuth.tokenManager.get("accessToken");
   const idToken = await oktaAuth.tokenManager.get("idToken");
+  // Get user info associated with the tokens
   let userInfo = await oktaAuth.token.getUserInfo(accessToken, idToken);
+  // Extract the promosScopes group claim (array of scopes)
+  // and concatenate that array with the array of existing scopes set in config.js
   let scopes = userInfo["promosScopes"].concat(myConfig.oidc.scopes);
-  console.log(scopes);
+  // Create an expiration time that is one hour from now
   let currentTime = new Date().getTime();
   let updatedTime = new Date(currentTime + 2 * 60 * 60 * 1000);
-  var tokenToRenew = {
+  // Configuration for the updated/renewed token with custom scopes
+  let tokenToRenew = {
     accessToken: accessToken,
     claims: { scps: scopes },
     scopes: scopes,
@@ -50,6 +55,8 @@ export async function adaptScopes() {
     issuer: myConfig.oidc.issuer,
     clientId: myConfig.oidc.clientId,
   };
+  // Renew the access token with custom scopes extracted from the ID Token
+  // and add this token to the token manager
   oktaAuth.token
     .renew(tokenToRenew)
     .then(function (freshToken) {

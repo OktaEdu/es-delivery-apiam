@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 // import LoginCallback and navigationGuard
-import { LoginCallback, navigationGuard } from "@okta/okta-vue";
+import { navigationGuard } from "@okta/okta-vue";
 // import the Profile component
 import ProfileComponent from "@/components/Profile";
 // import Apps view
 import PromosView from "@/views/Promos";
-// import Login View
+// import Login view
 import LoginView from "@/views/Login";
+// import LoginCallback component
+import LoginCallback from "@/components/LoginCallback";
 
 const routes = [
   {
