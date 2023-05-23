@@ -69,3 +69,10 @@ export async function adaptScopes() {
     });
   return;
 }
+
+export async function setOriginalUri() {
+  const uris = ["/", "/login/callback"];
+  if (!uris.includes(window.location.pathname)) {
+    oktaAuth.setOriginalUri(window.location.href);
+  }
+}
