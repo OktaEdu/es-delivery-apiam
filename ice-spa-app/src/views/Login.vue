@@ -2,55 +2,48 @@
   <div class="container h-100">
     <div class="row h-100">
       <div class="col-md-10 offset-md-1" id="content-container">
-        <div class="login">
-          <h1>Sign in</h1>
-          <p v-if="$route.query.redirect">You need to sign in first.</p>
-          <form @submit.prevent="signIn" autocomplete="off">
-            Email:
-            <label><input v-model="email" placeholder="email" v-focus /></label
-            ><br /><br />
-            Password:
-            <label
-              ><input
+        <h1>Log in</h1>
+        <p v-if="$route.query.redirect">You need to sign in first.</p>
+        <form @submit.prevent="signIn" autocomplete="off">
+          <div class="mb-3">
+            <label for="email" class="form-label"
+              >Email<input
+                v-model="email"
+                id="email"
+                class="form-control"
+                v-focus
+            /></label>
+          </div>
+          <div class="mb-3">
+            <label for="pass" class="form-label"
+              >Password<input
                 v-model="pass"
-                placeholder="password"
-                type="password" /></label
-            ><br />
-            <br />
-            <button type="submit">Continue</button>
-            <p v-if="error" class="error">{{ msg }}</p>
-          </form>
-        </div>
+                id="pass"
+                type="password"
+                class="form-control"
+            /></label>
+          </div>
+          <button type="submit" class="btn btn-primary">Log In</button>
+          <p v-if="error" class="error">{{ msg }}</p>
+        </form>
       </div>
     </div>
   </div>
   <Footer />
 </template>
-
 <script>
 import Footer from "@/components/Footer.vue";
-
 export default {
   data() {
-    return {
-      email: "",
-      pass: "",
-      msg: "",
-      error: false,
-    };
+    return { email: "", pass: "", msg: "", error: false };
   },
   name: "Apps",
-  components: {
-    Footer,
-  },
+  components: { Footer },
   methods: {
     signIn() {
       console.log("Auth");
       this.$auth.idx
-        .authenticate({
-          username: this.email,
-          password: this.pass,
-        })
+        .authenticate({ username: this.email, password: this.pass })
         .then((transaction) => {
           switch (transaction.status) {
             case "SUCCESS":
@@ -99,7 +92,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .error {
   color: red;
