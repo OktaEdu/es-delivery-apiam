@@ -21,10 +21,10 @@ createApp(App)
   .use(OktaVue, {
     oktaAuth,
     onAuthRequired: async () => {
-      await oktaAuth.signInWithRedirect({ originalUri: "/" });
+      await oktaAuth.signInWithRedirect();
     },
     onAuthResume: async () => {
-      await oktaAuth.signInWithRedirect({ originalUri: "/" });
+      await oktaAuth.signInWithRedirect();
     },
   })
   .mount("#app");
@@ -68,11 +68,4 @@ export async function adaptScopes() {
       console.log(err);
     });
   return;
-}
-
-export async function setOriginalUri() {
-  const uris = ["/", "/login/callback"];
-  if (!uris.includes(window.location.pathname)) {
-    oktaAuth.setOriginalUri(window.location.href);
-  }
 }

@@ -10,7 +10,7 @@ import PromosView from "@/views/Promos";
 import LoginView from "@/views/Login";
 // import LoginCallback component
 import LoginCallback from "@/components/LoginCallback";
-import { setOriginalUri } from "../main";
+
 const routes = [
   {
     path: "/",
@@ -55,5 +55,4 @@ const router = createRouter({
 // use navigation guard logic to circumvent nabigational guard mixin issues in vue-router-next
 // provided by the Okta Vue SDK
 router.beforeEach(navigationGuard);
-router.afterEach(setOriginalUri);
 export default router;
