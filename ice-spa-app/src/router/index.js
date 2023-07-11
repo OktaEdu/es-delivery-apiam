@@ -1,28 +1,58 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/components/Home'
-import Error from '@/components/Error'
-import Promo from '@/components/Promo'
-import Profile from '@/components/Profile'
-import LoginForm from '@/components/LoginForm'
-import { validateAccessLocal, validateAccessOkta, logoutLocal, logoutOkta, singleLogout, redirect, loginOkta, checkOktaSession } from '../auth'
+import { createRouter, createWebHistory } from "vue-router";
+import Home from "../views/Home.vue";
+// import LoginCallback and navigationGuard
+import { navigationGuard } from "@okta/okta-vue";
+// import the Profile component
+import ProfileComponent from "@/components/Profile";
+// import Apps view
+import PromosView from "@/views/Promos";
+// import Login view
+import LoginView from "@/views/Login";
+// import LoginCallback component
+import LoginCallback from "@/components/LoginCallback";
 
-Vue.use(Router)
+const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/about",
+    name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },
+  // new route for the callback
+  {
+    path: "/login/callback",
+    component: LoginCallback,
+  },
+  // add Profile route
+  {
+    path: "/profile",
+    component: ProfileComponent,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/promos",
+    component: PromosView,
+  },
+  {
+    path: "/login",
+    component: LoginView,
+  },
+];
 
-export default new Router({
-  mode: 'history',
-  routes: [
-    //Public pages
-    { path: '*', redirect: '/home' }, //redirect to make sure you land in a page
-    { path: '/home', component: Home }, //home page
-    { path: '/loginform', component: LoginForm },
-    { path: '/error', component: Error },
-    //Private pages (displayed only user access is validated)
-    { path: '/premium-promos', component: Promo },
-    { path: '/profile', component: Profile },
-    //Functions without page
-    { path: '/checkOktaSession', component: checkOktaSession },
-    { path: '/logoutOkta', component: logoutOkta },
-    { path: '/singleLogout', component: singleLogout }
-  ]
-})
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
+});
+
+// use navigation guard logic to circumvent nabigational guard mixin issues in vue-router-next
+// provided by the Okta Vue SDK
+router.beforeEach(navigationGuard);
+export default router;

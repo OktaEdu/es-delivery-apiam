@@ -1,8 +1,8 @@
 //BEGIN: IMPORT CODE DEPENDENCIES
-const express = require('express');
-var cors = require('cors');
-var bodyParser = require('body-parser');
-var setupController=require('./controllers/setupController');
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import setupController from "./controllers/setupController.js";
 //END: IMPORT CODE DEPENDENCIES
 
 //APP CONFIGURATION SETUP
@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //SETS A LISTEN HOST AND PORT FOR THE API
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 8081);
 
 //START THE APP
 setupController(app);
+
+console.log("API running on http://localhost:8081");

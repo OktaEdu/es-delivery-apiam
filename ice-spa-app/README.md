@@ -1,33 +1,40 @@
-# ice-spa-app
+# Okta Ice Single Page Application (SPA)
 
-> This Single Page App (SPA) makes Ice customers happy.
+This is a sample application written with Okta's Vue SDK and AuthJS SDK.
+There are two methods of Authentication modelled in this application that can be toggled in the `Login` component (`components/Login.vue`).
 
-Important:
+## Redirect Model of Authentication
 
-> This application is provided “AS IS” with no express or implied warranty for accuracy or accessibility. The sample code is intended to demonstrate how Okta can integrate with custom applications and does not represent, by any means, the recommended approach or is intended to be used in development or productions environments.
+This is the simplest model of Authentication as it calls on AuthJS to simply redirect to your Okta org for authentication asynchronously. Once authentication is complete, the user is redirected back to the application. Configure this in `components/Login.vue`.
 
-## Run this App
+## Embedded SDK Model of Authentication
 
-### Option 1: Heroku
+This model is more complex because you have to handle the response from Okta and the SDK during the authentication process. This is done in the `Login` view (`views/Login.vue`), and configured for use in `components/Login.vue`. You can read more about the Embedded SDK Model of Authentication here: https://developer.okta.com/docs/guides/oie-embedded-sdk-use-case-basic-sign-in/nodejs/main/
 
-1. Click [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-2. Login or create your Heroku account.
-3. After deployment, go to settings.
-4. Update each property with an appropriate value.
+## Project setup
 
-### Option 2: In my house
+```
+npm install
+```
 
-1. Install `git` and `node` in your computer.
-2. Clone this repo:
-3. Install Node dependencies:
-    `npm install`
-4. Run the Project:
-    `npm run dev`
+### Compiles and hot-reloads for development
 
-### To build a production version
+```
+npm run serve
+```
 
-1. To build for production with minification
-    `npm run build`
+### Compiles and minifies for production
 
-2. To build for production and view the bundle analyzer report
-    `npm run build --report`
+```
+npm run build
+```
+
+### Lints and fixes files
+
+```
+npm run lint
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).
