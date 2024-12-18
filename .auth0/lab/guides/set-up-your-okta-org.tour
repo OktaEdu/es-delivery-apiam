@@ -1,0 +1,20 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "#1 - Set Up Your Okta Org",
+  "nextTour": "#2 - Launch and Setup the Promos Apps",
+  "steps": [
+    {
+      "title": "Lab overview",
+      "description": "## Set Up Your Okta Org\n\n🎯 **Objective**:    Create an Okta Workforce Identity Cloud Developer Edition account and authenticate into your Okta organization's Admin Dashboard.\n\n⏱️ **Duration**:    5 minutes\n"
+    },
+    {
+      "title": "Register for an Okta Workforce Identity Cloud Developer Edition account",
+      "description": "## Register for an Okta Workforce Identity Cloud Developer Edition account\n\nIf you haven't already, [register](https://developer.okta.com/signup/) for an Okta Workforce Identity Cloud Developer edition account.\n\nDuring this process you must:\n\n1. Verify your email.\n2. Set your password.\n3. [Enroll in Okta Verify](https://help.okta.com/eu/en-us/content/topics/end-user/ov-overview.htm?cshid=csh-user-ov-overview).\n\nOnce you are done, you will be logged in to your Okta Admin Dashboard as a [Super Admin](https://help.okta.com/en-us/content/topics/security/administrators-super-admin.htm)."
+    },
+    {
+      "title": "Lab checkpoint",
+      "description": "## ✅ Checkpoint\n\nAt this point, you are ready to complete the lab!\n"
+    }
+  ],
+  "isPrimary": true
+}

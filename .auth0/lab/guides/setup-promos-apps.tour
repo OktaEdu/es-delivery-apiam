@@ -1,0 +1,25 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "#2 - Launch and Setup the Promos Apps",
+  "steps": [
+    {
+      "title": "Lab overview",
+      "description": "## Launch and Setup the Promos Apps\n\n🎯 **Objective**:   Define a OpenID Connect Client App in Okta.\n\n⏱️ **Duration**:    20 minutes\n\n**Scenario**: Okta Ice is developing two custom applications for their new\npromos program:\n\n![Alt text](./media/image3.png)\n\n* Promos API (ice-resource-server): a REST App\nthat retrieves public and private promos in JSON format.\n* Okta Ice Promos (ice-spa-app): a Single Page App\n(SPA) that displays promos for customers.\n\nThe promos program will offer promo codes for their public and\nprivate customers. Private customers should have access to exclusive\npromos only after login."
+    },
+    {
+      "title": "Create an OpenID Connect Application Integration",
+      "description": "### Create an OpenID Connect Application Integration\n\n1.  From the Admin menu on the left-hand side, go to **Applications** > **Applications**.\n\n3.  Click the **Create App Integration** button.\n\n4.  Select the **OIDC – OpenID Connect** radio button as the Sign-in\n    method.\n\n5.  Select **Single-Page App** radio button as the Application type and\n    click **Next**.\n\n6.  In the **General Settings** form, fill in the following values:\n\n\n| **Attribute** | **Value** |\n|----|----|\n| Name | **Okta Ice Promos** |\n| Grant Type | Check only **Authorization Code** |\n| Sign-in Redirect URIs | [**http://localhost:8080/login/callback**](http://localhost:8080/login/callback) |\n| Trusted Origins \\> Base URIs\\* | [**http://localhost:8080**](http://localhost:8080) |\n\n**Note**: this is necessary because the Auth SDK will make an AJAX call to `/.well-known/openid-configuration`.\n\n7.  Scroll down to the **Assignments** section and select the first\n    radio button, **Allow everyone in your organization to access**.\n\n8.  **Uncheck** the checkbox labeled, “Enable immediate access with\n    Federation Broker Mode.”\n\n9.  Click **Save.**\n\n10. In the Client Credentials section that pops up, copy the **Client\n    ID** to the clipboard (CTRL+C), which we’ll use in the next step.\n\n"
+    },
+    {
+      "file": "ice-spa-app/src/config.js",
+      "description": "### Update Okta Ice SPA Application Configs: clientId\n\n*Notice that ./ice-spa-app/src/config.js has been opened for you.*\n\n1.  The `clientId` placeholder value has been highlighted for you in **config.js**\n\n2. Paste in the contents of your clipboard to replace the placeholder value for `clientId`.\n\nThe client ID is provided by Okta after creating the OIDC application integration. It identifies the application during calls to the API.\n",
+      "line": 4
+    },
+    {
+      "file": "ice-spa-app/src/config.js",
+      "description": "## Update Okta Ice SPA Application Configs: issuer\n\n*Notice that ./ice-spa-app/src/config.js has been opened for you.*\n\n1.  The `issuer` placeholder value has been highlighted for you in **config.js**\n\n2.  Replace this value with your Okta org URL. You can find this at the top right of your Okta Admin Dashboard under your username.\n",
+      "line": 5
+    }
+  ],
+  "isPrimary": true
+}
