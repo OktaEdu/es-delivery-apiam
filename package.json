@@ -1,0 +1,45 @@
+{
+  "name": "lab-apiam",
+  "version": "1.0",
+  "description": "An Okta training lab.",
+  "license": "MIT",
+  "author": "Okta",
+  "bugs": {
+    "url": "https://github.com/OktaEdu/es-delivery-apiam/issues"
+  },
+  "homepage": "https://github.com/OktaEdu/es-delivery-apiam/blob/ondemand/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aOktaEdu/es-delivery-apiam.git"
+  },
+  "scripts": {
+
+  },
+  "keywords": [
+    "okta",
+    "oauth2",
+    "api",
+    "oidc",
+    "authz",
+    "authorization",
+    "samples",
+    "labs"
+  ],
+  "dependencies": {
+    "concurrently": "^7.3.0",
+    "eslint": "^8.20.0",
+    "prettier": "^2.7.1"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "endOfLine": "auto",
+    "quoteProps": "consistent",
+    "semi": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  }
+}
