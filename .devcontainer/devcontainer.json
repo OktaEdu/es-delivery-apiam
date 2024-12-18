@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.191.1/containers/javascript-node
 {
-  "name": "labs-node-create-an-application",
+  "name": "labs-apiam",
   "dockerComposeFile": "docker-compose.yml",
   "service":"lab",
   "workspaceFolder": "/workspace",
@@ -20,7 +20,7 @@
     37500, //Web App
   ],
   "shutdownAction": "stopCompose",
-  "postStartCommand": "npm install -g npm@latest && npm run init",
+  "postStartCommand": "npm install -g npm@latest",
   "waitFor": "postStartCommand",
   "remoteUser": "node"
 }
