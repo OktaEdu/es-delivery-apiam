@@ -1,7 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
   "title": "#1 - Set Up Your Okta Org",
-  "nextTour": "#2 - Launch and Setup the Promos Apps",
+  "nextTour": "#2 - Integrate the Okta Ice SPA with Okta",
   "steps": [
     {
       "title": "Lab overview",

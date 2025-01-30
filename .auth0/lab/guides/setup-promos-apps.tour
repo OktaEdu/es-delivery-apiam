@@ -1,24 +1,45 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "#2 - Launch and Setup the Promos Apps",
+  "title": "#2 - Integrate the Okta Ice SPA with Okta",
+  "nextTour": "#3 - Exploit the Promos API",
   "steps": [
     {
       "title": "Lab overview",
-      "description": "## Launch and Setup the Promos Apps\n\n🎯 **Objective**:   Define a OpenID Connect Client App in Okta.\n\n⏱️ **Duration**:    20 minutes\n\n**Scenario**: Okta Ice is developing two custom applications for their new\npromos program:\n\n![Alt text](./media/image3.png)\n\n* Promos API (ice-resource-server): a REST App\nthat retrieves public and private promos in JSON format.\n* Okta Ice Promos (ice-spa-app): a Single Page App\n(SPA) that displays promos for customers.\n\nThe promos program will offer promo codes for their public and\nprivate customers. Private customers should have access to exclusive\npromos only after login."
+      "description": "## Launch and Set up the Promos Apps\n\n🎯 **Objective**:   Define a OpenID Connect Client App in Okta.\n\n⏱️ **Duration**:    20 minutes\n\n**Scenario**: Okta Ice is developing two custom applications for their new\npromos program:\n\n![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image3.png)\n\n* Promos API (ice-resource-server): a REST App\nthat retrieves public and private promos in JSON format.\n* Okta Ice Promos (ice-spa-app): a Single Page App\n(SPA) that displays promos for customers.\n\nThe promos program will offer promo codes for their public and\nprivate customers. Private customers should have access to exclusive\npromos only after login."
     },
     {
       "title": "Create an OpenID Connect Application Integration",
-      "description": "### Create an OpenID Connect Application Integration\n\n1.  From the Admin menu on the left-hand side, go to **Applications** > **Applications**.\n\n3.  Click the **Create App Integration** button.\n\n4.  Select the **OIDC – OpenID Connect** radio button as the Sign-in\n    method.\n\n5.  Select **Single-Page App** radio button as the Application type and\n    click **Next**.\n\n6.  In the **General Settings** form, fill in the following values:\n\n\n| **Attribute** | **Value** |\n|----|----|\n| Name | **Okta Ice Promos** |\n| Grant Type | Check only **Authorization Code** |\n| Sign-in Redirect URIs | [**http://localhost:8080/login/callback**](http://localhost:8080/login/callback) |\n| Trusted Origins \\> Base URIs\\* | [**http://localhost:8080**](http://localhost:8080) |\n\n**Note**: this is necessary because the Auth SDK will make an AJAX call to `/.well-known/openid-configuration`.\n\n7.  Scroll down to the **Assignments** section and select the first\n    radio button, **Allow everyone in your organization to access**.\n\n8.  **Uncheck** the checkbox labeled, “Enable immediate access with\n    Federation Broker Mode.”\n\n9.  Click **Save.**\n\n10. In the Client Credentials section that pops up, copy the **Client\n    ID** to the clipboard (CTRL+C), which we’ll use in the next step.\n\n"
+      "description": "### Create an OpenID Connect Application Integration\n\n1.  From the Admin menu on the left-hand side, go to **Applications** > **Applications**.\n\n3.  Click the **Create App Integration** button.\n\n4.  Select the **OIDC – OpenID Connect** radio button as the Sign-in\n    method.\n\n5.  Select **Single-Page App** radio button as the Application type and\n    click **Next**.\n\n6.  In the **General Settings** form, fill in the following values:\n    - **Name**: Okta Ice Promos\n    - **Grant Type**: Check only **Authorization Code**\n    - **Sign-in Redirtect URIs**: Click [here](command:codetour.sendTextToTerminal?[\"echo https://$CODESPACE_NAME-8080.app.github.dev/login/callback\"]) and copy and paste the value that prints to terminal.\n     - **Trusted Origins**: Click [here](command:codetour.sendTextToTerminal?[\"echo https://$CODESPACE_NAME-8080.app.github.dev\"]) and copy and paste the value that prints to terminal.\n    >**Note**: Trusted Origins will set up CORS, which is necessary because the Auth SDK will make an AJAX call to `/.well-known/openid-configuration`.\n\n7.  Scroll down to the **Assignments** section and select the first\n    radio button labeled **Allow everyone in your organization to access**.\n\n8.  **Uncheck** the checkbox labeled **Enable immediate access with Federation Broker Mode**.\n\n9.  Click **Save.**\n\n10. In the Client Credentials section that pops up, copy the **Client\n    ID** to the clipboard. We will use this in the next step.\n\n"
     },
     {
       "file": "ice-spa-app/src/config.js",
-      "description": "### Update Okta Ice SPA Application Configs: clientId\n\n*Notice that ./ice-spa-app/src/config.js has been opened for you.*\n\n1.  The `clientId` placeholder value has been highlighted for you in **config.js**\n\n2. Paste in the contents of your clipboard to replace the placeholder value for `clientId`.\n\nThe client ID is provided by Okta after creating the OIDC application integration. It identifies the application during calls to the API.\n",
+      "description": "## Update Okta Ice SPA Application Configs: clientId\n\n*Notice that ./ice-spa-app/src/config.js has been opened for you.*\n\n1.  The `clientId` placeholder value has been highlighted for you in **config.js**\n\n2. Paste in the contents of your clipboard to replace the placeholder value for `clientId`.\n\n>The client ID is provided by Okta after creating the OIDC application integration. It identifies the application during calls to the API.\n",
       "line": 4
     },
     {
       "file": "ice-spa-app/src/config.js",
-      "description": "## Update Okta Ice SPA Application Configs: issuer\n\n*Notice that ./ice-spa-app/src/config.js has been opened for you.*\n\n1.  The `issuer` placeholder value has been highlighted for you in **config.js**\n\n2.  Replace this value with your Okta org URL. You can find this at the top right of your Okta Admin Dashboard under your username.\n",
+      "description": "## Update Okta Ice SPA Application Configs: issuer\n\n*Notice that ./ice-spa-app/src/config.js has been opened for you.*\n\n1.  The `issuer` placeholder value has been highlighted for you in **config.js**\n\n2.  Replace this value with your Okta org URL. You can find this at the top right of your Okta Admin Dashboard under your username.\n\n>The issuer here refers to your Okta Org URL. It is the base URL used for calls to the Core Okta API.\n",
       "line": 5
+    },
+    {
+      "title": "Configure an Authentication Policy",
+      "description": "## Configure the Authentication Policy\n\n>An Authentication Policy enforces how (with what authenticators) an end user can log in to an application. For the purpose of this lab, we'll assign our two apps the **Password only policy** so that you do not have to set up MFA for the test end-user accounts. In real-world use cases, a stronger Authentication Policy is recommended.\n\n1. Go to **Security** > **Authentication Policies**.\n2. Select **Password Only**.\n3. Select the **Applications** tab.\n4. Select the **Add app** button.\n5. Select the **Add button** for the **Okta Ice Promos** app.\n6. Select **Done**."
+    },
+    {
+      "title": "Configure an Access Policy",
+      "description": "## Configure an Access Policy\n\n>An Access Policy is configured for an Okta Authorization Server to control who (or what) can gain access to resources it serves. While Access Policies are usually used for providing access control to API resources, since our app uses the OAuth 2.0 Authorization Code Flow, it requests an Access Token from the Okta Authorization Server. So, let's set up an Access Policy so the Okta Authorization Server can respond.\n\n1. Go to **Security** > **API**.\n2. Select **default**.\n3. Select the **Access Policies** tab.\n3. Select the **Add New Access Policy** button.\n3. Enter **Default Policy** for both name and description. Keep **All clients** selected.\n3. Select **Create Policy**.\n4. Select the **Add rule** button.\n5. Name this rule **Default Rule**.\n6. Keep the default selections and select **Create rule**.\n7. **Log out** of your Okta org since you will be logging in as a different user in the subsequent steps.\n"
+    },
+    {
+      "title": "Launch the app",
+      "description": "## Launch the app\n\n1. Return to VSCode, and ensure that the **npm install** has finished.\n\n2. Click [here](command:workbench.action.terminal.toggleTerminal) to toggle open the integrated terminal at the bottom of your screen.\n\n3. Click [here](command:codetour.sendTextToTerminal?[\"npm run serve\"]) to start the app.\n>This runs the command `npm run serve`.\n\n4.  Select **Make public** in the window that pops up at the bottom right of your environment.\n"
+    },
+    {
+      "title": "Test the app",
+      "description": "Before following the directions below, that ensure you are **logged out** of any Okta sessions. **DO NOT use an Incognito browser window** for the steps that follow.\n\n1. In this environement, select the **PORTS** tab. \n\n2. Hover over the **Forwarded Address** column and select the globe icon. This will launch your web app in a new browser tab.\n\n3. Click **Log In** and log in as **oktatraining**.\n\n\n9.  Click **Profile** and you will see the parsed details of your **ID Token**, which will resemble the following:  \n\n    ![Alt text](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image5.png)\n\n10. Click **Logout** to end your Okta session.\n\n11. Leave the application running in VSCode.\n"
+    },
+    {
+      "title": "Lab checkpoint",
+      "description": "## ✅ Checkpoint\n\nAt this point, you have successfully integrated an app with Okta."
     }
   ],
   "isPrimary": true
