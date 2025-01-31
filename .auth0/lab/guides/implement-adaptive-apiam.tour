@@ -1,0 +1,100 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "#9 - Implement Adaptive API Access Management",
+  "steps": [
+    {
+      "title": "Lab overview",
+      "description": "## #9 - Implement Adaptive API Access Management\n\n🎯 **Objective**:    Update the Client Application to request the Identity Token with the scopes specified in the ID Token.\n\n⏱️ **Duration**:    30 minutes\n\n**Scenario**: Okta Ice wants the Promos app to issue tokens dynamically based on the Group membership defined in their Okta Authorization Server. "
+    },
+    {
+      "title": "Create a custom attribute on the OIDC app profile",
+      "description": "## Create a custom attribute on the OIDC app profile\n\n1.  In the Okta Admin Dashboard, go to **Directory** > **Profile Editor**.\n\n2.  Select **Okta Ice Promos User**.\n\n3.  Select the **+ Add Attribute** button.\n\n4.  Enter the information as follows:\n    - **Data type**: string array \n    - **Display Name**: Promos Scopes\n    - **Variable Name**: promosScopes\n    - **Description**: Access Token scopes for the Promos APIs\n    - **Attribute type**: Group\n    - **Group Priority**: Combine values across groups\n\n5.  Select **Save**."
+    },
+    {
+      "title": "Create groups for Promos Users and Admins",
+      "description": "## Test the user consent page\n\n\n1.  Go to **Directory** > **Groups**.\n\n2.  Click **Add Group**.\n\n3.  Enter the information as follows:\n    - **Name**: Promos Users\n    - **Group Description**: Users who get promos\n\n4.  Click **Save**.\n\n5.  On the main screen, click **Add Group** again.\n\n6.  Enter the information as follows:\n    - **Name**: Promos Admins\n    - **Group Description**: Admins who create and delete promos\n\n7.  Click **Save**."
+    },
+    {
+      "title": "Assign the OIDC app to the groups",
+      "description": "## Assign the OIDC app to the groups\n\n1.  Go to **Applications** > **Applications**.\n\n2.  Select on **Okta Ice Promos**.\n\n3.  If not already there, go to the **Assignments** tab.\n\n4.  In the Filters list on the left, click **Groups**.\n\n5.  **Unassign** the app from the **Everyone** group by clicking the X.\n\n6.  When prompted to confirm, click **OK.**\n\n7.  Click **Assign** > **Assign to Groups**.\n\n8.  Next to **Promos Users**, click **Assign**.\n\n9.  For the **Promos Scopes** attribute, click **Add Another**.\n\n10. Enter the information as follows:\n    - **Promos Scopes**: `promos:read`\n\n11. Scroll down and click **Save and Go Back**.\n\n12. Next to **Promos Admins**, click **Assign**.\n\n13. For the **Promos Scopes** attribute, click **Add Another**.\n\n14. Enter the information as follows:\n    - **Promos Scopes**: `promos:read`, `promos:create`, `promos:delete`.\n\n15. Click **Save and Go Back**.\n\n16. Click **Done**."
+    },
+    {
+      "title": "Add the promosScopes claim to the ID Token",
+      "description": "## Add the promosScopes claim to the ID Token\n\n1.  Go to **Security** > **API**.\n\n2.  Select on **Promos API AuthZ Server**.\n\n3.  Select the **Claims** tab.\n\n4.  Select **Add Claim** to create a new scope as show below:\n    - **Name**: promosScopes\n    - **Include in token type**: ID Token / Always\n    - **Value type**: Expression\n    - **Value**: `appuser.promosScopes`\n    - **Include in**: The following scopes: `profile`\n\n5.  Select **Create**."
+    },
+    {
+      "title": "Assign the Class Admin user to the Promos User group",
+      "description": "## Assign the Class Admin user to the Promos User group\n\n1.  Go to **Directory** > **Groups**.\n\n2.  Select on **Promos Users**.\n\n3.  Select **Assign people**.\n\n4.  Search for **Class Admin**.\n\n5.  Select **+** to assign this user to the Promos Users group.\n\n6.  Select **Done**."
+    },
+    {
+      "title": "Create an Admin Rule for the Promos Access Policy",
+      "description": "## Create an Admin Rule for the Promos Access Policy\n\n1.  From the Admin Dashboard, go to **Security** > **API**.\n\n2.  Select on **Promos API AuthZ Server**.\n\n3.  Select **Access Policies**.\n\n4.  Under **Promos Access Policy**, select **Add Rule**.\n\n5.  Name the rule **Admin Policy**.\n\n6.  For **Grant Type**, select only **Authorization Code**.\n\n7.  For **User is**, select **Assigned the app and a member of one of\n    the following**\n\n8.  For **Groups**, enter and select **Promos Admins.**\n\n9.  For **Scopes requested**, select **The following scopes**\n\n10. In the field that appears, enter and select: **openid, profile,\n    promos:read, promos:create, promos:delete**\n\n11. Click **Create rule**.\n\n12. Finally, drag the **Admin Rule**, so that it has priority over the **Read-only** rule.  \n\n![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image22.png)"
+    },
+    {
+      "file": "ice-spa-app/src/config.js",
+      "description": "## Update the Promos app configuration\n\n*Notice that ice-spa-app/src/config.js has been opened for you.*\n\nWe're going to update the scopes so that only `openid` and `profile` are requested by default.\n\n1. Select the **Insert Code** link at the end of the code snippet below to make this replacement on the highlighted line in `ice-spa-app/src/config.js`.\n\n```js\nscopes: [“openid”, “profile”\\];\n```",
+      "line": 8
+    },
+    {
+      "title": "Test the updated configuration",
+      "description": "## Test the updated configuration\n\n1.  In the browser tab running the Okta Ice Promos App, select **Logout**\n    to delete the existing tokens.\n\n2.  Click **Login** and log in as **oktatraining**.\n\n3.  Click **Profile**.\n\n4.  Verify that the custom claim **promosScopes** is present in the ID\n    Token, and that it contains the **promos:read** scope.\n\n5.  Select the **View Access Token** button and verify that the only\n    scopes present are **openid** and **profile**. We’ll need to update\n    our application code to extract the custom promos scopes from the\n    custom claim we have added to the ID Token.\n\n6.  Select **Logout**."
+    },
+    {
+      "file": "ice-spa-app/src/main.js",
+      "description": "## Review the adaptScopes function\n\n*Notice that ice-spa-app/src/main.js has been opened for you.*\n\nThe `adaptScopes()` function is highlighted for you above. Review the function and ensure you understand how it extracts the custom scopes from the `promosScopes` claim in the ID Token, and adds these scopes to a renewed Access Token. \n\nWe will call this function after a successful login.",
+      "selection": {
+        "start": {
+          "line": 36,
+          "character": 1
+        },
+        "end": {
+          "line": 70,
+          "character": 118
+        }
+      }
+    },
+    {
+      "file": "ice-spa-app/src/components/LoginCallback.vue",
+      "description": "## Import adaptScopes\n\n*Notice that ice-spa-app/src/components/LoginCallback.vue has been opened for you. This is a modified version of the default **LoginCallback** component defined in the **okta-vue** SDK.*\n \n1. Uncomment the highlighted line above to import `adaptScopes`",
+      "line": 11,
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 1
+        },
+        "end": {
+          "line": 3,
+          "character": 187
+        }
+      }
+    },
+    {
+      "file": "ice-spa-app/src/components/LoginCallback.vue",
+      "description": "## Call adaptScopes\n\n*Notice that ice-spa-app/src/components/LoginCallback.vue has been opened for you. This is a modified version of the default **LoginCallback** component defined in the **okta-vue** SDK.*\n\n1. Uncomment the highlighted line above to call `adaptScopes` after a successful authentication.",
+      "line": 34
+    },
+    {
+      "title": "Test adaptive API Access Management as a Promos user",
+      "description": "## Test adaptive API Access Management as a Promos user\n\n1.  If you aren’t already logged out, do so now.\n\n2.  Select **Login** and log in as **oktatraining**.\n\n3.  Select on **Profile**, and then on the **View Access Token** button.\n\n4.  Verify that the custom scope **promos:read** is now present.\n\n5.  Select on **Promos**.\n\n6.  Select the **Premium Promos** button. Verify that you can access the\n    premium promos due to having the proper scopes.\n\n7.  Select **Logout**."
+    },
+    {
+      "title": "Test adaptive API Access Management as a Promos admin",
+      "description": "## Test adaptive API Access Management as a Promos admin\n\n1.  **Log in** to your Okta Admin dashboard and go to **Directory** > **Groups**.\n\n2.  Select **Promos Admins**.\n\n3.  Select **Assign people**.\n\n4.  Search for **Class Admin**.\n\n5.  Select the **+** button next to Class Admin to add them, then select\n    **Done**.\n\n6.  **Log out** of Okta.\n\n7.  In the tab running the Okta Ice Promos app, select **Login** and log\n    in as **oktatraining**.\n\n8.  Select on **Profile**, and then on the **View Access Token** button.\n\n9.  Verify that the custom scopes **promos:read**, **promos:create**,\n    and **promos:delete** are present.\n\n10. Select **Logout**."
+    },
+    {
+      "title": "Lab checkpoint",
+      "description": "## ✅ Checkpoint\nYou have successfully implemented adapative API Access Management.\n\nThis is the final component of this lab. You may now safely exit this codespace.",
+      "selection": {
+        "start": {
+          "line": 0,
+          "character": 36
+        },
+        "end": {
+          "line": 70,
+          "character": 118
+        }
+      }
+    }
+  ],
+  "isPrimary": true
+}
