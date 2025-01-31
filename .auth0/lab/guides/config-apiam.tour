@@ -1,6 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
   "title": "#4 - Configure API Access Management",
+  "nextTour": "#5 - Test the Promos App after Protecting the API",
   "steps": [
     {
       "title": "Lab overview",
@@ -44,7 +45,7 @@
     },
     {
       "title": "Lab checkpoint",
-      "description": "## ✅ Checkpoint\nAt this point, you configured Okta API Access Management to support the\nPromos API. In the next lab, you will update the Promos API code to\nrequire custom scopes to access certain endpoints."
+      "description": "## ✅ Checkpoint\nAt this point, you configured Okta API Access Management to support the\nPromos API with a custom authorization server. In the next lab, you will update the Promos API code to\nrequire custom scopes to access certain endpoints."
     }
   ],
   "isPrimary": true

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "#5 - Test the Promos App after Protecting the API",
+  "nextTour": "#6 - Update the Promos App to Work with API AM and OAuth",
+  "steps": [
+    {
+      "title": "Lab overview",
+      "description": "## Configure API Access Management\n\n🎯 **Objective**:   Test the Promos UI access after protecting the Promos API.\n\n⏱️ **Duration**:    10 minutes\n\n**Scenario**: After protecting the API, you test legitimate access via the Promos app."
+    },
+    {
+      "title": "Access the Premium Promos Page",
+      "description": "## Access the Premium Promos Page\n\nEnsure you are logged out of Okta before proceeding.\n\n1.  Visit the SPA app in the Chrome browser. \n    - Recall that you can do this by going to the PORTS tab and selecting the globe icon next to the SPA app's Forwarded Address.\n\n2.  In the Home page, click **Promos**, so the public promos appear.\n\n3.  Click **Profile**.\n\n4.  Sign in as **oktatraining**\n\n5.  Click **Promos**.\n\n6.  Click **Premium Promos**.\n\n7.  Consider the following questions before moving on:\n    - Are you able to get the PREMIUM promo codes after login?\n    - Why or why not?\n"
+    },
+    {
+      "title": "Perform a network trace",
+      "description": "## Perform a network trace\n\n1.  In Google Chrome, select the menu – the three dots icon  ![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image13.png) located in the\n    top-right corner, and then select **More Tools** > **Developer Tools**.\n\n2.  Select the **Network** tab.\n\n3. In the webpage, click on **Premium Promos** again and notice in the\n    **Network** tab that the request to the PREMIUM endpoint returned a\n    401 Unauthorized HTTP status code:\n\n  ![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image14.png)\n\n4. **Close** the Developer Tools tab.\n\n12. Select **Profile** and then select the **View Access Token** button.\n\n13. Notice that the issuer is your Okta org URL and not your custom\n    Authorization Server URL. Additionally, this access token lacks the\n    **promos:read** scope, since this custom scope is only issued by the\n    custom Authorization Server we just created.\n\n14. **Close** your incognito window."
+    },
+    {
+      "title": "Lab checkpoint",
+      "description": "## ✅ Checkpoint\n\nAfter protecting the Promos APIs with API AM, the Promos UI cannot\naccess the PREMIUM promos even after a successful login to Okta. \n\nThis happens because:\n\n- The Okta Ice Promos app is not sending the **access token** for the\n  Promos API via the Authorization header (bearer token).\n\n- The Okta Ice Promos app is authenticating the user with OAuth using\n  the **default** Okta Authorization Server (i.e.,\n  `https://{domain}.okta.com)`, while the Promos API\n  expects access tokens from the **custom** Okta Authorization Server we\n  set up with custom scopes (i.e., `https://{domain}.okta.com/oauth2/a################`). \n  \nBecause of this, the Promos API cannot:\n  \n- Confirm that the token is issued by the custom Authorization Server.\n\n- Validate the token signature since the signature changes by Issuer.\n\n- The Promos UI is not requesting the custom scope for reading promos: **promos:read**.\n\nAll the items above conflict with the validation performed by the JWT\nverifier.\n\nIn the next lab, you will fix the Okta Ice Promos app by integrating it\nwith the custom Authorization Server we set up with custom scopes.",
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 55
+        },
+        "end": {
+          "line": 15,
+          "character": 118
+        }
+      }
+    }
+  ],
+  "isPrimary": true
+}

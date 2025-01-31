@@ -1,0 +1,63 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "#6 - Update the Promos App to Work with API AM and OAuth",
+  "steps": [
+    {
+      "title": "Lab overview",
+      "description": "## Configure API Access Management\n\n🎯 **Objective**:   Update the Promos App to make calls to the Promos API.\n\n⏱️ **Duration**:    15 minutes\n\n**Scenario**: In this lab, you perform the following tasks to update the Promos\nUI to work with API AM:\n\n- Update the Auth-JS OAuth Settings to point to API AM and request\nthe **promos:read** scope.\n- Implement a function in the `auth/index.js` code to generate the Authorization header (bearer token).\n- Update the REST API request to the premium promos to include the\nAuthorization header."
+    },
+    {
+      "title": "Retrieve the custom Authorization Server issuer",
+      "description": "## Retrieve the custom Authorization Server issuer \n\n1.  If you aren’t already, log in to your Okta Admin dashboard.\n\n2.  Go to **Security** > **API**\n\n3.  Click on **Promos API AuthZ Server**\n\n4.  Click on the Metadata URI, which will open in a new tab.\n\n5.  Highlight and copy the URL entry for **issuer**. This should be in the form **https://{domain}.okta.com/oauth2/axxxxxxxxxxxx**.\n\nThis will be used in the next step.\n"
+    },
+    {
+      "file": "ice-spa-app/src/config.js",
+      "description": "## Update the issuer\n\n*Notice that `ice-spa-app/src/config.js` has been opened for you*\n\n1. In the line highlighted for you above, update the `issuer` with the issuer URL you copied in the previous step.\n",
+      "line": 5
+    },
+    {
+      "file": "ice-spa-app/src/config.js",
+      "description": "## Update the authroizationEndpoint value\n*Notice that `ice-spa-app/src/config.js` has been opened for you*\n\n1. Return to the Metadata tab and locate the entry for **authorization_endpoint.** Highlight and copy this URL. It should\n    resemble the format  **https://{domain}.okta.com/oauth2/axxxxxxxxxxxx/v1/authorize**\n2. Uncomment the line highlighted above that specifies the `authorizationEndpoint`.\n3. Replace the placeholder value with the issuer URL you copied in step 1.",
+      "line": 7
+    },
+    {
+      "file": "ice-spa-app/src/config.js",
+      "description": "## Update the scopes\n\nWe're going to update the scopes to add the request for the custom scope `promos:read`. To do this, select the **Insert Code** link that follows the code snippet below: \n```js\nscopes: [\"openid\", \"profile\", \"email\", \"promos:read\"],\n```\n\nSelecting **Insert Code** replaces the currently highlighted line in the code above.\n",
+      "line": 8
+    },
+    {
+      "file": "ice-spa-app/src/views/Promos.vue",
+      "description": "## Import getAuthHeader\n\n*Note that `ice-spa-app/src/Promos.vue` has been opened for you.*\n\n1. Uncomment the highlighted line of code above to import `getAuthHeader`. We will implement this method shortly.",
+      "line": 54
+    },
+    {
+      "file": "ice-spa-app/src/views/Promos.vue",
+      "description": "##  Update the getPromos() function \n\n*Note that `ice-spa-app/src/Promos.vue` has been opened for you.*\n\nNext, we'll need to update the `getPromos()` function to add the authorization header to the outbound request. To do this, we'll have it call `getAuthHeader()`. This will include the Authorization header in the request to the `/promos/PREMIUM` endpoint. This is exactly what the code snippet below does.\n\n1. Select the **Insert Code** link that follows the code snippet to replace the currently highlighted line above.\n\n```js\nconst res = await fetch(API_URL + \"/promos/PREMIUM\", await getAuthHeader());\n```\n",
+      "line": 70
+    },
+    {
+      "file": "ice-spa-app/src/main.js",
+      "description": "## Implement the getAuthHeader function\n\n*Note that `ice-spa-app/src/main.js` has been opened for you.*\n\nNotice that the `getAuthHeader()` code doesn't do much right now. We're going to implement it now! It will leverage the Okta AuthJS SDK to request and retrieve an Access Token. After this, it will return an Authorization header with the token as its value.\n\n1. Select the **Insert Code** link after the code snippet below to replace the contents of `getAuthHeader()` above.\n\n```js\nconst token = await oktaAuth.getAccessToken(); // Request access token using the AuthJS SDK\nreturn {\nheaders: {\nAuthorization: `Bearer ${token}` // return Authorization header with access token as value\n  }\n}\n```\n>This function will be used to include the header  `Authorization: Bearer {token}` in secure HTTP requests to the Promos API, following the Authorization Bearer specification defined by the [OAuth 2.0 standard](https://tools.ietf.org/html/rfc6750#section-2.1).",
+      "line": 33
+    },
+    {
+      "title": "Test the protected access to the Premium Promos Page",
+      "description": "## Test protected access to the Premium Promos page\n\nEnsure you're logged out of Okta before proceeding.\n\n1.  Visit the SPA app in the Chrome browser. \n    - Recall that you can do this by going to the PORTS tab and selecting the globe icon next to the SPA app's Forwarded Address.\n\n2.  Login as **oktatraining**.\n\n3.  Click **Profile**, then click the **View Access Token** button.\n\n4.  Notice that the issuer is now the URL of your custom Authorization\n    Server and that your access token now has the custom scope,\n    **promos:read**.\n\n5.  Click **Promos**.\n\n6.  Click **Premium Promos**.\n\n7.  Pause and consider these questions:\n    - Are you able to get the PREMIUM promo codes after login?\n    - Why or why not?\n\n8. Log out."
+    },
+    {
+      "title": "Lab checkpoint",
+      "description": "## ✅ Checkpoint\nYou’ve finished integrating your app with an API protected by Okta API\nAM OAuth.",
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 55
+        },
+        "end": {
+          "line": 15,
+          "character": 118
+        }
+      }
+    }
+  ],
+  "isPrimary": true
+}
