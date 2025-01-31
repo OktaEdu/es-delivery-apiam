@@ -1,0 +1,37 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "#8 - Implement User Consent",
+  "steps": [
+    {
+      "title": "Lab overview",
+      "description": "## Implement user consent\n\n🎯 **Objective**:    Implement User Consent for the `promos:read` scope and the Promos app.\n\n⏱️ **Duration**:    10 minutes\n"
+    },
+    {
+      "title": "Update the promos:read scope",
+      "description": "## Update the `promos:read` scope\n\n1.  Access your Okta org with your Super Admin account.\n\n2.  In the Admin page, select **Security** > **API**.\n\n3.  Under Authorization Servers, select **Promos** **API Authorization Server**.\n\n4.  Select the **Scopes** tab.\n\n5.  Next to the **promos:read** scope, select the pencil icon to edit it.\n\n6.  For the User consent field, select **Required**\n\n7.  Click **Save**."
+    },
+    {
+      "title": "Test the user consent page",
+      "description": "## Test the user consent page\n\n1.  Visit the SPA app.\n\n2.  Click **Login**.\n\n3.  Sign in with your Okta credentials.\n\n4.  The user consent dialog window pop-up.\n\n![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image21.png)\n\n5.  Click **Cancel**. You will get the error:  \n    **OAuthError: The following scopes require user consent:\n    \\[promos:read\\].**\n\n6.  Click **Login** and sign in with your Okta credentials.\n\n7.  This time click **Allow Access.**\n\n8.  Verify now you can access the **Profile** page as normal**.**\n\n9.  Logout.\n\n11. Select **Login**.\n\n12. Sign in with your Okta credentials.\n\n13. Pause and consider the following questions:\n    - Does the user consent dialog window pop-up? \n    - Why or why not?"
+    },
+    {
+      "title": "Turn off consent for the promos:read scope",
+      "description": "## Turn off consent for the `promos:read` scope\n\n1.  From the the Okta Admin Dashboard, go to **Security** > **API**.\n\n2.  Select the **Promos API AuthZ Server**.\n\n3.  Select the **Scopes** tab.\n\n4.  Next to the **promos:read** scope, select the pencil icon to edit it.\n\n5.  For the User consent field, select **Implicit** to deselect the\n    **Require User Consent Required** radio button.\n\n6.  Click **Save**."
+    },
+    {
+      "title": "Lab checkpoint",
+      "description": "## ✅ Checkpoint\nYou successfully implemented User Consent for the promos:read scope and the Promos app.",
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 55
+        },
+        "end": {
+          "line": 15,
+          "character": 118
+        }
+      }
+    }
+  ],
+  "isPrimary": true
+}

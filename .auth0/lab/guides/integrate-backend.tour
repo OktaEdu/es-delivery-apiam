@@ -1,0 +1,84 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "#7 - Integrate a Backend App with the Promos API",
+  "nextTour": "#8 - Implement User Consent",
+  "steps": [
+    {
+      "title": "Lab overview",
+      "description": "## Configure API Access Management\n\n🎯 **Objective**:   Integrate the Promos API with a backend app.\n\n⏱️ **Duration**:    20 minutes\n\n**Scenario**: Okta Ice asked you to build a proof-of-concept backend app that\nwill be used to maintain the Promos exposed in the Promos API. In this lab, you use Postman to prototype this app and to generate\ncode that will be used in the future implementation.\n\n>To import collections and environments, you must log in to the Postman application. If you do not already have an account, you can register for free at https://www.postman.com."
+    },
+    {
+      "title": "Register an OAuth Service Application",
+      "description": "## Register an OAuth Service Application\n\n> API Services Applications are apps that consume REST APIs in App-to-App scenarios. Service Apps can use the OAuth client credentials flow with their own credentials to request access tokens for accessing REST APIs. User logins are not required. This authentication is used in communications without users like in B2B and batch processing.\n\n1.  Access your Okta Admin dashboard as **oktatraining**.\n\n2.  In the Admin console, go to **Applications** > **Applications**.\n\n3.  Select **Create Application Integration**\n\n4.  Choose **API Services** from the list and select **Next**.\n\n5.  Enter **Maintenance PoC** as **Application name** and select **Save**.\n\n6.  Record the **Client ID** and the **Client secret** located under client credentials in Notepad.\n\n> Later, you’ll use Postman to emulate the Service App authentication using the client credentials flow."
+    },
+    {
+      "title": "Configure API AM Policies to support the Service App",
+      "description": "## Configure API AM Policies to support the Service App\n\n>The API AM access policies and rules control who can request tokens in the Authorization Server. In this lab, you’ll configure an access policy with rules, so the Authorization Server will issue tokens without a user login just for the Postman PoC app.\n\n1.  From the Admin Dashboard, go to **Security** > **API**.\n\n2.  Select **Promos API AuthZ Server**.\n\n3.  Select **Access Policies**.\n\n4.  Select **Add New Access Policy**.\n\n5.  Enter the information as follows:\n    - **Name**:  Okta Ice API Policy App to App \n    - **Description**: Policy for accessing the Promos APIs via a backend app\n    - **Assign to**: The following clients: Maintenance PoC   \n\n6.  Select **Create Policy**.\n\n> The new policy is now displayed on the screen."
+    },
+    {
+      "title": "Configure API AM Policy Rule",
+      "description": "## Configure API AM Policy Rule\n\n1.  From the policy page, select **Add Rule**.\n\n2.  Enter the information as follows:\n    - **Rule Name**: Backend Promos API \n    - **IF Grant type is**:  Select only **Client Credentials** \n    - **AND Scopes requested**: The following scopes: **promos:read, promos:delete, promos:create** \n\n3. Select **Create Rule**.\n\n>The new rule is displayed on the screen with the status **Active**.\n"
+    },
+    {
+      "title": "Create a Postman workspace",
+      "description": "## Create a Postman workspace\n\n1.  Go to https://www.postman.com and sign in. If you don't already have an account, sign up for free.\n\n3. Select **Workspaces**.\n\n4. Select the **Create Workspaces** button.\n\n5. Select **Blank workspace**.\n\n6. Select the **Next** button.\n\n7. Name your workspace **Okta API AM Lab**.\n\n8. Select **Create**.\n"
+    },
+    {
+      "title": "Configure the Postman environment",
+      "description": "## Configure the Postman environment\n\n1. In your Postman workspace, select the **Import** button.\n2. Paste this URL into the text field: https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/main/postman_promos/ICE_env.postman_environment.json\n> This imports the Ice Resource Server Env\n3. Select the dropdown that currently has **No environment** as a value.\n4. Select **ICE Resource Server Env** from this dropdown.\n5. Select the icon that is next to the environment dropdown to open up a list of the environment variables in this environment.\n6. Select **Edit** to open the **All varialbes** window.\n7. Update the value of these environment variables:\n    - **ice-rs-url**: The URL of your API\n    - **apiam-issuer**: Your Custom Authorization Server Issuer URL, e.g., https://{domain}.okta.com/oauth2/xyz\n    - **apiam-client-id**: The client id obtained during the maintenance app registration\n    - **apiam-client-secret**: The client secret obtained during the maintenance app registration\n\n8. Close the **All variables** window. These values are automatically saved.",
+      "selection": {
+        "start": {
+          "line": 4,
+          "character": 40
+        },
+        "end": {
+          "line": 5,
+          "character": 1
+        }
+      }
+    },
+    {
+      "title": "Import the Postman Collections",
+      "description": "## Import the Postman Collections\n\n1.  Select **Collections**.\n\n2. Select the **Import** button.\n\n3.  Paste in the following URL to the text field: https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/main/postman_promos/ICE_rs.postman_collection.json\n> This imports the ICE Resource Server collection. "
+    },
+    {
+      "title": "Request a token via OAuth 2.0 client_credentials flow",
+      "description": "## Request a token via OAuth 2.0 client_credentials flow\n\n\n1.  In Postman’s Collections tab, expand the **ICE Resource Server** folder and open the **Get Access Token with Client Credentials** request.\n\n2.  In the Authorization tab, confirm that the Authentication is set as follows:\n    -  **Type** :  Basic Auth \n    -  **Password**:  `{{apiam-client-secret}}`\n    - **Show Password**: SELECTED                |\n\n3.  In the Body tab, confirm that:\n    - The **grant_type** is set as **client_credentials**.\n    - The **scope** field contains the promos scopes: **promos:read**. **promos:create**, and **promos:delete**.\n\n4.  To request the access token, click **Send**.\n\n5.  Under the response area, highlight and right-click the access token value, then click **Set:** **ICE Resource Server Env:** > **access_token**.\n>This updates your `{{access_token}}` environment variable with the access token for future requests.\n\n ![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image16.png)\n \n6.  Optionally, copy the `access_token` value and paste it in https://jwt.io/ and review the payload information."
+    },
+    {
+      "title": "Create new Promos via API",
+      "description": "## Create new Promos via API\n\n1.  In the Collections tab, open the **Create PUBLIC Promo** request.\n\n2.  In the Headers tab, confirm that the authorization bearer is\n    set:\n    \n     ![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image17.png)\n\n3.  In the Body tab, review the promo parameters. Optionally, modify the\n    code and the description.\n\n4.  Click **Send**.\n\n5.  Confirm that the promo details are displayed in the response.  \n> This confirms that your request worked.\n \n ![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image18.png)\n\n\n\n6.  **Optionally**, return to the Headers tab, disable the Authorization\n    bearer, and repeat this request to confirm that the request works\n    only when the access token is sent.\n\n7.  In the **ICE Resource Server** collection, select the **Create\n    PREMIUM Promo** request.\n\n8.  Click **Send** to create a new PREMIUM promo."
+    },
+    {
+      "title": "List Promos via API",
+      "description": "## List Promos via API\n\n1.  In the **ICE Resource Server** collection, select the **Get Public\n    Promos** request.\n\n2.  In the Headers tab, confirm that the authorization bearer **is not\n    set**.\n> The public request does not require authentication.\n\n3.  Click **Send**.\n\n4.  On the list of results, confirm that you can see your new public\n    promo.\n\n5.  In the **ICE Resource Server** collection, select the **Get PREMIUM\n    Promos** request.\n\n6.  In the **Headers** tab, confirm that the authorization bearer **is\n    set**.\n\n7.  Click **Send**.\n\n8.  On the list of results, confirm that you can see the new premium\n    promo."
+    },
+    {
+      "title": "Delete Promos via API",
+      "description": "## Delete Promos via API\n\n1.  In the **ICE Resource Server** collection, select the **Delete\n    Promo** request.\n\n2.  In the request field, hover your mouse over `{{promo-code}}` to see which promo will be deleted.\n\n  ![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image19.png)\n\nThe {{promo-code}} is an environment variable.\n\n3.  In the Headers tab, confirm that the authorization bearer **is\n    set**.\n\n4.  Select **Send**.\n\n5.  On the results, confirm the response code **204 – No Content** is\n    displayed.  \n    This confirms that the promo **WILLYVANILLY** is deleted.\n"
+    },
+    {
+      "title": "Verify results in Promos UI",
+      "description": "## Verify results in Promos UI\n\n1.  In Chrome, launch an incognito tab.\n\n2.  Access the SPA app.\n\n3.  Select **Promos** and confirm that:\n\n    -  Your new promo is created.\n\n    -  The **WILLYVANILLY** promo is not listed.\n\n4.  Select **Login**.\n\n5.  Sign in with your Okta credentials.\n\n6.  Select **Promos**.\n\n7.  Select **Premium Promos**.\n\n8.  From the results, confirm that your new Premium Promo is listed.\n\n> This confirms that the maintenance PoC can manage promos in the API securely, requesting tokens via API Access Management.\n"
+    },
+    {
+      "title": "Generate code from Postman",
+      "description": "## Generate code from Postman\n\n1.  In the **ICE Resource Server** collection, select the **Get Access Token with Client Credential** request.\n\n2.  Select the **\\</\\>** button (located on the right hand side of the  Postman window) to open the **Code snippet** tab.\n\n3.  Select the dropdown list and then select **NodeJs - Request**.\n> Postman generates a NodeJS code snippet for requesting tokens using the Client Credentials flow. If you’re developing a NodeJS app, you can copy this snippet to your source code to speed up the development.\n\n4.  Optionally, explore the other options available in the **Code snippet** tab.\n\n5.  **Close** the **Code snippet** tab."
+    },
+    {
+      "title": "Lab checkpoint",
+      "description": "## ✅ Checkpoint\nYou finished integrating a backend app with an API protected by Okta API\nAccess Management.\n\n![](https://raw.githubusercontent.com/OktaEdu/es-delivery-apiam/refs/heads/ondemand/media/image15.png)",
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 55
+        },
+        "end": {
+          "line": 15,
+          "character": 118
+        }
+      }
+    }
+  ],
+  "isPrimary": true
+}
