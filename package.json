@@ -15,7 +15,7 @@
 "scripts": {
     "init": "concurrently \"npm:init:dependencies\"",
     "init:dependencies": "concurrently \"npm:api:dependencies\"  \"npm:spa:dependencies\"",
-    "api:serve": "npm start --prefix ./ice-resource-server",
+    "api:start": "npm start --prefix ./ice-resource-server",
     "api:dependencies": "npm install --prefix ./ice-resource-server",
     "spa:start": "npm run serve --prefix ./ice-spa-app",
     "spa:build": "npm run build --prefix ./ice-spa-app",
