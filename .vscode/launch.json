@@ -1,30 +1,43 @@
 {
-   // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Web App",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "web-app:start"],
-      "port": 9005,
-      "presentation": {
-        "hidden":true
-      }
-    },
-  ],
-  "compounds": [
-    {
-      "name": "Launch All",
-      "configurations": [
-        "Launch Web App"
-      ]
-    }
-  ]
+  // Use IntelliSense to learn about possible attributes.
+ // Hover to view descriptions of existing attributes.
+ // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+ "version": "0.2.0",
+ "configurations": [
+   {
+     "type": "node",
+     "request": "launch",
+     "name": "Launch API",
+     "skipFiles": [
+       "<node_internals>/**"
+     ],
+     "runtimeExecutable": "npm",
+     "runtimeArgs": ["run", "api:start"],
+     "presentation": {
+       "hidden":true
+     }
+   },
+   {
+     "type": "node",
+     "request": "launch",
+     "name": "Launch SPA App",
+     "skipFiles": [
+       "<node_internals>/**"
+     ],
+     "runtimeExecutable": "npm",
+     "runtimeArgs": ["run", "spa:start"],
+     "presentation": {
+       "hidden":true
+     }
+   }
+ ],
+ "compounds": [
+   {
+     "name": "Launch All",
+     "configurations": [
+       "Launch API",
+       "Launch SPA App"
+     ]
+   }
+ ]
 }

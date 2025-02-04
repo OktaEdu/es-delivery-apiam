@@ -10,10 +10,16 @@
   "homepage": "https://github.com/OktaEdu/es-delivery-apiam/blob/ondemand/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aOktaEdu/es-delivery-apiam.git"
+    "url": "git+https://github.com/OktaEdu/es-delivery-apiam.git"
   },
-  "scripts": {
-
+"scripts": {
+    "init": "concurrently \"npm:init:dependencies\"",
+    "init:dependencies": "concurrently \"npm:api:dependencies\"  \"npm:spa:dependencies\"",
+    "api:serve": "npm start --prefix ./ice-resource-server",
+    "api:dependencies": "npm install --prefix ./ice-resource-server",
+    "spa:start": "npm run serve --prefix ./ice-spa-app",
+    "spa:build": "npm run build --prefix ./ice-spa-app",
+    "spa:dependencies": "npm install --prefix ./ice-spa-app"
   },
   "keywords": [
     "okta",
