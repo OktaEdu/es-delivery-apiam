@@ -37,7 +37,7 @@
     },
     {
       "title": "Test the updated configuration",
-      "description": "## Test the updated configuration\n\n1.  In the browser tab running the Okta Ice Promos App, select **Logout**\n    to delete the existing tokens.\n\n2.  Click **Login** and log in as **oktatraining**.\n\n3.  Click **Profile**.\n\n4.  Verify that the custom claim **promosScopes** is present in the ID\n    Token, and that it contains the **promos:read** scope.\n\n5.  Select the **View Access Token** button and verify that the only\n    scopes present are **openid** and **profile**. We’ll need to update\n    our application code to extract the custom promos scopes from the\n    custom claim we have added to the ID Token.\n\n6.  Select **Logout**."
+      "description": "## Test the updated configuration\n\n1.  In the browser tab running the Okta Ice Promos App, select **Logout**\n    to delete the existing tokens.\n\n2.  Click **Login** and log in as your Okta Super Admin.\n\n3.  Click **Profile**.\n\n4.  Verify that the custom claim **promosScopes** is present in the ID\n    Token, and that it contains the **promos:read** scope.\n\n5.  Select the **View Access Token** button and verify that the only\n    scopes present are **openid** and **profile**. We’ll need to update\n    our application code to extract the custom promos scopes from the\n    custom claim we have added to the ID Token.\n\n6.  Select **Logout**."
     },
     {
       "file": "ice-spa-app/src/main.js",
@@ -75,11 +75,11 @@
     },
     {
       "title": "Test adaptive API Access Management as a Promos user",
-      "description": "## Test adaptive API Access Management as a Promos user\n\n1.  If you aren’t already logged out, do so now.\n\n2.  Select **Login** and log in as **oktatraining**.\n\n3.  Select on **Profile**, and then on the **View Access Token** button.\n\n4.  Verify that the custom scope **promos:read** is now present.\n\n5.  Select on **Promos**.\n\n6.  Select the **Premium Promos** button. Verify that you can access the\n    premium promos due to having the proper scopes.\n\n7.  Select **Logout**."
+      "description": "## Test adaptive API Access Management as a Promos user\n\n1.  If you aren’t already logged out, do so now.\n\n2.  Select **Login** and log in as your Okta Super Admin.\n\n3.  Select on **Profile**, and then on the **View Access Token** button.\n\n4.  Verify that the custom scope **promos:read** is now present.\n\n5.  Select on **Promos**.\n\n6.  Select the **Premium Promos** button. Verify that you can access the\n    premium promos due to having the proper scopes.\n\n7.  Select **Logout**."
     },
     {
       "title": "Test adaptive API Access Management as a Promos admin",
-      "description": "## Test adaptive API Access Management as a Promos admin\n\n1.  **Log in** to your Okta Admin dashboard and go to **Directory** > **Groups**.\n\n2.  Select **Promos Admins**.\n\n3.  Select **Assign people**.\n\n4.  Search for **Class Admin**.\n\n5.  Select the **+** button next to Class Admin to add them, then select\n    **Done**.\n\n6.  **Log out** of Okta.\n\n7.  In the tab running the Okta Ice Promos app, select **Login** and log\n    in as **oktatraining**.\n\n8.  Select on **Profile**, and then on the **View Access Token** button.\n\n9.  Verify that the custom scopes **promos:read**, **promos:create**,\n    and **promos:delete** are present.\n\n10. Select **Logout**."
+      "description": "## Test adaptive API Access Management as a Promos admin\n\n1.  **Log in** to your Okta Admin dashboard and go to **Directory** > **Groups**.\n\n2.  Select **Promos Admins**.\n\n3.  Select **Assign people**.\n\n4.  Search for **Class Admin**.\n\n5.  Select the **+** button next to Class Admin to add them, then select\n    **Done**.\n\n6.  **Log out** of Okta.\n\n7.  In the tab running the Okta Ice Promos app, select **Login** and log\n    in as your Okta Super Admin.\n\n8.  Select on **Profile**, and then on the **View Access Token** button.\n\n9.  Verify that the custom scopes **promos:read**, **promos:create**,\n    and **promos:delete** are present.\n\n10. Select **Logout**."
     },
     {
       "title": "Lab checkpoint",

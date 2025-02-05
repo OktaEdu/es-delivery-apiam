@@ -9,7 +9,7 @@
     },
     {
       "title": "Retrieve the custom Authorization Server issuer",
-      "description": "## Retrieve the custom Authorization Server issuer \n\n1.  If you aren’t already, log in to your Okta Admin dashboard.\n\n2.  Go to **Security** > **API**\n\n3.  Click on **Promos API AuthZ Server**\n\n4.  Click on the Metadata URI, which will open in a new tab.\n\n5.  Highlight and copy the URL entry for **issuer**. This should be in the form **https://{domain}.okta.com/oauth2/axxxxxxxxxxxx**.\n\nThis will be used in the next step.\n"
+      "description": "## Retrieve the custom Authorization Server issuer \n\n1.  If you aren’t already, log in to your Okta Admin Dashboard.\n\n2.  Go to **Security** > **API**\n\n3.  Click on **Promos API AuthZ Server**\n\n4.  Select the **Metadata URI** link, which will open in a new tab.\n\n5.  Highlight and copy the URL entry for **issuer**. This should be in the form **https://{domain}.okta.com/oauth2/axxxxxxxxxxxx**.\n\nThis will be used in the next step.\n"
     },
     {
       "file": "ice-spa-app/src/config.js",
@@ -18,7 +18,7 @@
     },
     {
       "file": "ice-spa-app/src/config.js",
-      "description": "## Update the authroizationEndpoint value\n*Notice that `ice-spa-app/src/config.js` has been opened for you*\n\n1. Return to the Metadata tab and locate the entry for **authorization_endpoint.** Highlight and copy this URL. It should\n    resemble the format  **https://{domain}.okta.com/oauth2/axxxxxxxxxxxx/v1/authorize**\n2. Uncomment the line highlighted above that specifies the `authorizationEndpoint`.\n3. Replace the placeholder value with the issuer URL you copied in step 1.",
+      "description": "## Update the authorizationEndpoint value\n*Notice that `ice-spa-app/src/config.js` has been opened for you*\n\n1. Return to the Metadata tab and locate the entry for **authorization_endpoint.** Highlight and copy this URL. It should\n    resemble the format  **https://{domain}.okta.com/oauth2/axxxxxxxxxxxx/v1/authorize**\n2. Uncomment the line highlighted above that specifies the `authorizationEndpoint`.\n3. Replace the placeholder value with the issuer URL you copied in step 1.",
       "line": 7
     },
     {
@@ -34,7 +34,7 @@
     {
       "file": "ice-spa-app/src/views/Promos.vue",
       "description": "##  Update the getPromos() function \n\n*Note that `ice-spa-app/src/Promos.vue` has been opened for you.*\n\nNext, we'll need to update the `getPromos()` function to add the authorization header to the outbound request. To do this, we'll have it call `getAuthHeader()`. This will include the Authorization header in the request to the `/promos/PREMIUM` endpoint. This is exactly what the code snippet below does.\n\n1. Select the **Insert Code** link that follows the code snippet to replace the currently highlighted line above.\n\n```js\nconst res = await fetch(API_URL + \"/promos/PREMIUM\", await getAuthHeader());\n```\n",
-      "line": 70
+      "line": 73
     },
     {
       "file": "ice-spa-app/src/main.js",
@@ -43,7 +43,7 @@
     },
     {
       "title": "Test the protected access to the Premium Promos Page",
-      "description": "## Test protected access to the Premium Promos page\n\nEnsure you're logged out of Okta before proceeding.\n\n1.  Visit the SPA app in the Chrome browser. \n    - Recall that you can do this by going to the PORTS tab and selecting the globe icon next to the SPA app's Forwarded Address.\n\n2.  Login as **oktatraining**.\n\n3.  Click **Profile**, then click the **View Access Token** button.\n\n4.  Notice that the issuer is now the URL of your custom Authorization\n    Server and that your access token now has the custom scope,\n    **promos:read**.\n\n5.  Click **Promos**.\n\n6.  Click **Premium Promos**.\n\n7.  Pause and consider these questions:\n    - Are you able to get the PREMIUM promo codes after login?\n    - Why or why not?\n\n8. Log out."
+      "description": "## Test protected access to the Premium Promos page\n\nEnsure you're logged out of Okta before proceeding.\n\n1.  Visit the SPA app in the Chrome browser. \n    - Recall that you can do this by going to the PORTS tab and selecting the globe icon next to the SPA app's Forwarded Address.\n\n2.  Login as your Okta Super Admin account.\n\n3.  Click **Profile**, then click the **View Access Token** button.\n\n4.  Notice that the issuer is now the URL of your custom Authorization\n    Server and that your access token now has the custom scope,\n    **promos:read**.\n\n5.  Click **Promos**.\n\n6.  Click **Premium Promos**.\n\n7.  Pause and consider these questions:\n    - Are you able to get the PREMIUM promo codes after login?\n    - Why or why not?\n\n8. Log out."
     },
     {
       "title": "Lab checkpoint",
