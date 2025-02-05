@@ -1,7 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "#7 - Integrate a Backend App with the Promos API",
-  "nextTour": "#8 - Implement User Consent",
+  "title": "#8 - Integrate a Backend App with the Promos API",
+  "nextTour": "#9 - Implement User Consent",
   "steps": [
     {
       "title": "Lab overview",

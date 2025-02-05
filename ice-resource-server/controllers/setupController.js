@@ -61,9 +61,7 @@ export default function (app) {
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get(
     "/promos",
-    // function (req, res, next) {
-    //   validationRequired(req, res, next, ['promos:read']);
-    // },
+
     function (req, res, next) {
       var query = promos.chain().find({}).simplesort("code").data();
       console.log("Promos: " + JSON.stringify(query));
@@ -77,9 +75,7 @@ export default function (app) {
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get(
     "/promos/:filter",
-    // function (req, res, next) {
-    //   validationRequired(req, res, next, ['promos:read']);
-    // },
+
     function (req, res, next) {
       var query = promos
         .chain()
@@ -98,9 +94,7 @@ export default function (app) {
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:create' CAN ACCESS
   app.post(
     "/promos",
-    // function (req, res, next) {
-    //   validationRequired(req, res, next, ['promos:create']);
-    // },
+
     function (req, res, next) {
       var promo = req.body;
       console.log(promo);
@@ -135,9 +129,7 @@ export default function (app) {
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete(
     "/promos/:filter",
-    // function (req, res, next) {
-    //   validationRequired(req, res, next, ['promos:delete']);
-    // },
+
     function (req, res, next) {
       var query = promos
         .chain()
@@ -162,9 +154,7 @@ export default function (app) {
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete(
     "/delete",
-    // function (req, res, next) {
-    //   validationRequired(req, res, next, ['promos:delete']);
-    // },
+   
     function (req, res, next) {
       var removeAll = promos.chain().remove();
       console.log("Removed all entries from database");

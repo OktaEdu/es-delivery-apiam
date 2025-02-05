@@ -1,7 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "#5 - Test the Promos App after Protecting the API",
-  "nextTour": "#6 - Update the Promos App to Work with API AM and OAuth",
+  "title": "#6 - Test the Promos App after Protecting the API",
+  "nextTour": "#7 - Update the Promos App to Work with API AM and OAuth",
   "steps": [
     {
       "title": "Lab overview",
@@ -9,7 +9,7 @@
     },
     {
       "title": "Access the Premium Promos Page",
-      "description": "## Access the Premium Promos Page\n\nEnsure you are logged out of Okta before proceeding.\n\n1.  Visit the SPA app in the Chrome browser. \n    - Recall that you can do this by going to the PORTS tab and selecting the globe icon next to the SPA app's Forwarded Address.\n\n2.  In the Home page, click **Promos**, so the public promos appear.\n\n3.  Click **Profile**.\n\n4.  Sign in as **oktatraining**\n\n5.  Click **Promos**.\n\n6.  Click **Premium Promos**.\n\n7.  Consider the following questions before moving on:\n    - Are you able to get the PREMIUM promo codes after login?\n    - Why or why not?\n"
+      "description": "## Access the Premium Promos Page\n\n>Ensure you are logged out of Okta before proceeding. This is important since the application is now associated with a custom Authorization Server and the app needs to request new tokens from this server.\n\n1.  Visit the SPA app in the Chrome browser. \n    - If you closed it, you can do this by selecting the **PORTS** tab below and selecting the globe icon that appears when you hover over the **Forwarded Address** for port 8080. \n\n2.  From the home page, click **Promos**, so the public promos appear.\n\n3.  Click **Profile**.\n\n4.  Sign in as your Okta Super Admin user.\n\n5.  Click **Promos**.\n\n6.  Click **Premium Promos**.\n\n7.  Consider the following questions before moving on:\n    - Are you able to get the PREMIUM promo codes after login?\n    - Why or why not?\n"
     },
     {
       "title": "Perform a network trace",

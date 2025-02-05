@@ -1,10 +1,10 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "#9 - Implement Adaptive API Access Management",
+  "title": "#10 - Implement Adaptive API Access Management",
   "steps": [
     {
       "title": "Lab overview",
-      "description": "## #9 - Implement Adaptive API Access Management\n\n🎯 **Objective**:    Update the Client Application to request the Identity Token with the scopes specified in the ID Token.\n\n⏱️ **Duration**:    30 minutes\n\n**Scenario**: Okta Ice wants the Promos app to issue tokens dynamically based on the Group membership defined in their Okta Authorization Server. "
+      "description": "## Implement Adaptive API Access Management\n\n🎯 **Objective**:    Update the Client Application to request the Identity Token with the scopes specified in the ID Token.\n\n⏱️ **Duration**:    30 minutes\n\n**Scenario**: Okta Ice wants the Promos app to issue tokens dynamically based on the Group membership defined in their Okta Authorization Server. "
     },
     {
       "title": "Create a custom attribute on the OIDC app profile",

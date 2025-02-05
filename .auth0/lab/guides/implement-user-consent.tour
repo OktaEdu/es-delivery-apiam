@@ -1,7 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "#8 - Implement User Consent",
-  "nextTour": "#9 - Implement Adaptive API Access Management",
+  "title": "#9 - Implement User Consent",
+  "nextTour": "#10 - Implement Adaptive API Access Management",
   "steps": [
     {
       "title": "Lab overview",

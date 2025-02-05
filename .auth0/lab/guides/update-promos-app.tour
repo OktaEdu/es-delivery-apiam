@@ -1,7 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "#6 - Update the Promos App to Work with API AM and OAuth",
-  "nextTour": "#7 - Integrate a Backend App with the Promos API",
+  "title": "#7 - Update the Promos App to Work with API AM and OAuth",
+  "nextTour": "#8 - Integrate a Backend App with the Promos API",
   "steps": [
     {
       "title": "Lab overview",
