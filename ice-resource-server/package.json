@@ -12,7 +12,8 @@
   "dependencies": {
     "lokijs": "^1.4.1",
     "express": "^4.16.4",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "@okta/jwt-verifier": "^4.0.1"
   },
   "engines": {
     "node": ">=16.10.0"
