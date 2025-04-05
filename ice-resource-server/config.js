@@ -1,6 +1,6 @@
 // config.js
 export default {
-  issuer: "https://{domain}.okta.com/oauth2/aXXXXXXXXXXXX",
+  issuer: "https://demo-indigo-cricket.okta.com/oauth2/ausqcad81rGdAKjrv697",
   audience: "api://promos",
   clientId: "okta.client.id",
 };

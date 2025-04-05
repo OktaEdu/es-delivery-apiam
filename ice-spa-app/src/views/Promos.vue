@@ -51,7 +51,7 @@
 <script>
 // @ is an alias to /src
 import Footer from "@/components/Footer.vue";
-// import {getAuthHeader} from "@/main.js"
+import {getAuthHeader} from "@/main.js"
 const API_PORT = 8081;
 const API_URL = process.env.VUE_APP_CODESPACES
   ? `https://${process.env.VUE_APP_CODESPACE_NAME}-${API_PORT}.${process.env.VUE_APP_GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}`
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     async getPromos() {
-      const res = await fetch(API_URL + "/promos/PREMIUM");
+        const res = await fetch(API_URL + "/promos/PREMIUM", await getAuthHeader());
       this.promos = await res.json();
       document.getElementById("premiumPromos").style.display = "none";
       document.getElementById("publicPromos").style.display = "inline";

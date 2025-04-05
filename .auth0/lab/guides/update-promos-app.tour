@@ -59,7 +59,7 @@
     {
       "file": "ice-spa-app/src/main.js",
       "description": "## Implement the getAuthHeader function\n\n*Note that `ice-spa-app/src/main.js` has been opened for you.*\n\nNotice that the `getAuthHeader()` code doesn't do much right now. We're going to implement it now! It will leverage the Okta AuthJS SDK to request and retrieve an Access Token. After this, it will return an Authorization header with the token as its value.\n\n>This function will be used to include the header  `Authorization: Bearer {token}` in secure HTTP requests to the Promos API, following the Authorization Bearer specification defined by the [OAuth 2.0 standard](https://tools.ietf.org/html/rfc6750#section-2.1).\n\n1. Select the **Insert Code** link after the code snippet below to replace the contents of `getAuthHeader()` above.\n\n```js\n    const token = await oktaAuth.getAccessToken(); // Request access token using the AuthJS SDK\n    return {\n        headers: {\n        Authorization: `Bearer ${token}` // return Authorization header with access token as value\n        }\n    }\n```\n",
-      "line": 33,
+      "line": 48,
       "selection": {
         "start": {
           "line": 33,

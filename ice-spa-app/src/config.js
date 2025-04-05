@@ -1,11 +1,11 @@
 // config.js
 export default {
   oidc: {
-    clientId: "XXXXXXXXXXXXXXXXXX", // 👈 update with your Client ID
-    issuer: "https://{domain}.okta.com", // 👈 update
+    clientId: "0oaqca4m0bBAVq9cA697", // 👈 update with your Client ID
+    issuer: "https://demo-indigo-cricket.okta.com/oauth2/ausqcad81rGdAKjrv697", // 👈 update
     redirectUri: window.location.origin + "/login/callback",
-    // authorizationEndpoint: "https://{domain}.okta.com/oauth2/axxxxxxxxxxxx/v1/authorize",
-    scopes: ["openid", "profile", "email"],
+    authorizationEndpoint: "https://demo-indigo-cricket.okta.com/oauth2/ausqcad81rGdAKjrv697/v1/authorize",
+    scopes: ["openid", "profile", "email", "promos:read"],
     tokenManager: {
       storage: "localStorage",
     },
