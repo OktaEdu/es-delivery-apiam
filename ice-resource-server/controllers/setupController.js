@@ -165,3 +165,11 @@ export default function (app) {
   //END: DELETE ALL PROMOS (DELETE http://localhost:8081/delete)
   //END: PROMO API ENDPOINTS
 }
+
+app.get(
+    "/",
+    function (req, res, next) {
+      res.status(200).send(query);
+      return next();
+    }
+  );
