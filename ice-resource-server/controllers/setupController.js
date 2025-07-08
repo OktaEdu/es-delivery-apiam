@@ -165,10 +165,11 @@ export default function (app) {
   //END: DELETE ALL PROMOS (DELETE http://localhost:8081/delete)
   //END: PROMO API ENDPOINTS
 
+// Make sure to send 200 OK on root endpoint to verify server is up and running  
 app.get(
     "/",
     function (req, res, next) {
-      res.status(200).send(query);
+      res.status(200).send("OK");
       return next();
     }
   );
