@@ -164,7 +164,6 @@ export default function (app) {
   );
   //END: DELETE ALL PROMOS (DELETE http://localhost:8081/delete)
   //END: PROMO API ENDPOINTS
-}
 
 app.get(
     "/",
@@ -173,3 +172,4 @@ app.get(
       return next();
     }
   );
+}
