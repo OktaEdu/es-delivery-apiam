@@ -22,7 +22,7 @@
     },
     {
       "file": "ice-spa-app/src/config.js",
-      "description": "## Update Okta Ice SPA Application Configs: issuer\n\n*Notice that ./ice-spa-app/src/config.js has been opened for you.*\n\n1.  The `issuer` placeholder value has been highlighted for you in **config.js**\n\n2.  Replace this value with your Okta org URL. You can copy this from your Okta Admin Dashboard with the following steps:\n    - Select your username at the top right of the Admin Dashboard.\n    - Hover over your Okta org URL (begins with `integrator-`). \n    - Select **Copy to clipboard**.\n    - When you paste in this value for `issuer`, make sure `https://` is included (e.g., `https://integrator-abc.okta.com`).\n\n>The issuer here refers to your Okta Org URL. It is the base URL used for calls to the Core Okta API.\n",
+      "description": "## Update Okta Ice SPA Application Configs: issuer\n\n*Notice that ./ice-spa-app/src/config.js has been opened for you.*\n\n1.  The `issuer` placeholder value has been highlighted for you in **config.js**\n\n2.  Replace this value with your Okta org URL. You can copy this from your Okta Admin Console with the following steps:\n    - Select your username at the top right of the Admin Console.\n    - Hover over your Okta org URL (begins with `integrator-`). \n    - Select **Copy to clipboard**.\n    - When you paste in this value for `issuer`, make sure `https://` is included (e.g., `https://integrator-abc.okta.com`).\n\n>The issuer here refers to your Okta Org URL. It is the base URL used for calls to the Core Okta API.\n",
       "line": 5
     },
     {
