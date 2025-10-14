@@ -16,7 +16,7 @@
     },
     {
       "title": "Turn off consent for the promos:read scope",
-      "description": "## Turn off consent for the `promos:read` scope\n\n1.  From the the Okta Admin Dashboard, go to **Security** > **API**.\n\n2.  Select the **Promos API AuthZ Server**.\n\n3.  Select the **Scopes** tab.\n\n4.  Next to the **promos:read** scope, select the pencil icon to edit it.\n\n5.  For the User consent field, select **Implicit** to deselect the\n    **Require User Consent Required** radio button.\n\n6.  Select **Save**."
+      "description": "## Turn off consent for the `promos:read` scope\n\n1.  From the the Okta Admin Console, go to **Security** > **API**.\n\n2.  Select the **Promos API AuthZ Server**.\n\n3.  Select the **Scopes** tab.\n\n4.  Next to the **promos:read** scope, select the pencil icon to edit it.\n\n5.  For the User consent field, select **Implicit** to deselect the\n    **Require User Consent Required** radio button.\n\n6.  Select **Save**."
     },
     {
       "title": "Lab checkpoint",
