@@ -10,9 +10,9 @@
   },
   "license": "Apache 2.0",
   "dependencies": {
-    "lokijs": "^1.4.1",
-    "express": "^4.16.4",
-    "cors": "^2.8.5"
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "lokijs": "^1.5.12"
   },
   "engines": {
     "node": ">=16.10.0"
