@@ -30,17 +30,7 @@
     {
       "file": "ice-resource-server/controllers/securityUtils.js",
       "description": "## Implement JWT verification\n*Notice that ./ice-resource-server/controllers/securityUtils.js has been opened for you.*\n\n\n\n1. Select the **Insert Code** link that follows the code snippet to insert this code into the `validationRequired` function above.\n> Review the code to understand how it uses the [Okta JWT Verifier](https://github.com/okta/okta-jwt-verifier-js) Node.js library to extract the Access Token from the authorization header, decode the claims, and verify the token signature and claims. \n\n\n```js\n        //Extract the Access token\n        const authHeader = req.headers.authorization ? req.headers.authorization : \"\";\n        const match = authHeader.match(/Bearer (.+)/);\n        // Return Unauthorized status if no token \n        if (!match) {\n        return res.status(401).end();\n        }\n        const accessToken = match[1];\n        //Initiate OktaJwtVerifier\n        const verifier = new OktaJwtVerifier({\n            issuer: configs.issuer,\n            clientId: configs.clientId,\n            assertClaims: {\n            aud: configs.audience,\n            'scp.includes': scopes\n            }\n        });\n        //Verify the access token\n        verifier.verifyAccessToken(accessToken, configs.audience)\n            .then((jwt) => {\n                req.jwt = jwt;\n                next();\n            })\n            .catch((err) => {\n                res.status(401).send(err.message);\n            });\n```",
-      "line": 7,
-      "selection": {
-        "start": {
-          "line": 11,
-          "character": 5
-        },
-        "end": {
-          "line": 36,
-          "character": 16
-        }
-      }
+      "line": 7
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
