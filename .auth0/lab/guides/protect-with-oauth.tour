@@ -80,14 +80,14 @@
     {
       "file": "ice-resource-server/controllers/setupController.js",
       "description": "## Protect the POST /promos endpoint\n\nNext we'll protect the `POST` `/promos` endpoint used to create new promos. This should now require the `promos:create` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `POST` `/promos` implementation.\n```js\n validationRequired([\"promos:create\"]),\n```",
-      "line": 96,
+      "line": 97,
       "selection": {
         "start": {
-          "line": 96,
+          "line": 97,
           "character": 16
         },
         "end": {
-          "line": 96,
+          "line": 97,
           "character": 16
         }
       }
@@ -95,14 +95,14 @@
     {
       "file": "ice-resource-server/controllers/setupController.js",
       "description": "## Protect the DELETE /promos/:filter endpoint\n\n\nNow we'll protect the `DELETE` `/promos/:filter` endpoint used to delete certain promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js \n validationRequired([\"read:promos\"]),\n```",
-      "line": 131,
+      "line": 132,
       "selection": {
         "start": {
-          "line": 131,
+          "line": 132,
           "character": 25
         },
         "end": {
-          "line": 131,
+          "line": 132,
           "character": 25
         }
       }
@@ -110,14 +110,14 @@
     {
       "file": "ice-resource-server/controllers/setupController.js",
       "description": "## Protect the DELETE /promos endpoint\n\n\nLast, we'll protect the `DELETE` `/promos` endpoint used to delete all promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js\n validationRequired([\"promos:delete\"]),\n```",
-      "line": 156,
+      "line": 157,
       "selection": {
         "start": {
-          "line": 156,
+          "line": 157,
           "character": 16
         },
         "end": {
-          "line": 156,
+          "line": 157,
           "character": 16
         }
       }
