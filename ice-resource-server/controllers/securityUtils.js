@@ -3,6 +3,7 @@ import configs from "../config.js";
 
 //Authenticate and validate access token
 export function validationRequired(scopes) {
+  return function(req, res, next) {
 
-
+  };
 }
