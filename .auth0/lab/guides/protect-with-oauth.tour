@@ -64,16 +64,16 @@
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Protect the GET /promos/:filter endpoint\n\nRecall that the `GET` `/promos/:filter` endpoint also exposes premium promos, so this endpoint needs to required the `read:promos` scope. We'll use the `validationRequired` method we just implemented using the Okta JWT Verification Node.js library.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `GET` `/promos` implementation.\n```js\n function (req, res, next) {validationRequired(req, res, next, ['promos:read']);},\n```",
-      "line": 77,
+      "description": "## Protect the GET /promos/:filter endpoint\n\nRecall that the `GET` `/promos/:filter` endpoint also exposes premium promos, so this endpoint needs to required the `read:promos` scope. We'll use the `validationRequired` method we just implemented using the Okta JWT Verification Node.js library.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `GET` `/promos` implementation.\n```js\n validationRequired([\"read:promos\"]),\n```",
+      "line": 78,
       "selection": {
         "start": {
-          "line": 77,
+          "line": 78,
           "character": 24
         },
         "end": {
           "line": 77,
-          "character": 24
+          "character": 78
         }
       }
     },
