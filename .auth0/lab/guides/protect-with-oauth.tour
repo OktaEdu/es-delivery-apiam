@@ -49,7 +49,7 @@
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Protect the GET /promos endpoint\n\nThe `GET` `/promos` endpoint exposes all promos, including premium ones, so this endpoint needs to required the `read:promos` scope. We'll use the `validationRequired` method we just implemented using the Okta JWT Verification Node.js library.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `GET` `/promos` implementation.\n```js\n validationRequired([\"read:promos\"]),\n```",
+      "description": "## Protect the GET /promos endpoint\n\nThe `GET` `/promos` endpoint exposes all promos, including premium ones, so this endpoint needs to required the `read:promos` scope. We'll use the `validationRequired` method we just implemented using the Okta JWT Verification Node.js library.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `GET` `/promos` implementation.\n```js\n validationRequired([\"promos:read\"]),\n```",
       "line": 64,
       "selection": {
         "start": {
@@ -64,7 +64,7 @@
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Protect the GET /promos/:filter endpoint\n\nRecall that the `GET` `/promos/:filter` endpoint also exposes premium promos, so this endpoint needs to required the `read:promos` scope. We'll use the `validationRequired` method we just implemented using the Okta JWT Verification Node.js library.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `GET` `/promos` implementation.\n```js\n validationRequired([\"read:promos\"]),\n```",
+      "description": "## Protect the GET /promos/:filter endpoint\n\nRecall that the `GET` `/promos/:filter` endpoint also exposes premium promos, so this endpoint needs to required the `promos:read` scope. We'll use the `validationRequired` method we just implemented using the Okta JWT Verification Node.js library.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `GET` `/promos` implementation.\n```js\n validationRequired([\"promos:read\"]),\n```",
       "line": 78,
       "selection": {
         "start": {
@@ -79,7 +79,7 @@
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Protect the POST /promos endpoint\n\nNext we'll protect the `POST` `/promos` endpoint used to create new promos. This should now require the `promos:create` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `POST` `/promos` implementation.\n```js\n validationRequired([\"read:promos\"]),\n```",
+      "description": "## Protect the POST /promos endpoint\n\nNext we'll protect the `POST` `/promos` endpoint used to create new promos. This should now require the `promos:create` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `POST` `/promos` implementation.\n```js\n validationRequired([\"promos:create\"]),\n```",
       "line": 96,
       "selection": {
         "start": {
@@ -109,7 +109,7 @@
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Protect the DELETE /promos endpoint\n\n\nLast, we'll protect the `DELETE` `/promos` endpoint used to delete all promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js\n validationRequired([\"read:promos\"]),\n```",
+      "description": "## Protect the DELETE /promos endpoint\n\n\nLast, we'll protect the `DELETE` `/promos` endpoint used to delete all promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js\n validationRequired([\"promos:delete\"]),\n```",
       "line": 156,
       "selection": {
         "start": {
