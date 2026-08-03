@@ -79,7 +79,7 @@
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Protect the POST /promos endpoint\n\nNext we'll protect the `POST` `/promos` endpoint used to create new promos. This should now require the `promos:create` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `POST` `/promos` implementation.\n```js\n function (req, res, next) {validationRequired(req, res, next, ['promos:create']);},\n```",
+      "description": "## Protect the POST /promos endpoint\n\nNext we'll protect the `POST` `/promos` endpoint used to create new promos. This should now require the `promos:create` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `POST` `/promos` implementation.\n```js\n validationRequired([\"read:promos\"]),\n```",
       "line": 96,
       "selection": {
         "start": {
@@ -94,7 +94,7 @@
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Protect the DELETE /promos/:filter endpoint\n\n\nNow we'll protect the `DELETE` `/promos/:filter` endpoint used to delete certain promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js \nfunction (req, res, next) { validationRequired(req, res, next, ['promos:delete']);},\n```",
+      "description": "## Protect the DELETE /promos/:filter endpoint\n\n\nNow we'll protect the `DELETE` `/promos/:filter` endpoint used to delete certain promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js \n validationRequired([\"read:promos\"]),\n```",
       "line": 131,
       "selection": {
         "start": {
@@ -109,7 +109,7 @@
     },
     {
       "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Protect the DELETE /promos endpoint\n\n\nLast, we'll protect the `DELETE` `/promos` endpoint used to delete all promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js\n function (req, res, next) {validationRequired(req, res, next, ['promos:delete']); },\n```",
+      "description": "## Protect the DELETE /promos endpoint\n\n\nLast, we'll protect the `DELETE` `/promos` endpoint used to delete all promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js\n validationRequired([\"read:promos\"]),\n```",
       "line": 156,
       "selection": {
         "start": {
