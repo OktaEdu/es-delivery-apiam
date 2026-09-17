@@ -18,7 +18,17 @@
     {
       "file": "spa/src/config.js",
       "description": "## Update Alglens Scoop Shop SPA Application Configs: clientId\n\n*Notice that ./spa/src/config.js has been opened for you.*\n\n1.  The `clientId` placeholder value has been highlighted for you in **config.js**\n\n2. Paste in the contents of your clipboard to replace the placeholder value for `clientId`.\n\n>The client ID is provided by Okta after creating the OIDC application integration. It identifies the application during calls to the API.\n",
-      "line": 4
+      "line": 4,
+         "selection": {
+        "start": {
+          "line": 4,
+          "character": 16
+        },
+        "end": {
+          "line": 4,
+          "character": 34
+        }
+      }
     },
     {
       "file": "spa/src/config.js",
