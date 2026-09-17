@@ -16,7 +16,7 @@ Throughout this [Okta Training](https://www.okta.com/training/) hands-on lab, yo
 
 2. An Okta Workforce Identity Cloud Developer Edition account: You'll also need an Okta developer account. You should use a new account for our labs so that you have a fresh Okta Identity Engine (OIE) org. Register for one [here](https://developer.okta.com/signup/).
 
-## Accessing and Working with Okta Workforce Identity Cloud Labs
+## Accessing and Working with Okta Customer Identity Labs
 
 1. **After logging into GitHub, open the lab repo in a Codespace:** From the *Code* dropdown menu of this branch, toggle to the *Codespaces* tab. Click the plus sign to create and open the lab in a Codespace. A new tab will open, and Codespaces will begin configuring the lab environment. Wait for the environment to finish building.
 2. **Begin working with the lab:** Once the environment is ready you'll see a Codetour popup with lab instructions. This can take some time, as the environment is installing several extensions and libraries to facilitate the lab. Once it is complete, you can open the Codetour to view all steps using the panel in the lower right. At this point, you should follow the remainder of the instructions within Codetour!
