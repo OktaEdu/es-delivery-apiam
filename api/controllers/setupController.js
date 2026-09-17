@@ -13,7 +13,7 @@ export default function (app) {
     validFor: validity,
     target: 'PUBLIC',
     endDate: endPromo.toDateString(),
-    description: 'Alglens Scoop Shop is cool. 10% off for everybody',
+    description: 'Alglen Scoop Shop is cool. 10% off for everybody',
   });
   promos.insert({
     code: 'WILLYVANILLY',

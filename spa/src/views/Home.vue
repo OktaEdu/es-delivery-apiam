@@ -2,7 +2,7 @@
   <div class="container h-100">
     <div class="row h-100">
       <div class="col-md-10 offset-md-1" id="content-container">
-        <h1>Alglens Scoop Shop</h1>
+        <h1>Alglen Scoop Shop</h1>
         The future of ice cream 🍦
       </div>
     </div>

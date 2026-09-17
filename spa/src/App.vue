@@ -9,8 +9,8 @@
     <div class="row">
       <div class="col-md-2" id="logo">
         <img
-          alt="Alglens Scoop Shop logo"
-          src="./assets/ice-logo.png"
+          alt="Alglen Scoop Shop logo"
+          src="./assets/logo.png"
           class="img-fluid"
         />
       </div>
@@ -19,7 +19,7 @@
         <router-link to="/about">About</router-link>
         <router-link to="/profile">Profile</router-link>
         <router-link to="/promos">Promos </router-link>
-        <Login msg="Welcome to Alglens Scoop Shop" />
+        <Login msg="Welcome to Alglen Scoop Shop" />
       </div>
     </div>
   </div>
@@ -49,13 +49,13 @@ export default {
 }
 
 body {
-  background-image: url(./assets/ice-cream-bg.png);
+  background-image: url(./assets/bg.png);
 }
 
 body,
 html {
   height: 100%;
-  background-image: url(./assets/ice-cream-bg.png);
+  background-image: url(./assets/bg.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

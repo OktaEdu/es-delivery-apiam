@@ -5,7 +5,7 @@
   "steps": [
     {
       "title": "Lab overview",
-      "description": "## Configure API Access Management\n\n🎯 **Objective**:   Integrate the Promos API with a backend app.\n\n⏱️ **Duration**:    20 minutes\n\n**Scenario**: Alglens Scoop Shop asked you to build a proof-of-concept backend app that\nwill be used to maintain the Promos exposed in the Promos API. In this lab, you use Postman to prototype this app and to generate\ncode that will be used in the future implementation.\n\n>To import collections and environments, you must log in to the Postman application. If you do not already have an account, you can register for free at https://www.postman.com."
+      "description": "## Configure API Access Management\n\n🎯 **Objective**:   Integrate the Promos API with a backend app.\n\n⏱️ **Duration**:    20 minutes\n\n**Scenario**: Alglen Scoop Shop asked you to build a proof-of-concept backend app that\nwill be used to maintain the Promos exposed in the Promos API. In this lab, you use Postman to prototype this app and to generate\ncode that will be used in the future implementation.\n\n>To import collections and environments, you must log in to the Postman application. If you do not already have an account, you can register for free at https://www.postman.com."
     },
     {
       "title": "Register an OAuth Service Application",
@@ -13,7 +13,7 @@
     },
     {
       "title": "Configure API AM Policies to support the Service App",
-      "description": "## Configure API AM Policies to support the Service App\n\n>The API AM access policies and rules control who can request tokens in the Authorization Server. In this lab, you’ll configure an access policy with rules, so the Authorization Server will issue tokens without a user login just for the Postman PoC app.\n\n1.  From the Admin Console, go to **Security** > **API**.\n\n2.  Select **Promos API AuthZ Server**.\n\n3.  Select **Access Policies**.\n\n4.  Select **Add New Access Policy**.\n\n5.  Enter the information as follows:\n    - **Name**:  Alglens Scoop Shop API Policy App to App \n    - **Description**: Policy for accessing the Promos APIs via a backend app\n    - **Assign to**: The following clients: Maintenance PoC   \n\n6.  Select **Create Policy**.\n\n> The new policy is now displayed on the screen."
+      "description": "## Configure API AM Policies to support the Service App\n\n>The API AM access policies and rules control who can request tokens in the Authorization Server. In this lab, you’ll configure an access policy with rules, so the Authorization Server will issue tokens without a user login just for the Postman PoC app.\n\n1.  From the Admin Console, go to **Security** > **API**.\n\n2.  Select **Promos API AuthZ Server**.\n\n3.  Select **Access Policies**.\n\n4.  Select **Add New Access Policy**.\n\n5.  Enter the information as follows:\n    - **Name**:  Alglen Scoop Shop API Policy App to App \n    - **Description**: Policy for accessing the Promos APIs via a backend app\n    - **Assign to**: The following clients: Maintenance PoC   \n\n6.  Select **Create Policy**.\n\n> The new policy is now displayed on the screen."
     },
     {
       "title": "Configure API AM Policy Rule",

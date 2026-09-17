@@ -3,7 +3,7 @@
     <div class="row h-100">
       <div class="col-md-10 offset-md-1" id="content-container">
         <h1>About</h1>
-        Founded in 3028, Alglens Scoop Shop prides itself in providing its 21st
+        Founded in 3028, Alglen Scoop Shop prides itself in providing its 21st
         century customers with ice cream flavors that transcend time and space.
       </div>
     </div>

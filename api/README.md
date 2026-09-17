@@ -1,6 +1,6 @@
 # api
 
-This Resource Server provides API endpoints for Alglens Scoop Shop's Promos
+This Resource Server provides API endpoints for Alglen Scoop Shop's Promos
 
 ![Ice Icon](img/IceIcon_120px.png)
 
