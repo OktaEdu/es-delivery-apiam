@@ -15,7 +15,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #footer {
-  background-color: #0e2d5b;
+  background-color: #021026;
   font-size: small;
   border-color: #c7e5f5;
   color: #c7e5f5;

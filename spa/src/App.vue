@@ -103,8 +103,14 @@ html {
 }
 
 #header {
-  background-color: #0e2d5b;
+  background-color: #021026;
   border-bottom-color: #c7e5f5;
   padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
 }
 </style>
