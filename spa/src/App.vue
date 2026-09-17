@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-md-2" id="logo">
         <img
-          alt="Okta Ice logo"
+          alt="Alglens Scoop Shop logo"
           src="./assets/ice-logo.png"
           class="img-fluid"
         />
@@ -19,7 +19,7 @@
         <router-link to="/about">About</router-link>
         <router-link to="/profile">Profile</router-link>
         <router-link to="/promos">Promos </router-link>
-        <Login msg="Welcome to Okta Ice" />
+        <Login msg="Welcome to Alglens Scoop Shop" />
       </div>
     </div>
   </div>
@@ -28,10 +28,10 @@
 
 <script>
 // @ is an alias to /src
-import Login from "@/components/Login.vue";
+import Login from '@/components/Login.vue';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     Login,
   },
@@ -75,7 +75,7 @@ html {
 
 #nav a:not(:first-of-type)::before,
 #nav .login::before {
-  content: " ● ";
+  content: ' ● ';
   color: #c7e5f5;
   margin-left: 15px;
   margin-right: 15px;

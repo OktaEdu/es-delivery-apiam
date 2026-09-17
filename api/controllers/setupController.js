@@ -1,57 +1,57 @@
-import loki from "lokijs";
-let db = new loki("ice");
+import loki from 'lokijs';
+let db = new loki('ice');
 //import { validationRequired } from "./securityUtils.js";
 
 export default function (app) {
   //BEGIN: STARTS IN-MEMORY DB (LOKIJS) AND SEED DATA
-  var promos = db.addCollection("promos", { unique: "code" });
+  var promos = db.addCollection('promos', { unique: 'code' });
   var validity = 30;
   var endPromo = new Date();
   endPromo.setDate(endPromo.getDate() + validity);
   promos.insert({
-    code: "10OFFICE",
+    code: '10OFFICE',
     validFor: validity,
-    target: "PUBLIC",
+    target: 'PUBLIC',
     endDate: endPromo.toDateString(),
-    description: "Okta Ice is cool. 10% off for everybody",
+    description: 'Alglens Scoop Shop is cool. 10% off for everybody',
   });
   promos.insert({
-    code: "WILLYVANILLY",
+    code: 'WILLYVANILLY',
     validFor: validity,
-    target: "PUBLIC",
+    target: 'PUBLIC',
     endDate: endPromo.toDateString(),
-    description: "15% off the new Vanilla collection",
+    description: '15% off the new Vanilla collection',
   });
   promos.insert({
-    code: "20PREMIUM",
+    code: '20PREMIUM',
     validFor: validity,
-    target: "PREMIUM",
+    target: 'PREMIUM',
     endDate: endPromo.toDateString(),
-    description: "Premium Customers get 20% off",
+    description: 'Premium Customers get 20% off',
   });
   promos.insert({
-    code: "NUTS4CHOCO",
+    code: 'NUTS4CHOCO',
     validFor: validity,
-    target: "PREMIUM",
+    target: 'PREMIUM',
     endDate: endPromo.toDateString(),
-    description: "Premium customers get 30% off the Choco Nuts flavor",
+    description: 'Premium customers get 30% off the Choco Nuts flavor',
   });
   promos.insert({
-    code: "BOT",
+    code: 'BOT',
     validFor: validity,
-    target: "ROBOT",
+    target: 'ROBOT',
     endDate: endPromo.toDateString(),
-    description: "Chatbot gets 30% off",
+    description: 'Chatbot gets 30% off',
   });
-  console.log("Database Initiated");
+  console.log('Database Initiated');
   //END: STARTS IN-MEMORY DB (LOKIJS) AND SEED DATA
 
   //BEGIN: PROMO API ENDPOINTS
   //BEGIN: GET PUBLIC PROMOS (GET http://localhost:8081/publicpromos)
   //EVERYBODY CAN ACCESS THIS (NO PROTECTION REQUIRED)
-  app.get("/publicpromos", function (req, res, next) {
-    var query = promos.chain().find({ target: "PUBLIC" }).data();
-    console.log("Promos: " + JSON.stringify(query));
+  app.get('/publicpromos', function (req, res, next) {
+    var query = promos.chain().find({ target: 'PUBLIC' }).data();
+    console.log('Promos: ' + JSON.stringify(query));
     res.status(200).send(query);
     return next();
   });
@@ -60,11 +60,11 @@ export default function (app) {
   //BEGIN: GET ALL PROMOS (GET http://localhost:8081/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get(
-    "/promos",
+    '/promos',
 
     function (req, res, next) {
-      var query = promos.chain().find({}).simplesort("code").data();
-      console.log("Promos: " + JSON.stringify(query));
+      var query = promos.chain().find({}).simplesort('code').data();
+      console.log('Promos: ' + JSON.stringify(query));
       res.status(200).send(query);
       return next();
     }
@@ -74,7 +74,7 @@ export default function (app) {
   //BEGIN: SEARCH SPECIFIC PROMOS (GET http://localhost:8081/promos/:filter)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:read' CAN ACCESS
   app.get(
-    "/promos/:filter",
+    '/promos/:filter',
 
     function (req, res, next) {
       var query = promos
@@ -83,7 +83,7 @@ export default function (app) {
           $or: [{ code: req.params.filter }, { target: req.params.filter }],
         })
         .data();
-      console.log("Promos: " + JSON.stringify(query));
+      console.log('Promos: ' + JSON.stringify(query));
       res.status(200).send(query);
       return next();
     }
@@ -93,7 +93,7 @@ export default function (app) {
   //BEGIN: CREATE PROMOS (POST http://localhost:8081/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:create' CAN ACCESS
   app.post(
-    "/promos",
+    '/promos',
 
     function (req, res, next) {
       var promo = req.body;
@@ -110,7 +110,7 @@ export default function (app) {
         endTime.setDate(endTime.getDate() + validFor)
       ).toDateString();
       if (promo.target == null) {
-        promo.target = "PUBLIC";
+        promo.target = 'PUBLIC';
       }
       // Save to DB
       var addPromo = promos.insert(promo);
@@ -128,7 +128,7 @@ export default function (app) {
   //BEGIN: DELETE PROMOS (DELETE http://localhost:8081/promos)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete(
-    "/promos/:filter",
+    '/promos/:filter',
 
     function (req, res, next) {
       var query = promos
@@ -137,10 +137,10 @@ export default function (app) {
           $or: [{ code: req.params.filter }, { target: req.params.filter }],
         })
         .data();
-      console.log("Promos: " + JSON.stringify(query));
+      console.log('Promos: ' + JSON.stringify(query));
       try {
         promos.remove(query);
-        res.status(204).send("SUCCESS");
+        res.status(204).send('SUCCESS');
       } catch (err) {
         res.status(400).send(err);
       }
@@ -153,24 +153,21 @@ export default function (app) {
   //BEGIN: DELETE ALL PROMOS (DELETE http://localhost:8081/delete)
   //PROTECTION REQUIRED: ONLY REQUESTS WITH THE OAUTH SCOPE: 'promos:delete' CAN ACCESS
   app.delete(
-    "/delete",
+    '/delete',
 
     function (req, res, next) {
-    var removeAll = promos.chain().remove();
-      console.log("Removed all entries from database");
-      res.status(204).send("No more promos");
+      var removeAll = promos.chain().remove();
+      console.log('Removed all entries from database');
+      res.status(204).send('No more promos');
       return next();
     }
   );
   //END: DELETE ALL PROMOS (DELETE http://localhost:8081/delete)
   //END: PROMO API ENDPOINTS
 
-// Make sure to send 200 OK on root endpoint to verify server is up and running
-app.get(
-    "/",
-    function (req, res, next) {
-      res.status(200).send("OK");
-      return next();
-    }
-  );
+  // Make sure to send 200 OK on root endpoint to verify server is up and running
+  app.get('/', function (req, res, next) {
+    res.status(200).send('OK');
+    return next();
+  });
 }

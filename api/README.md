@@ -1,6 +1,6 @@
-# ice-resource-server
+# api
 
-This Resource Server provides API endpoints for Okta Ice's Promos
+This Resource Server provides API endpoints for Alglens Scoop Shop's Promos
 
 ![Ice Icon](img/IceIcon_120px.png)
 

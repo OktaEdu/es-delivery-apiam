@@ -15,11 +15,11 @@
   "scripts": {
     "init": "concurrently \"npm:init:dependencies\"",
     "init:dependencies": "concurrently \"npm:api:dependencies\"  \"npm:spa:dependencies\"",
-    "api:start": "npm start --prefix ./ice-resource-server",
-    "api:dependencies": "npm install --prefix ./ice-resource-server",
-    "spa:start": "npm run serve --prefix ./ice-spa-app",
-    "spa:build": "npm run build --prefix ./ice-spa-app",
-    "spa:dependencies": "npm install --prefix ./ice-spa-app"
+    "api:start": "npm start --prefix ./api",
+    "api:dependencies": "npm install --prefix ./api",
+    "spa:start": "npm run serve --prefix ./spa",
+    "spa:build": "npm run build --prefix ./spa",
+    "spa:dependencies": "npm install --prefix ./spa"
   },
   "keywords": [
     "okta",

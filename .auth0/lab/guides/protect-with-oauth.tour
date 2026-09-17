@@ -8,13 +8,13 @@
       "description": "## Configure API Access Management\n\n🎯 **Objective**:   Test the Promos UI access after protecting the Promos API.\n\n⏱️ **Duration**:    10 minutes\n\n**Scenario**: After protecting the API, you test legitimate access via the Promos app."
     },
     {
-      "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Review the Promos API \n\n*Notice that ./ice-resource-server/controllers/setupControllers.js has been opened for you.*\n\nHere is where the Promos API endpoints are defined. The endpoints are `/publicpromos` and `/promos`. These endpoints support `GET`, `POST`, AND `DELETE` operations.",
+      "file": "api/controllers/setupController.js",
+      "description": "## Review the Promos API \n\n*Notice that ./api/controllers/setupControllers.js has been opened for you.*\n\nHere is where the Promos API endpoints are defined. The endpoints are `/publicpromos` and `/promos`. These endpoints support `GET`, `POST`, AND `DELETE` operations.",
       "line": 49
     },
     {
-      "file": "ice-resource-server/controllers/securityUtils.js",
-      "description": "## Import the Okta JWT Verifier Node.js library\n*Notice that ./ice-resource-server/controllers/securityUtils.js has been opened for you.*\n\n1. **Uncomment** the line that has been highlighted in the code above to import the [Okta JWT Verifier](https://github.com/okta/okta-jwt-verifier-js) Node.js library. We'll use this to:\n\n    - Retrieve the Access Token (a JWT) from the header.\n    - Decode the Access Token.\n    - Verify the signature used to sign the Access Token.\n    - Verify the claims found inside the Access Token.",
+      "file": "api/controllers/securityUtils.js",
+      "description": "## Import the Okta JWT Verifier Node.js library\n*Notice that ./api/controllers/securityUtils.js has been opened for you.*\n\n1. **Uncomment** the line that has been highlighted in the code above to import the [Okta JWT Verifier](https://github.com/okta/okta-jwt-verifier-js) Node.js library. We'll use this to:\n\n    - Retrieve the Access Token (a JWT) from the header.\n    - Decode the Access Token.\n    - Verify the signature used to sign the Access Token.\n    - Verify the claims found inside the Access Token.",
       "line": 1,
       "selection": {
         "start": {
@@ -28,13 +28,13 @@
       }
     },
     {
-      "file": "ice-resource-server/controllers/securityUtils.js",
-      "description": "## Implement JWT verification\n*Notice that ./ice-resource-server/controllers/securityUtils.js has been opened for you.*\n\n\n\n1. Select the **Insert Code** link that follows the code snippet to insert this code into the `validationRequired` function above.\n> Review the code to understand how it uses the [Okta JWT Verifier](https://github.com/okta/okta-jwt-verifier-js) Node.js library to extract the Access Token from the authorization header, decode the claims, and verify the token signature and claims. \n\n\n```js\n        //Extract the Access token\n        const authHeader = req.headers.authorization ? req.headers.authorization : \"\";\n        const match = authHeader.match(/Bearer (.+)/);\n        // Return Unauthorized status if no token \n        if (!match) {\n        return res.status(401).end();\n        }\n        const accessToken = match[1];\n        //Initiate OktaJwtVerifier\n        const verifier = new OktaJwtVerifier({\n            issuer: configs.issuer,\n            clientId: configs.clientId,\n            assertClaims: {\n            aud: configs.audience,\n            'scp.includes': scopes\n            }\n        });\n        //Verify the access token\n        verifier.verifyAccessToken(accessToken, configs.audience)\n            .then((jwt) => {\n                req.jwt = jwt;\n                next();\n            })\n            .catch((err) => {\n                res.status(401).send(err.message);\n            });\n```",
+      "file": "api/controllers/securityUtils.js",
+      "description": "## Implement JWT verification\n*Notice that ./api/controllers/securityUtils.js has been opened for you.*\n\n\n\n1. Select the **Insert Code** link that follows the code snippet to insert this code into the `validationRequired` function above.\n> Review the code to understand how it uses the [Okta JWT Verifier](https://github.com/okta/okta-jwt-verifier-js) Node.js library to extract the Access Token from the authorization header, decode the claims, and verify the token signature and claims. \n\n\n```js\n        //Extract the Access token\n        const authHeader = req.headers.authorization ? req.headers.authorization : \"\";\n        const match = authHeader.match(/Bearer (.+)/);\n        // Return Unauthorized status if no token \n        if (!match) {\n        return res.status(401).end();\n        }\n        const accessToken = match[1];\n        //Initiate OktaJwtVerifier\n        const verifier = new OktaJwtVerifier({\n            issuer: configs.issuer,\n            clientId: configs.clientId,\n            assertClaims: {\n            aud: configs.audience,\n            'scp.includes': scopes\n            }\n        });\n        //Verify the access token\n        verifier.verifyAccessToken(accessToken, configs.audience)\n            .then((jwt) => {\n                req.jwt = jwt;\n                next();\n            })\n            .catch((err) => {\n                res.status(401).send(err.message);\n            });\n```",
       "line": 7
     },
     {
-      "file": "ice-resource-server/controllers/setupController.js",
-      "description": "## Enable JWT Verification for the Promos API\n\n*Notice that ./ice-resource-server/controllers/setupControllers.js has been opened for you.*\n\nUncomment the line highlighted above to import `validationRequired`. We'll explore that in a moment.",
+      "file": "api/controllers/setupController.js",
+      "description": "## Enable JWT Verification for the Promos API\n\n*Notice that ./api/controllers/setupControllers.js has been opened for you.*\n\nUncomment the line highlighted above to import `validationRequired`. We'll explore that in a moment.",
       "line": 3,
       "selection": {
         "start": {
@@ -48,7 +48,7 @@
       }
     },
     {
-      "file": "ice-resource-server/controllers/setupController.js",
+      "file": "api/controllers/setupController.js",
       "description": "## Protect the GET /promos endpoint\n\nThe `GET` `/promos` endpoint exposes all promos, including premium ones, so this endpoint needs to required the `read:promos` scope. We'll use the `validationRequired` method we just implemented using the Okta JWT Verification Node.js library.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `GET` `/promos` implementation.\n```js\n validationRequired([\"promos:read\"]),\n```",
       "line": 64,
       "selection": {
@@ -63,7 +63,7 @@
       }
     },
     {
-      "file": "ice-resource-server/controllers/setupController.js",
+      "file": "api/controllers/setupController.js",
       "description": "## Protect the GET /promos/:filter endpoint\n\nRecall that the `GET` `/promos/:filter` endpoint also exposes premium promos, so this endpoint needs to required the `promos:read` scope. We'll use the `validationRequired` method we just implemented using the Okta JWT Verification Node.js library.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `GET` `/promos` implementation.\n```js\n validationRequired([\"promos:read\"]),\n```",
       "line": 78,
       "selection": {
@@ -78,7 +78,7 @@
       }
     },
     {
-      "file": "ice-resource-server/controllers/setupController.js",
+      "file": "api/controllers/setupController.js",
       "description": "## Protect the POST /promos endpoint\n\nNext we'll protect the `POST` `/promos` endpoint used to create new promos. This should now require the `promos:create` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `POST` `/promos` implementation.\n```js\n validationRequired([\"promos:create\"]),\n```",
       "line": 97,
       "selection": {
@@ -93,7 +93,7 @@
       }
     },
     {
-      "file": "ice-resource-server/controllers/setupController.js",
+      "file": "api/controllers/setupController.js",
       "description": "## Protect the DELETE /promos/:filter endpoint\n\n\nNow we'll protect the `DELETE` `/promos/:filter` endpoint used to delete certain promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js \n validationRequired([\"read:promos\"]),\n```",
       "line": 132,
       "selection": {
@@ -108,7 +108,7 @@
       }
     },
     {
-      "file": "ice-resource-server/controllers/setupController.js",
+      "file": "api/controllers/setupController.js",
       "description": "## Protect the DELETE /promos endpoint\n\n\nLast, we'll protect the `DELETE` `/promos` endpoint used to delete all promos. This should now require the `promos:delete` scope.\n\n1. Select the **Insert Code** link at the end of the code snippet to add it to the `DELETE` `/promos` implementation.\n```js\n validationRequired([\"promos:delete\"]),\n```",
       "line": 157,
       "selection": {
@@ -146,7 +146,7 @@
     },
     {
       "title": "Lab checkpoint",
-      "description": "## ✅ Checkpoint\n\nAfter protecting the Promos APIs with API AM, the Promos UI cannot\naccess the PREMIUM promos even after a successful login to Okta. \n\nThis happens because:\n\n- The Okta Ice Promos app is not sending the **access token** for the\n  Promos API via the Authorization header (bearer token).\n\n- The Okta Ice Promos app is authenticating the user with OAuth using\n  the **default** Okta Authorization Server (i.e.,\n  `https://{domain}.okta.com)`, while the Promos API\n  expects access tokens from the **custom** Okta Authorization Server we\n  set up with custom scopes (i.e., `https://{domain}.okta.com/oauth2/a################`). \n  \nBecause of this, the Promos API cannot:\n  \n- Confirm that the token is issued by the custom Authorization Server.\n\n- Validate the token signature since the signature changes by Issuer.\n\n- The Promos UI is not requesting the custom scope for reading promos: **promos:read**.\n\nAll the items above conflict with the validation performed by the JWT\nverifier.\n\nIn the next lab, you will fix the Okta Ice Promos app by integrating it\nwith the custom Authorization Server we set up with custom scopes.",
+      "description": "## ✅ Checkpoint\n\nAfter protecting the Promos APIs with API AM, the Promos UI cannot\naccess the PREMIUM promos even after a successful login to Okta. \n\nThis happens because:\n\n- The Alglens Scoop Shop Promos app is not sending the **access token** for the\n  Promos API via the Authorization header (bearer token).\n\n- The Alglens Scoop Shop Promos app is authenticating the user with OAuth using\n  the **default** Okta Authorization Server (i.e.,\n  `https://{domain}.okta.com)`, while the Promos API\n  expects access tokens from the **custom** Okta Authorization Server we\n  set up with custom scopes (i.e., `https://{domain}.okta.com/oauth2/a################`). \n  \nBecause of this, the Promos API cannot:\n  \n- Confirm that the token is issued by the custom Authorization Server.\n\n- Validate the token signature since the signature changes by Issuer.\n\n- The Promos UI is not requesting the custom scope for reading promos: **promos:read**.\n\nAll the items above conflict with the validation performed by the JWT\nverifier.\n\nIn the next lab, you will fix the Alglens Scoop Shop Promos app by integrating it\nwith the custom Authorization Server we set up with custom scopes.",
       "selection": {
         "start": {
           "line": 15,

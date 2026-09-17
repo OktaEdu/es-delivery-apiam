@@ -1,5 +1,5 @@
 {
-  "name": "ice-resource-server",
+  "name": "api",
   "version": "2.0.0",
   "description": "Resource Server to make Ice customers happy",
   "main": "server.js",

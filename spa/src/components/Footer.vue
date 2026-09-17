@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-10 offset-md-1 align-text-top" id="footer">
           <div class="divider mb-4"></div>
-          Copyright Okta Ice <span id="year"></span>
+          Copyright Alglens Scoop Shop <span id="year"></span>
           <div class="divider mb-4"></div>
         </div>
       </div>
@@ -27,9 +27,9 @@
 </style>
 
 <script>
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener('DOMContentLoaded', () => {
   let thisDate = new Date();
   let thisYear = thisDate.getFullYear();
-  document.getElementById("year").innerHTML = thisYear;
+  document.getElementById('year').innerHTML = thisYear;
 });
 </script>
